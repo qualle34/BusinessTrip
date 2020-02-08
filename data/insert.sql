@@ -1,0 +1,68 @@
+INSERT INTO store.admin(name, email) values('Андрей', 'andrey@test.ts');
+INSERT INTO store.admin(name, email) values('Дима', 'dima@test.ts');
+INSERT INTO store.admin(name, email) values('Максим', 'maxim@test.ts');
+INSERT INTO store.admin(name, email) values('Лена', 'lena@test.ts');
+INSERT INTO store.admin(name, email) values('Аня', 'anna@test.ts');
+INSERT INTO store.admin(name, email) values('Коля', 'kola@test.ts');
+
+INSERT INTO store.creds values(1, 'A1n', '$2a$10$ge8V9B.RtVvf8/2SlGLemui1ohaz93UGiepzPCGiGZVnm/hnCSkxm', 'SERVICE_ALL');
+INSERT INTO store.creds values(2, 'Dimmer', '$2a$10$ge8V9B.RtVvf8/2SlGLemui1ohaz93UGiepzPCGiGZVnm/hnCSkxm', 'SERVICE_ALL');
+INSERT INTO store.creds values(3, 'Maximer', '$2a$10$ge8V9B.RtVvf8/2SlGLemui1ohaz93UGiepzPCGiGZVnm/hnCSkxm', 'SERVICE_ALL');
+INSERT INTO store.creds values(4, 'Vova', '$2a$10$/SftPQLuet74uEXbzap17e3JJyt6wO8RTzulmY71U8GlURTnvqdwi', 'SERVICE_ALL');     
+INSERT INTO store.creds values(5, 'Anna', '$2a$10$HgqfPiefsadzs8H5AxBvpeuu.gajP2nHuAORmyf4sPK3PB/EML/i6', 'SERVICE_ALL');         
+INSERT INTO store.creds values(6, 'Kola', '$2a$10$wGrKQj/d6zpi1q5XWyPByeGgVLUd4zhBzI.2Y9oWkBdFGzgsTxGPC', 'SERVICE_ALL');            
+
+INSERT INTO store.developer(name) values('Other');
+INSERT INTO store.developer(name) values('Ubisoft');
+INSERT INTO store.developer(name) values('RockStar Games');
+INSERT INTO store.developer(name) values('CD Projekt Red');
+INSERT INTO store.developer(name) values('DICE');
+INSERT INTO store.developer(name) values('Wargaming');
+INSERT INTO store.developer(name) values('EA');
+
+INSERT INTO store.category(name) values('Other');
+INSERT INTO store.category(name) values('Main');
+INSERT INTO store.category(name) values('Mobile');
+INSERT INTO store.category(name) values('AAA');
+INSERT INTO store.category(name) values('Popular');
+
+INSERT INTO store.genre(name) values('Other');
+INSERT INTO store.genre(name) values('Sport');
+INSERT INTO store.genre(name) values('RPG');
+INSERT INTO store.genre(name) values('Shooter');
+INSERT INTO store.genre(name) values('Silent');
+INSERT INTO store.genre(name) values('Fiting');
+INSERT INTO store.genre(name) values('Horror');
+
+INSERT INTO store.game(name, price, description, developer_id) values('Witcher 3', 12.00, '', 4);
+INSERT INTO store.game(name, price, description, developer_id) values('Battlefront 2', 23.00, '', 5);
+INSERT INTO store.game(name, price, description, developer_id) values('Assassins Creed Origins', 34.00, '', 2);
+INSERT INTO store.game(name, price, description, developer_id) values('Mortal Kombat', 27.00, '', 1);
+INSERT INTO store.game(name, price, description, developer_id) values('Call of Duty Black Ops', 45.00, '', 7);
+INSERT INTO store.game(name, price, description, developer_id) values('The Elder Scrolls Online', 19.00, '', 1);
+INSERT INTO store.game(name, price, description, developer_id) values('Kill Strain', 13.00, '', 1);
+INSERT INTO store.game(name, price, description, developer_id) values('League of Legends', 0, '', 1);
+INSERT INTO store.game(name, price, description, developer_id) values('Quantum Break', 8.00, '', 7);
+INSERT INTO store.game(name, price, description, developer_id) values('Fifa 12', 25.00, '', 2);
+INSERT INTO store.game(name, price, description, developer_id) values('Fifa 13', 30.00, '', 2);
+INSERT INTO store.game(name, price, description, developer_id) values('Fifa 14', 35.00, '', 2);
+INSERT INTO store.game(name, price, description, developer_id) values('Fifa Street', 32.00, '', 2);
+INSERT INTO store.game(name, price, description, developer_id) values('Euro 2012', 26.00, '', 1);
+INSERT INTO store.game(name, price, description, developer_id) values('NHL 14', 31.00, '', 2);
+INSERT INTO store.game(name, price, description, developer_id) values('Injustice 2', 0.00, '', 4);
+INSERT INTO store.game(name, price, description, developer_id) values('Heroes of Dragon Age', 0.00, '', 1);
+INSERT INTO store.game(name, price, description, developer_id) values('Mortal Kombat X', 0.00, '', 1);
+INSERT INTO store.game(name, price, description, developer_id) values('WWE Immortals', 0.00, '', 1);
+INSERT INTO store.game(name, price, description, developer_id) values('Star Wars: Galaxy of Heroes', 0.00, '', 2);
+INSERT INTO store.game(name, price, description, developer_id) values('Injustice: Gods Among Us', 3.00, '', 1);
+INSERT INTO store.game(name, price, description, developer_id) values('Игра 1', 10.00, '', 1);
+INSERT INTO store.game(name, price, description, developer_id) values('Игра 2', 10.00, '', 1);
+INSERT INTO store.game(name, price, description, developer_id) values('Игра 3', 10.00, '', 1);
+INSERT INTO store.game(name, price, description, developer_id) values('Игра 4', 10.00, '', 1);
+INSERT INTO store.game(name, price, description, developer_id) values('Игра 5', 10.00, '', 1);
+INSERT INTO store.game(name, price, description, developer_id) values('Игра 6', 10.00, '', 1);
+INSERT INTO store.game(name, price, description, developer_id) values('Игра 7', 10.00, '', 1);
+INSERT INTO store.game(name, price, description, developer_id) values('Игра 8', 10.00, '', 1);
+INSERT INTO store.game(name, price, description, developer_id) values('Игра 9', 10.00, '', 1);
+INSERT INTO store.game(name, price, description, developer_id) values('Игра 10', 10.00, '', 1);
+INSERT INTO store.game(name, price, description, developer_id) values('Игра 11', 10.00, '', 1);
