@@ -24,7 +24,7 @@ public class Trip {
     @ManyToMany(mappedBy = "trips")
     private Set<Ticket> tickets;
 
-    @ManyToMany(mappedBy = "trips")
+    @OneToMany(mappedBy = "trip")
     private Set<Allowance> Allowances;
 
     public Trip() {

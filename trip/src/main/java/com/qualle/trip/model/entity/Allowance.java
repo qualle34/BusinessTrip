@@ -1,62 +1,41 @@
 package com.qualle.trip.model.entity;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
-@Table(name = "allowance")
+@Table(name = "trip_allowance")
 public class Allowance {
 
     @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @ManyToOne
+    @JoinColumn(name = "allowance_id")
+    private AllowanceDictionary dictionary;
 
-    @Column(name = "value")
-    private double value;
+    @Id
+    @ManyToOne
+    @JoinColumn(name = "trip_id")
+    private Trip trip;
 
-    @Column(name = "country")
-    private String country;
-
+    @Column(name = "count")
     private int count;
-
-    @ManyToMany
-    @JoinTable(name = "trip_allowance",
-            joinColumns = @JoinColumn(name = "allowance_id"),
-            inverseJoinColumns = @JoinColumn(name = "trip_id")
-    )
-    private Set<Trip> trips;
 
     public Allowance() {
     }
 
-    public Allowance(Double value, String country) {
-        this.value = value;
-        this.country = country;
+    public AllowanceDictionary getDictionary() {
+        return dictionary;
     }
 
-    public Long getId() {
-        return id;
+    public void setDictionary(AllowanceDictionary dictionary) {
+        this.dictionary = dictionary;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Trip getTrip() {
+        return trip;
     }
 
-    public double getValue() {
-        return value;
-    }
-
-    public void setValue(double value) {
-        this.value = value;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
+    public void setTrip(Trip trip) {
+        this.trip = trip;
     }
 
     public int getCount() {
@@ -67,16 +46,8 @@ public class Allowance {
         this.count = count;
     }
 
-    public Set<Trip> getTrips() {
-        return trips;
-    }
-
-    public void setTrips(Set<Trip> trips) {
-        this.trips = trips;
-    }
-
     @Override
     public String toString() {
-        return id + " " + value + " " + country;
+        return String.valueOf(count);
     }
 }

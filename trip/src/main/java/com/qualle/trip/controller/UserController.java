@@ -1,15 +1,15 @@
 package com.qualle.trip.controller;
 
-import com.qualle.trip.service.EmployeeService;
+import com.qualle.trip.service.UserService;
 import javafx.fxml.FXML;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 
-public class MainController {
+public class UserController {
 
     @Autowired
-    private EmployeeService employeeService;
+    private UserService userService;
 
     @FXML
     public void initialize() {
@@ -18,6 +18,12 @@ public class MainController {
 
     @PostConstruct
     public void init() {
-        System.out.println(employeeService.get());
+
+    }
+
+
+    @FXML
+    public void addContact() {
+
     }
 }

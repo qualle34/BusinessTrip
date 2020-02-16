@@ -14,7 +14,12 @@ public class ControllerConfig {
 
     @Bean(name = "mainView")
     public ViewHolder getMainView() throws IOException {
-        return loadView("fxml/main.fxml");
+        return loadView("templates/main.fxml");
+    }
+
+    @Bean(name = "listView")
+    public ViewHolder getListView() throws IOException {
+        return loadView("templates/list.fxml");
     }
 
     @Bean
