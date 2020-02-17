@@ -6,18 +6,18 @@ public class EmployeeDto {
 
     private Long id;
     private String name;
-    private String email;
     private String surname;
+    private String email;
     private String department;
     private Date birthday;
 
     public EmployeeDto() {
     }
 
-    public EmployeeDto(String name, String email, String surname, String department, Date birthday) {
+    public EmployeeDto(String name, String surname, String email, String department, Date birthday) {
         this.name = name;
-        this.email = email;
         this.surname = surname;
+        this.email = email;
         this.department = department;
         this.birthday = birthday;
     }

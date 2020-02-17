@@ -13,17 +13,9 @@ public class UserController {
 
     @FXML
     public void initialize() {
-
     }
 
     @PostConstruct
     public void init() {
-
-    }
-
-
-    @FXML
-    public void addContact() {
-
     }
 }

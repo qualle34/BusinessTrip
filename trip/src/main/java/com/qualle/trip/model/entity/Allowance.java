@@ -1,10 +1,11 @@
 package com.qualle.trip.model.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "trip_allowance")
-public class Allowance {
+public class Allowance implements Serializable {
 
     @Id
     @ManyToOne

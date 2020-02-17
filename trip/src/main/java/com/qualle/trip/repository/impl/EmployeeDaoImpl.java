@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.List;
 
 @Repository
@@ -15,12 +16,19 @@ public class EmployeeDaoImpl implements EmployeeDao {
     private EntityManager entityManager;
 
     @Override
-    public List<Employee> getAll() {
-        return null;
+    public List<Employee> get() {
+        Query query = entityManager.createQuery("SELECT e FROM Employee e");
+        return query.getResultList();
     }
 
     @Override
-    public Employee get() {
-        return entityManager.find(Employee.class, 1);
+    public List<Employee> getSortByTrip() {
+        Query query = entityManager.createQuery("SELECT e FROM Employee e JOIN e.trip t WHERE COUNT(t) > 0");
+        return query.getResultList();
+    }
+
+    @Override
+    public Employee get(long id) {
+        return entityManager.find(Employee.class, id);
     }
 }

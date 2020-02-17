@@ -1,5 +1,7 @@
 package com.qualle.trip.config;
 
+import com.qualle.trip.controller.AllowanceController;
+import com.qualle.trip.controller.LoginController;
 import com.qualle.trip.controller.MainController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,22 +24,31 @@ public class ControllerConfig {
         return loadView("templates/list.fxml");
     }
 
+    @Bean(name = "loginView")
+    public ViewHolder getLoginView() throws IOException {
+        return loadView("templates/login.fxml");
+    }
+
     @Bean
     public MainController getMainController() throws IOException {
         return (MainController) getMainView().getController();
     }
 
-    protected ViewHolder loadView(String url) throws IOException {
-        InputStream fxmlStream = null;
-        try {
-            fxmlStream = getClass().getClassLoader().getResourceAsStream(url);
+    @Bean
+    public AllowanceController getAllowanceController() throws IOException {
+        return (AllowanceController) getListView().getController();
+    }
+
+    @Bean
+    public LoginController getLoginController() throws IOException {
+        return (LoginController) getLoginView().getController();
+    }
+
+    protected ViewHolder loadView(String path) throws IOException {
+        try (InputStream fxmlStream = getClass().getClassLoader().getResourceAsStream(path)) {
             FXMLLoader loader = new FXMLLoader();
             loader.load(fxmlStream);
             return new ViewHolder(loader.getRoot(), loader.getController());
-        } finally {
-            if (fxmlStream != null) {
-                fxmlStream.close();
-            }
         }
     }
 
