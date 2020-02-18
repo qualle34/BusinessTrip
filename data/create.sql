@@ -1,118 +1,90 @@
--- -----------------------------------------------------
--- Schema store
--- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `store`;
-CREATE SCHEMA `store` DEFAULT CHARACTER SET utf8 ;
+CREATE TABLE "employee" (
+    "id" bigserial   NOT NULL,
+    "name" varchar   NOT NULL,
+    "surname" varchar   NULL,
+    "department" varchar   NULL,
+    "birthday" date   NULL,
+    "email" varchar   NOT NULL,
+    "is_relevant" bool   NULL,
+    CONSTRAINT "pk_employee" PRIMARY KEY (
+        "id"
+     )
+);
 
--- -----------------------------------------------------
--- Table `store`.`admin`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `store`.`admin` (
-  `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  `email` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+CREATE TABLE "trip" (
+    "id" bigserial   NOT NULL,
+    "title" varchar   NOT NULL,
+    "description" varchar   NULL,
+    "employee_id" int8   NOT NULL,
+    "date_start" timestamp   NULL,
+    "date_end" timestamp   NULL,
+    "status" varchar   NOT NULL,
+    CONSTRAINT "pk_trip" PRIMARY KEY (
+        "id"
+     )
+);
 
--- -----------------------------------------------------
--- Table `store`.`creds`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `store`.`creds` (
-  `id` BIGINT NOT NULL,
-  `login` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(100) NOT NULL,
-  `role` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `creds_admin_fk`
-    FOREIGN KEY (`id`)
-    REFERENCES `store`.`admin` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+CREATE TABLE "ticket" (
+    "id" bigserial   NOT NULL,
+    "from" varchar   NOT NULL,
+    "to" varchar   NOT NULL,
+    "date" timestamp   NOT NULL,
+    "price" float8   NOT NULL,
+    "type" varchar   NOT NULL,
+    CONSTRAINT "pk_ticket" PRIMARY KEY (
+        "id"
+     )
+);
 
--- -----------------------------------------------------
--- Table `store`.`developer`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `store`.`developer` (
-  `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  `title` VARCHAR(45) NULL,
-  `description` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+CREATE TABLE "user" (
+    "id" bigserial   NOT NULL,
+    "name" varchar   NOT NULL,
+    "email" varchar   NOT NULL,
+    "login" varchar   NOT NULL,
+    "password" varchar   NOT NULL,
+    CONSTRAINT "pk_user" PRIMARY KEY (
+        "id"
+     )
+);
 
--- -----------------------------------------------------
--- Table `store`.`game`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `store`.`game` (
-  `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `developer_id` BIGINT NOT NULL,
-  `name` VARCHAR(45) NOT NULL,
-  `description` VARCHAR(45) NULL,
-  `price` DECIMAL(13,2) NULL,
-  PRIMARY KEY (`id`),
-  INDEX `game_developer_fk_idx` (`developer_id` ASC) VISIBLE,
-  CONSTRAINT `game_developer_fk`
-    FOREIGN KEY (`developer_id`)
-    REFERENCES `store`.`developer` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+CREATE TABLE "allowance" (
+    "id" bigserial   NOT NULL,
+    "value" float8   NOT NULL,
+    "country" varchar   NOT NULL,
+    CONSTRAINT "pk_allowance" PRIMARY KEY (
+        "id"
+     )
+);
 
--- -----------------------------------------------------
--- Table `store`.`category`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `store`.`category` (
-  `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+CREATE TABLE "trip_ticket" (
+    "trip_id" int8   NOT NULL,
+    "ticket_id" int8   NOT NULL,
+    CONSTRAINT "pk_trip_ticket" PRIMARY KEY (
+        "trip_id","ticket_id"
+     )
+);
 
--- -----------------------------------------------------
--- Table `store`.`genre`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `store`.`genre` (
-  `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+CREATE TABLE "trip_allowance" (
+    "trip_id" int8   NOT NULL,
+    "allowance_id" int8   NOT NULL,
+    "days" int4   NOT NULL,
+    CONSTRAINT "pk_trip_allowance" PRIMARY KEY (
+        "trip_id","allowance_id"
+     )
+);
 
--- -----------------------------------------------------
--- Table `store`.`game_genre`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `store`.`game_genre` (
-  `game_id` BIGINT NOT NULL,
-  `genre_id` BIGINT NOT NULL,
-  PRIMARY KEY (`game_id`, `genre_id`),
-  INDEX `gg_genre_fk_idx` (`genre_id` ASC) VISIBLE,
-  CONSTRAINT `gg_game_fk`
-    FOREIGN KEY (`game_id`)
-    REFERENCES `store`.`game` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `gg_genre_fk`
-    FOREIGN KEY (`genre_id`)
-    REFERENCES `store`.`genre` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ALTER TABLE "trip" ADD CONSTRAINT "fk_trip_employee_id" FOREIGN KEY("employee_id")
+REFERENCES "employee" ("id");
 
--- -----------------------------------------------------
--- Table `store`.`game_category`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `store`.`game_category` (
-  `game_id` BIGINT NOT NULL,
-  `category_id` BIGINT NOT NULL,
-  PRIMARY KEY (`game_id`, `category_id`),
-  INDEX `gc_category_fk_idx` (`category_id` ASC) VISIBLE,
-  CONSTRAINT `gc_game_fk`
-    FOREIGN KEY (`game_id`)
-    REFERENCES `store`.`game` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `gc_category_fk`
-    FOREIGN KEY (`category_id`)
-    REFERENCES `store`.`category` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ALTER TABLE "trip_ticket" ADD CONSTRAINT "fk_trip_ticket_trip_id" FOREIGN KEY("trip_id")
+REFERENCES "trip" ("id");
+
+ALTER TABLE "trip_ticket" ADD CONSTRAINT "fk_trip_ticket_ticket_id" FOREIGN KEY("ticket_id")
+REFERENCES "ticket" ("id");
+
+ALTER TABLE "trip_allowance" ADD CONSTRAINT "fk_trip_allowance_trip_id" FOREIGN KEY("trip_id")
+REFERENCES "trip" ("id");
+
+ALTER TABLE "trip_allowance" ADD CONSTRAINT "fk_trip_allowance_allowance_id" FOREIGN KEY("allowance_id")
+REFERENCES "allowance" ("id");
+

@@ -23,7 +23,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public List<Employee> getSortByTrip() {
-        Query query = entityManager.createQuery("SELECT e FROM Employee e JOIN e.trip t WHERE COUNT(t) > 0");
+        Query query = entityManager.createQuery("SELECT e FROM Employee e INNER JOIN e.trip");
         return query.getResultList();
     }
 

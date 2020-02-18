@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "trip_allowance")
+@Table(name = "trip_allowance", schema = "public")
 public class Allowance implements Serializable {
 
     @Id
@@ -17,8 +17,8 @@ public class Allowance implements Serializable {
     @JoinColumn(name = "trip_id")
     private Trip trip;
 
-    @Column(name = "count")
-    private int count;
+    @Column(name = "days")
+    private int days;
 
     public Allowance() {
     }
@@ -39,16 +39,16 @@ public class Allowance implements Serializable {
         this.trip = trip;
     }
 
-    public int getCount() {
-        return count;
+    public int getDays() {
+        return days;
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public void setDays(int days) {
+        this.days = days;
     }
 
     @Override
     public String toString() {
-        return String.valueOf(count);
+        return String.valueOf(days);
     }
 }

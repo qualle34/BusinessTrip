@@ -13,7 +13,7 @@ public class ConverterUtil {
     }
 
     public static EmployeeDto toEmployeeDto(Employee employee) {
-        EmployeeDto dto = new EmployeeDto(employee.getName(), employee.getSurname(), employee.getEmail(), employee.getDepartment(), employee.getBirthday());
+        EmployeeDto dto = new EmployeeDto(employee.getName(), employee.getSurname(), employee.getEmail(), employee.getDepartment(), employee.getBirthday().toString());
         dto.setId(employee.getId());
         return dto;
     }

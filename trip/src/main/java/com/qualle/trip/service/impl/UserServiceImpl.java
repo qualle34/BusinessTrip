@@ -21,12 +21,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getDto(long id) {
-        return ConverterUtil.toDto(userDao.get(id));
+        return ConverterUtil.toUserDto(userDao.get(id));
     }
 
     @Override
     public UserDto get(String login) {
-        return ConverterUtil.toDto(userDao.get(login));
+        return ConverterUtil.toUserDto(userDao.get(login));
     }
 
     @Override

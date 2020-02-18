@@ -1,16 +1,17 @@
 package com.qualle.trip.model.entity;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
-@Table(name = "employee")
+@Table(name = "employee", schema = "public")
 public class Employee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_seq")
+    @SequenceGenerator(name = "employee_seq", sequenceName = "employee_id_seq", allocationSize = 1)
     private Long id;
 
     @Column(name = "name")
@@ -26,15 +27,18 @@ public class Employee {
     private String department;
 
     @Column(name = "birthday")
-    private Date birthday;
+    private LocalDate birthday;
 
-    @OneToMany(mappedBy = "employee")
+    @Column(name = "is_relevant")
+    private boolean isRelevant;
+
+    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
     private Set<Trip> trip;
 
     public Employee() {
     }
 
-    public Employee(String name, String email, String surname, String department, Date birthday) {
+    public Employee(String name, String email, String surname, String department, LocalDate birthday) {
         this.name = name;
         this.email = email;
         this.surname = surname;
@@ -82,12 +86,20 @@ public class Employee {
         this.department = department;
     }
 
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
+    }
+
+    public boolean isRelevant() {
+        return isRelevant;
+    }
+
+    public void setRelevant(boolean relevant) {
+        isRelevant = relevant;
     }
 
     public Set<Trip> getTrip() {

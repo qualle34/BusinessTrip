@@ -11,6 +11,8 @@ public interface EmployeeService {
 
     List<EmployeeDto> getDtoSortByTrip();
 
+    List<String> getNames();
+
     Employee get(long id);
 
     EmployeeDto getDto(long id);

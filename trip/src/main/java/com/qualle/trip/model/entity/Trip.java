@@ -1,15 +1,19 @@
 package com.qualle.trip.model.entity;
 
+import com.qualle.trip.model.enums.TripStatus;
+
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table(name = "trip")
+@Table(name = "trip", schema = "public")
 public class Trip {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trip_seq")
+    @SequenceGenerator(name = "trip_seq", sequenceName = "trip_id_seq", allocationSize = 1)
     private Long id;
 
     @Column(name="title")
@@ -18,13 +22,26 @@ public class Trip {
     @Column(name="description")
     private String description;
 
-    @ManyToOne
+    @Column(name = "date_start")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date start;
+
+    @Column(name = "date_end")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date end;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private TripStatus status;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id")
     private Employee employee;
 
-    @ManyToMany(mappedBy = "trips")
+    @ManyToMany(mappedBy = "trips", fetch = FetchType.LAZY)
     private Set<Ticket> tickets;
 
-    @OneToMany(mappedBy = "trip")
+    @OneToMany(mappedBy = "trip", fetch = FetchType.LAZY)
     private Set<Allowance> Allowances;
 
     public Trip() {
@@ -65,6 +82,30 @@ public class Trip {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Date getStart() {
+        return start;
+    }
+
+    public void setStart(Date start) {
+        this.start = start;
+    }
+
+    public Date getEnd() {
+        return end;
+    }
+
+    public void setEnd(Date end) {
+        this.end = end;
+    }
+
+    public TripStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TripStatus status) {
+        this.status = status;
     }
 
     public Employee getEmployee() {

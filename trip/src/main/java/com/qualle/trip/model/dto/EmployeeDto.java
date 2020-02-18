@@ -1,7 +1,5 @@
 package com.qualle.trip.model.dto;
 
-import java.util.Date;
-
 public class EmployeeDto {
 
     private Long id;
@@ -9,12 +7,12 @@ public class EmployeeDto {
     private String surname;
     private String email;
     private String department;
-    private Date birthday;
+    private String birthday;
 
     public EmployeeDto() {
     }
 
-    public EmployeeDto(String name, String surname, String email, String department, Date birthday) {
+    public EmployeeDto(String name, String surname, String email, String department, String birthday) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -62,11 +60,11 @@ public class EmployeeDto {
         this.department = department;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 }

@@ -38,7 +38,7 @@
    <center>
       <VBox style="-fx-background-color: #7277FF;" BorderPane.alignment="CENTER">
          <children>
-            <ListView fx:id="trips" prefHeight="607.0" style="-fx-background-color: #7277FF;" />
+            <ListView fx:id="tripList" prefHeight="607.0" style="-fx-background-color: #7277FF;" />
             <AnchorPane>
                <children>
                   <Button fx:id="show_trips" mnemonicParsing="false" prefHeight="30.0" style="-fx-background-color: #31347D;" text="Показать всё" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -53,7 +53,7 @@
    <left>
       <VBox alignment="TOP_CENTER" style="-fx-background-color: #7277FF;" BorderPane.alignment="CENTER">
          <children>
-            <ListView fx:id="employees" prefHeight="607.0" style="-fx-background-color: #7277FF;" />
+            <ListView fx:id="employeeList" prefHeight="607.0" style="-fx-background-color: #7277FF;" />
             <AnchorPane>
                <children>
                   <Button fx:id="show_employees" mnemonicParsing="false" prefHeight="30.0" style="-fx-background-color: #31347D;" text="Показать всё" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />

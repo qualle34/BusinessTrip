@@ -8,6 +8,7 @@ import com.qualle.trip.service.util.ConverterUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,6 +25,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<EmployeeDto> getDtoSortByTrip() {
         return ConverterUtil.toEmployeeDtoArray(employeeDao.getSortByTrip());
+    }
+
+    @Override
+    public List<String> getNames() {
+        List<String> names = new ArrayList<>();
+        for (Employee employee : employeeDao.getSortByTrip()){
+            names.add(employee.getName() + " " + employee.getSurname());
+        }
+        return names;
     }
 
     @Override
