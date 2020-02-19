@@ -4,13 +4,13 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "allowance", schema = "public")
+@Table(name = "allowance_dictionary", schema = "public")
 public class AllowanceDictionary {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "allowance_seq")
-    @SequenceGenerator(name = "allowance_seq", sequenceName = "allowance_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "allowance_dictionary_seq")
+    @SequenceGenerator(name = "allowance_dictionary_seq", sequenceName = "allowance_dictionary_id_seq", allocationSize = 1)
     private Long id;
 
     @Column(name = "value")

@@ -33,7 +33,7 @@ public class Employee {
     private boolean isRelevant;
 
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
-    private Set<Trip> trip;
+    private Set<Member> members;
 
     public Employee() {
     }
@@ -102,12 +102,12 @@ public class Employee {
         isRelevant = relevant;
     }
 
-    public Set<Trip> getTrip() {
-        return trip;
+    public Set<Member> getMembers() {
+        return members;
     }
 
-    public void setTrip(Set<Trip> trip) {
-        this.trip = trip;
+    public void setMembers(Set<Member> members) {
+        this.members = members;
     }
 
     @Override

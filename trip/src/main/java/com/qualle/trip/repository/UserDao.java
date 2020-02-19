@@ -4,9 +4,9 @@ import com.qualle.trip.model.entity.User;
 
 public interface UserDao {
 
-    User get(long id);
+    User getById(long id);
 
-    User get(String login);
+    User getByLogin(String login);
 
-    User update(User user);
+    void update(User user);
 }

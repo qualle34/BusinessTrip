@@ -6,9 +6,15 @@ import java.util.List;
 
 public interface EmployeeDao {
 
-    List<Employee> get();
+    List<Employee> getAll();
 
-    List<Employee> getSortByTrip();
+    List<Employee> getAllSortByTrip();
 
-    Employee get(long id);
+    Employee getById(long id);
+
+    void add(Employee employee);
+
+    void update(Employee employee);
+
+    void delete(long id);
 }

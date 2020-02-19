@@ -3,7 +3,6 @@ package com.qualle.trip.controller;
 import com.qualle.trip.config.ControllerConfig;
 import com.qualle.trip.model.dto.UserDto;
 import com.qualle.trip.service.UserService;
-import com.qualle.trip.service.util.SimpleStorage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -46,15 +45,13 @@ public class LoginController {
         if (StringUtils.isEmpty(login) || StringUtils.isEmpty(password)) {
             return;
         }
-        UserDto user = userService.get(login);
+        UserDto user = userService.getDtoByLogin(login);
         if (user == null) {
             return;
         }
         if (!user.getPassword().equals(password)) {
             return;
         }
-
-        SimpleStorage.setUser(user);
 
         Stage dialogStage = new Stage();
         dialogStage.setTitle("Business Trip");

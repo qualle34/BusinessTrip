@@ -1,10 +1,8 @@
 package com.qualle.trip.model.dto;
 
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
-public class TripDto {
+public class TripSimpleDto {
 
     private long id;
     private String title;
@@ -14,14 +12,11 @@ public class TripDto {
     private String from;
     private String to;
     private double expenses;
-    private List<EmployeeDto> members;
-    private Map<String, List<TicketDto>> tickets;
-    private Map<String, List<AllowanceDto>> allowances;
 
-    public TripDto() {
+    public TripSimpleDto() {
     }
 
-    public TripDto(String title, String description, Date start, Date end, String from, String to, double expenses) {
+    public TripSimpleDto(String title, String description, Date start, Date end, String from, String to, double expenses) {
         this.title = title;
         this.description = description;
         this.start = start;
@@ -93,29 +88,5 @@ public class TripDto {
 
     public void setExpenses(double expenses) {
         this.expenses = expenses;
-    }
-
-    public List<EmployeeDto> getMembers() {
-        return members;
-    }
-
-    public void setMembers(List<EmployeeDto> members) {
-        this.members = members;
-    }
-
-    public Map<String, List<TicketDto>> getTickets() {
-        return tickets;
-    }
-
-    public void setTickets(Map<String, List<TicketDto>> tickets) {
-        this.tickets = tickets;
-    }
-
-    public Map<String, List<AllowanceDto>> getAllowances() {
-        return allowances;
-    }
-
-    public void setAllowances(Map<String, List<AllowanceDto>> allowances) {
-        this.allowances = allowances;
     }
 }

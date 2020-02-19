@@ -34,15 +34,11 @@ public class Trip {
     @Enumerated(EnumType.STRING)
     private TripStatus status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
-
-    @ManyToMany(mappedBy = "trips", fetch = FetchType.LAZY)
-    private Set<Ticket> tickets;
+    @Column(name = "additional_expenses")
+    private double additionalExpenses;
 
     @OneToMany(mappedBy = "trip", fetch = FetchType.LAZY)
-    private Set<Allowance> Allowances;
+    private Set<Member> members;
 
     public Trip() {
     }
@@ -52,12 +48,12 @@ public class Trip {
         this.description = description;
     }
 
-    public Trip(String title, String description, Employee employee, Set<Ticket> tickets, Set<Allowance> allowances) {
-        this.title = title;
-        this.description = description;
-        this.employee = employee;
-        this.tickets = tickets;
-        Allowances = allowances;
+    public Trip(Long id, Date start, Date end, TripStatus status, Set<Member> members) {
+        this.id = id;
+        this.start = start;
+        this.end = end;
+        this.status = status;
+        this.members = members;
     }
 
     public Long getId() {
@@ -108,28 +104,20 @@ public class Trip {
         this.status = status;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public double getAdditionalExpenses() {
+        return additionalExpenses;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setAdditionalExpenses(double additionalExpenses) {
+        this.additionalExpenses = additionalExpenses;
     }
 
-    public Set<Ticket> getTickets() {
-        return tickets;
+    public Set<Member> getMembers() {
+        return members;
     }
 
-    public void setTickets(Set<Ticket> tickets) {
-        this.tickets = tickets;
-    }
-
-    public Set<Allowance> getAllowances() {
-        return Allowances;
-    }
-
-    public void setAllowances(Set<Allowance> allowances) {
-        Allowances = allowances;
+    public void setMembers(Set<Member> members) {
+        this.members = members;
     }
 
     @Override

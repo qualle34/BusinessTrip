@@ -1,7 +1,7 @@
 package com.qualle.trip.repository.impl;
 
-import com.qualle.trip.model.entity.Allowance;
-import com.qualle.trip.repository.AllowanceDao;
+import com.qualle.trip.model.entity.Member;
+import com.qualle.trip.repository.MemberDao;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -9,28 +9,28 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-public class AllowanceDaoImpl implements AllowanceDao {
+public class MemberDaoImpl implements MemberDao {
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
-    public List<Allowance> getAll() {
+    public List<Member> getAll() {
         return null;
     }
 
     @Override
-    public Allowance getById(long id) {
+    public Member getById(long id) {
         return null;
     }
 
     @Override
-    public void add(Allowance allowance) {
+    public void add(Member member) {
 
     }
 
     @Override
-    public void update(Allowance allowance) {
+    public void update(Member member) {
 
     }
 

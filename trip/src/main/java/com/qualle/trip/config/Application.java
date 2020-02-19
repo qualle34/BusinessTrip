@@ -18,14 +18,14 @@ public class Application extends AbstractJavaFxSupport {
     @Value("${ui.title}")
     private String windowTitle;
 
-    @Qualifier("loginView")
+    @Qualifier("mainView")
     @Autowired
-    private ControllerConfig.ViewHolder loginView;
+    private ControllerConfig.ViewHolder mainView;
 
     @Override
     public void start(Stage stage) throws Exception {
         stage.setTitle(windowTitle);
-        stage.setScene(new Scene(loginView.getView()));
+        stage.setScene(new Scene(mainView.getView()));
         stage.setResizable(true);
         stage.centerOnScreen();
         stage.show();

@@ -1,3 +1,12 @@
+CREATE TABLE "allowance_dictionary" (
+    "id" bigserial   NOT NULL,
+    "value" float8   NOT NULL,
+    "country" varchar   NOT NULL,
+    CONSTRAINT "pk_allowance_dictionary" PRIMARY KEY (
+        "id"
+     )
+);
+
 CREATE TABLE "employee" (
     "id" bigserial   NOT NULL,
     "name" varchar   NOT NULL,
@@ -11,27 +20,47 @@ CREATE TABLE "employee" (
      )
 );
 
-CREATE TABLE "trip" (
-    "id" bigserial   NOT NULL,
-    "title" varchar   NOT NULL,
-    "description" varchar   NULL,
-    "employee_id" int8   NOT NULL,
-    "date_start" timestamp   NULL,
-    "date_end" timestamp   NULL,
-    "status" varchar   NOT NULL,
-    CONSTRAINT "pk_trip" PRIMARY KEY (
-        "id"
-     )
-);
-
 CREATE TABLE "ticket" (
     "id" bigserial   NOT NULL,
+    "member_id" int8   NOT NULL,
     "from" varchar   NOT NULL,
     "to" varchar   NOT NULL,
     "date" timestamp   NOT NULL,
     "price" float8   NOT NULL,
     "type" varchar   NOT NULL,
     CONSTRAINT "pk_ticket" PRIMARY KEY (
+        "id"
+     )
+);
+
+CREATE TABLE "trip" (
+    "id" bigserial   NOT NULL,
+    "title" varchar   NOT NULL,
+    "description" varchar   NULL,
+    "date_start" timestamp   NULL,
+    "date_end" timestamp   NULL,
+    "status" varchar   NOT NULL,
+    "additional_expenses" float8   NULL,
+    CONSTRAINT "pk_trip" PRIMARY KEY (
+        "id"
+     )
+);
+
+CREATE TABLE "allowance" (
+    "member_id" int8   NOT NULL,
+    "allowance_id" int8   NOT NULL,
+    "days" int4   NOT NULL,
+    CONSTRAINT "pk_allowance" PRIMARY KEY (
+        "member_id","allowance_id"
+     )
+);
+
+CREATE TABLE "member" (
+    "id" bigserial   NOT NULL,
+    "employee_id" int8   NOT NULL,
+    "trip_id" int8   NOT NULL,
+    "role" varchar   NOT NULL,
+    CONSTRAINT "pk_member" PRIMARY KEY (
         "id"
      )
 );
@@ -47,44 +76,18 @@ CREATE TABLE "user" (
      )
 );
 
-CREATE TABLE "allowance" (
-    "id" bigserial   NOT NULL,
-    "value" float8   NOT NULL,
-    "country" varchar   NOT NULL,
-    CONSTRAINT "pk_allowance" PRIMARY KEY (
-        "id"
-     )
-);
+ALTER TABLE "ticket" ADD CONSTRAINT "fk_ticket_member_id" FOREIGN KEY("member_id")
+REFERENCES "member" ("id");
 
-CREATE TABLE "trip_ticket" (
-    "trip_id" int8   NOT NULL,
-    "ticket_id" int8   NOT NULL,
-    CONSTRAINT "pk_trip_ticket" PRIMARY KEY (
-        "trip_id","ticket_id"
-     )
-);
+ALTER TABLE "allowance" ADD CONSTRAINT "fk_allowance_member_id" FOREIGN KEY("member_id")
+REFERENCES "member" ("id");
 
-CREATE TABLE "trip_allowance" (
-    "trip_id" int8   NOT NULL,
-    "allowance_id" int8   NOT NULL,
-    "days" int4   NOT NULL,
-    CONSTRAINT "pk_trip_allowance" PRIMARY KEY (
-        "trip_id","allowance_id"
-     )
-);
+ALTER TABLE "allowance" ADD CONSTRAINT "fk_allowance_allowance_id" FOREIGN KEY("allowance_id")
+REFERENCES "allowance_dictionary" ("id");
 
-ALTER TABLE "trip" ADD CONSTRAINT "fk_trip_employee_id" FOREIGN KEY("employee_id")
+ALTER TABLE "member" ADD CONSTRAINT "fk_member_employee_id" FOREIGN KEY("employee_id")
 REFERENCES "employee" ("id");
 
-ALTER TABLE "trip_ticket" ADD CONSTRAINT "fk_trip_ticket_trip_id" FOREIGN KEY("trip_id")
+ALTER TABLE "member" ADD CONSTRAINT "fk_member_trip_id" FOREIGN KEY("trip_id")
 REFERENCES "trip" ("id");
-
-ALTER TABLE "trip_ticket" ADD CONSTRAINT "fk_trip_ticket_ticket_id" FOREIGN KEY("ticket_id")
-REFERENCES "ticket" ("id");
-
-ALTER TABLE "trip_allowance" ADD CONSTRAINT "fk_trip_allowance_trip_id" FOREIGN KEY("trip_id")
-REFERENCES "trip" ("id");
-
-ALTER TABLE "trip_allowance" ADD CONSTRAINT "fk_trip_allowance_allowance_id" FOREIGN KEY("allowance_id")
-REFERENCES "allowance" ("id");
 

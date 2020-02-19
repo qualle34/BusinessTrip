@@ -15,19 +15,19 @@ public class UserDaoImpl implements UserDao {
     EntityManager entityManager;
 
     @Override
-    public User get(long id) {
+    public User getById(long id) {
         return entityManager.find(User.class, id);
     }
 
     @Override
-    public User get(String login) {
+    public User getByLogin(String login) {
         Query query = entityManager.createQuery("SELECT u FROM User u WHERE u.login = :login");
         query.setParameter("login", login);
         return (User) query.getSingleResult();
     }
 
     @Override
-    public User update(User user) {
-        return entityManager.merge(user);
+    public void update(User user) {
+        entityManager.merge(user);
     }
 }

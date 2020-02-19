@@ -1,7 +1,7 @@
-DROP TABLE "trip_allowance";
-DROP TABLE "trip_ticket";
+DROP TABLE "allowance";
+DROP TABLE "ticket";
+DROP TABLE "member";
 DROP TABLE "trip";
 DROP TABLE "employee";
-DROP TABLE "ticket";
-DROP TABLE "allowance";
 DROP TABLE "user";
+DROP TABLE "allowance_dictionary";

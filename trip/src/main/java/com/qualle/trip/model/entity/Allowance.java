@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "trip_allowance", schema = "public")
+@Table(name = "allowance", schema = "public")
 public class Allowance implements Serializable {
 
     @Id
@@ -14,8 +14,8 @@ public class Allowance implements Serializable {
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "trip_id")
-    private Trip trip;
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     @Column(name = "days")
     private int days;
@@ -31,12 +31,12 @@ public class Allowance implements Serializable {
         this.dictionary = dictionary;
     }
 
-    public Trip getTrip() {
-        return trip;
+    public Member getMember() {
+        return member;
     }
 
-    public void setTrip(Trip trip) {
-        this.trip = trip;
+    public void setMember(Member member) {
+        this.member = member;
     }
 
     public int getDays() {

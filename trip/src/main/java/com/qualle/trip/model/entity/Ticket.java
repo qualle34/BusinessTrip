@@ -2,7 +2,6 @@ package com.qualle.trip.model.entity;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Set;
 
 @Entity
 @Table(name = "ticket", schema = "public")
@@ -27,12 +26,9 @@ public class Ticket {
     @Column(name = "price")
     private double price;
 
-    @ManyToMany
-    @JoinTable(name = "trip_ticket",
-            joinColumns = @JoinColumn(name = "ticket_id"),
-            inverseJoinColumns = @JoinColumn(name = "trip_id")
-    )
-    private Set<Trip> trips;
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     public Ticket() {
     }
@@ -84,12 +80,12 @@ public class Ticket {
         this.price = price;
     }
 
-    public Set<Trip> getTrips() {
-        return trips;
+    public Member getMember() {
+        return member;
     }
 
-    public void setTrips(Set<Trip> trips) {
-        this.trips = trips;
+    public void setMember(Member member) {
+        this.member = member;
     }
 
     @Override
