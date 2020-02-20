@@ -8,7 +8,9 @@ public interface EmployeeDao {
 
     List<Employee> getAll();
 
-    List<Employee> getAllSortByTrip();
+    List<Employee> getAllByTrip();
+
+    List<Employee> getAllByTrip(long tripId);
 
     Employee getById(long id);
 

@@ -21,13 +21,11 @@ public class TripDto {
     public TripDto() {
     }
 
-    public TripDto(String title, String description, Date start, Date end, String from, String to, double expenses) {
+    public TripDto(String title, String description, Date start, Date end, double expenses) {
         this.title = title;
         this.description = description;
         this.start = start;
         this.end = end;
-        this.from = from;
-        this.to = to;
         this.expenses = expenses;
     }
 

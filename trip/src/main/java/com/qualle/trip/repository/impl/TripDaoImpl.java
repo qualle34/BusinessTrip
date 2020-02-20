@@ -17,7 +17,14 @@ public class TripDaoImpl implements TripDao {
 
     @Override
     public List<Trip> getAll() {
-        Query query = entityManager.createQuery("SELECT e FROM Trip e", Trip.class);
+        Query query = entityManager.createQuery("SELECT t FROM Trip t", Trip.class);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Trip> getAllByEmployee(long employeeId) {
+        Query query = entityManager.createQuery("SELECT t FROM Trip t INNER JOIN t.members m JOIN m.employee e WHERE e.id = :employeeId", Trip.class);
+        query.setParameter("employeeId", employeeId);
         return query.getResultList();
     }
 

@@ -8,5 +8,7 @@ public interface TripDao {
 
     List<Trip> getAll();
 
+    List<Trip> getAllByEmployee(long employeeId);
+
     Trip getById(long id);
 }

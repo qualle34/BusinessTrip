@@ -18,17 +18,18 @@ public class TripServiceImpl implements TripService {
     private TripDao tripDao;
 
     @Override
-    public List<TripSimpleDto> getAllSimpleDto() {
-        return toSimpleDtoArray(tripDao.getAll());
+    public List<Trip> getAll() {
+        return tripDao.getAll();
     }
 
     @Override
-    public List<String> getTitles() {
-        List<String> titles = new ArrayList<>();
-        for (Trip trip : tripDao.getAll()) {
-            titles.add(trip.getTitle());
-        }
-        return titles;
+    public List<TripSimpleDto> getAllSimpleDto() {
+        return toSimpleDtoArray(getAll());
+    }
+
+    @Override
+    public List<TripSimpleDto> getAllSimpleDtoByEmployee(long employeeId) {
+        return toSimpleDtoArray(tripDao.getAllByEmployee(employeeId));
     }
 
     @Override
@@ -42,15 +43,20 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
+    public TripSimpleDto getSimpleDtoById(long id) {
+        return toSimpleDto(getById(id));
+    }
+
+    @Override
     public TripDto toDto(Trip trip) {
-        TripDto dto = new TripDto(trip.getTitle(), trip.getDescription(), trip.getStart(), trip.getEnd(), "", "", trip.getAdditionalExpenses());
+        TripDto dto = new TripDto(trip.getTitle(), trip.getDescription(), trip.getStart(), trip.getEnd(), trip.getAdditionalExpenses());
         dto.setId(trip.getId());
         return dto;
     }
 
     @Override
     public TripSimpleDto toSimpleDto(Trip trip) {
-        TripSimpleDto dto = new TripSimpleDto(trip.getTitle(), trip.getDescription(), trip.getStart(), trip.getEnd(), "", "", trip.getAdditionalExpenses());
+        TripSimpleDto dto = new TripSimpleDto(trip.getTitle(), trip.getDescription(), trip.getAdditionalExpenses());
         dto.setId(trip.getId());
         return dto;
     }

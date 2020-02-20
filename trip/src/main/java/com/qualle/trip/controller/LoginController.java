@@ -16,12 +16,12 @@ import javax.annotation.PostConstruct;
 
 public class LoginController {
 
-    @Autowired
-    private UserService userService;
-
     @Qualifier("mainView")
     @Autowired
     private ControllerConfig.ViewHolder mainView;
+
+    @Autowired
+    private UserService userService;
 
     @FXML
     private TextField login;

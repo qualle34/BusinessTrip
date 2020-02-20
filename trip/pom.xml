@@ -42,8 +42,8 @@
         <!-- Word -->
         <dependency>
             <groupId>org.apache.poi</groupId>
-            <artifactId>poi</artifactId>
-            <version>4.1.1</version>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.11</version>
         </dependency>
 
         <!-- Test -->

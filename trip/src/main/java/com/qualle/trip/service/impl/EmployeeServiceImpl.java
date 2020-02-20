@@ -18,22 +18,28 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeDao employeeDao;
 
     @Override
+    public List<Employee> getAll() {
+        return employeeDao.getAll();
+    }
+
+    @Override
     public List<EmployeeDto> getAllDto() {
-        return toDtoArray(employeeDao.getAll());
+        return toDtoArray(getAll());
     }
 
     @Override
-    public List<EmployeeDto> getAllDtoSortByTrip() {
-        return toDtoArray(employeeDao.getAllSortByTrip());
+    public List<EmployeeSimpleDto> getAllSimpleDto() {
+        return toSimpleDtoArray(getAll());
     }
 
     @Override
-    public List<String> getNames() {
-        List<String> names = new ArrayList<>();
-        for (Employee employee : employeeDao.getAllSortByTrip()) {
-            names.add(employee.getName() + " " + employee.getSurname());
-        }
-        return names;
+    public List<EmployeeSimpleDto> getAllSimpleDtoByTrip() {
+        return toSimpleDtoArray(employeeDao.getAllByTrip());
+    }
+
+    @Override
+    public List<EmployeeSimpleDto> getAllSimpleDtoByTrip(long tripId) {
+        return toSimpleDtoArray(employeeDao.getAllByTrip(tripId));
     }
 
     @Override
@@ -70,7 +76,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeSimpleDto toSimpleDto(Employee employee) {
-        return null;
+        EmployeeSimpleDto dto = new EmployeeSimpleDto(employee.getName(), employee.getSurname(), employee.getEmail());
+        dto.setId(employee.getId());
+        return dto;
     }
 
     @Override
@@ -93,6 +101,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee fromDto(EmployeeDto dto) {
-        return null;
+        return new Employee();
     }
 }

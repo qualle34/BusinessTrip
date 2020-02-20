@@ -8,11 +8,15 @@ import java.util.List;
 
 public interface EmployeeService {
 
+    List<Employee> getAll();
+
     List<EmployeeDto> getAllDto();
 
-    List<EmployeeDto> getAllDtoSortByTrip();
+    List<EmployeeSimpleDto> getAllSimpleDto();
 
-    List<String> getNames();
+    List<EmployeeSimpleDto> getAllSimpleDtoByTrip();
+
+    List<EmployeeSimpleDto> getAllSimpleDtoByTrip(long tripId);
 
     Employee getById(long id);
 

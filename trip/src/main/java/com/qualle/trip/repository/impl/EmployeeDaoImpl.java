@@ -22,8 +22,15 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public List<Employee> getAllSortByTrip() {
+    public List<Employee> getAllByTrip() {
         Query query = entityManager.createQuery("SELECT e FROM Employee e INNER JOIN e.members", Employee.class);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Employee> getAllByTrip(long tripId) {
+        Query query = entityManager.createQuery("SELECT e FROM Employee e INNER JOIN e.members m JOIN m.trip t where t.id = :tripId", Employee.class);
+        query.setParameter("tripId", tripId);
         return query.getResultList();
     }
 

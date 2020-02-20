@@ -8,13 +8,17 @@ import java.util.List;
 
 public interface TripService {
 
+    List<Trip> getAll();
+
     List<TripSimpleDto> getAllSimpleDto();
 
-    List<String> getTitles();
+    List<TripSimpleDto> getAllSimpleDtoByEmployee(long employeeId);
 
     Trip getById(long id);
 
     TripDto getDtoById(long id);
+
+    TripSimpleDto getSimpleDtoById(long id);
 
     TripDto toDto(Trip trip);
 
