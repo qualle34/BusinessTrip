@@ -5,6 +5,7 @@ import com.qualle.trip.model.entity.Member;
 import com.qualle.trip.model.entity.Ticket;
 import com.qualle.trip.repository.TicketDao;
 import com.qualle.trip.service.TicketService;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +19,18 @@ public class TicketServiceImpl implements TicketService {
     private TicketDao ticketDao;
 
     @Override
-    public List<TicketDto> getAllDto() {
-        return null;
+    public List<Ticket> getAll() {
+        return ticketDao.getAll();
     }
 
     @Override
-    public List<TicketDto> getAllDtoByMember(Member member) {
-        return null;
+    public List<TicketDto> getAllDto() {
+        return toDtoArray(getAll());
+    }
+
+    @Override
+    public List<TicketDto> getAllDtoByMember(long memberId) {
+        return toDtoArray(ticketDao.getAllByMember(memberId));
     }
 
     @Override
@@ -54,7 +60,9 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public TicketDto toDto(Ticket ticket) {
-        return null;
+        TicketDto dto = new TicketDto(ticket.getFrom(), ticket.getTo(), ticket.getDate(), ticket.getPrice());
+        dto.setId(ticket.getId());
+        return dto;
     }
 
     @Override
@@ -68,6 +76,6 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public Ticket fromDto(TicketDto dto) {
-        return null;
+        return new Ticket(dto.getFrom(), dto.getTo(), dto.getDate(), dto.getPrice());
     }
 }

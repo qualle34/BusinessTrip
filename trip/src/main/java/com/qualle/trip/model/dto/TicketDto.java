@@ -59,4 +59,9 @@ public class TicketDto {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return from + " - " + to + ", " + date.toString();
+    }
 }

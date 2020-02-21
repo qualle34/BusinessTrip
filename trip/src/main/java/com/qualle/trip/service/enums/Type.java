@@ -1,6 +1,6 @@
 package com.qualle.trip.service.enums;
 
-public enum  EditType {
+public enum Type {
 
     TRIP,
     EMPLOYEE,

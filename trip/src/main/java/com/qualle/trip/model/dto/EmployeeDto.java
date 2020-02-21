@@ -1,5 +1,7 @@
 package com.qualle.trip.model.dto;
 
+import java.time.LocalDate;
+
 public class EmployeeDto {
 
     private Long id;
@@ -7,17 +9,19 @@ public class EmployeeDto {
     private String surname;
     private String email;
     private String department;
-    private String birthday;
+    private LocalDate birthday;
+    private boolean isRelevant;
 
     public EmployeeDto() {
     }
 
-    public EmployeeDto(String name, String surname, String email, String department, String birthday) {
+    public EmployeeDto(String name, String surname, String email, String department, LocalDate birthday, boolean isRelevant) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.department = department;
         this.birthday = birthday;
+        this.isRelevant = isRelevant;
     }
 
     public Long getId() {
@@ -60,11 +64,19 @@ public class EmployeeDto {
         this.department = department;
     }
 
-    public String getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(String birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
+    }
+
+    public boolean isRelevant() {
+        return isRelevant;
+    }
+
+    public void setRelevant(boolean relevant) {
+        isRelevant = relevant;
     }
 }

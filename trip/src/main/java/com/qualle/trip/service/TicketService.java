@@ -8,9 +8,11 @@ import java.util.List;
 
 public interface TicketService {
 
+    List<Ticket> getAll();
+
     List<TicketDto> getAllDto();
 
-    List<TicketDto> getAllDtoByMember(Member member);
+    List<TicketDto> getAllDtoByMember(long memberId);
 
     Ticket getById(long id);
 

@@ -24,6 +24,16 @@
                   <Font size="20.0" />
                </font>
             </Button>
+            <Button layoutX="48.0" layoutY="121.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#showTickets" prefHeight="30.0" style="-fx-background-color: #f0f0f0;" text="Билеты" textFill="#333333" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="430.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button layoutX="48.0" layoutY="121.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#showAllowance" prefHeight="30.0" style="-fx-background-color: #f0f0f0;" text="Суточные" textFill="#333333" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="480.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
             <Label fx:id="name" layoutX="26.0" layoutY="48.0" text="Name" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
                <font>
                   <Font size="22.0" />

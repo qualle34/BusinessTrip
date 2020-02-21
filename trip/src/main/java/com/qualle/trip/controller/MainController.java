@@ -25,13 +25,21 @@ import java.util.Map;
 
 public class MainController {
 
-    @Qualifier("employeeListView")
+    @Qualifier("allowanceListView")
     @Autowired
-    private ControllerConfig.ViewHolder employeeListView;
+    private ControllerConfig.ViewHolder allowanceListView;
+
+    @Qualifier("ticketListView")
+    @Autowired
+    private ControllerConfig.ViewHolder ticketListView;
 
     @Qualifier("tripListView")
     @Autowired
     private ControllerConfig.ViewHolder tripListView;
+
+    @Qualifier("employeeListView")
+    @Autowired
+    private ControllerConfig.ViewHolder employeeListView;
 
     @Autowired
     private TripService tripService;
@@ -92,6 +100,38 @@ public class MainController {
     }
 
     @FXML
+    public void showAllowance(ActionEvent event) {
+        Button button = (Button) event.getSource();
+        Stage dialog = new Stage();
+
+        if (allowanceListView.getView().getScene() != null) {
+            dialog.setScene(allowanceListView.getView().getScene());
+        } else {
+            dialog.setScene(new Scene(allowanceListView.getView()));
+        }
+
+        dialog.initOwner(button.getScene().getWindow());
+        dialog.initModality(Modality.WINDOW_MODAL);
+        dialog.showAndWait();
+    }
+
+    @FXML
+    public void showTickets(ActionEvent event) {
+        Button button = (Button) event.getSource();
+        Stage dialog = new Stage();
+
+        if (ticketListView.getView().getScene() != null) {
+            dialog.setScene(ticketListView.getView().getScene());
+        } else {
+            dialog.setScene(new Scene(ticketListView.getView()));
+        }
+
+        dialog.initOwner(button.getScene().getWindow());
+        dialog.initModality(Modality.WINDOW_MODAL);
+        dialog.showAndWait();
+    }
+
+    @FXML
     public void showTrips(ActionEvent event) {
         Button button = (Button) event.getSource();
         Stage dialog = new Stage();
@@ -126,4 +166,6 @@ public class MainController {
     @FXML
     public void goToSettings(ActionEvent event) {
     }
+
+
 }

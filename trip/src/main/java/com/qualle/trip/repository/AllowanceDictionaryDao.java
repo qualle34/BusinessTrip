@@ -9,4 +9,10 @@ public interface AllowanceDictionaryDao {
     List<AllowanceDictionary> getAll();
 
     AllowanceDictionary getById(long id);
+
+    void add(AllowanceDictionary allowance);
+
+    void update(AllowanceDictionary allowance);
+
+    void delete(long id);
 }

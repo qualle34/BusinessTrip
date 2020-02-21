@@ -1,18 +1,19 @@
 package com.qualle.trip.model.dto;
 
-public class AllowanceSimpleDto {
+public class MemberAllowanceDto {
 
     private long id;
-    private double value;
     private String country;
+    private double value;
+    private int days;
 
-    public AllowanceSimpleDto() {
+    public MemberAllowanceDto() {
     }
 
-    public AllowanceSimpleDto(long id, double value, String country) {
-        this.id = id;
-        this.value = value;
+    public MemberAllowanceDto(String country, double value, int days) {
         this.country = country;
+        this.value = value;
+        this.days = days;
     }
 
     public long getId() {
@@ -37,5 +38,18 @@ public class AllowanceSimpleDto {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public int getDays() {
+        return days;
+    }
+
+    public void setDays(int days) {
+        this.days = days;
+    }
+
+    @Override
+    public String toString() {
+        return country;
     }
 }

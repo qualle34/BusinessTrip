@@ -1,10 +1,10 @@
 package com.qualle.trip.config;
 
-import com.qualle.trip.controller.EditController;
 import com.qualle.trip.controller.ListController;
-import com.qualle.trip.controller.LoginController;
 import com.qualle.trip.controller.MainController;
-import com.qualle.trip.service.enums.ListType;
+import com.qualle.trip.controller.edit.EditAllowanceController;
+import com.qualle.trip.controller.edit.EditEmployeeController;
+import com.qualle.trip.service.enums.Type;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import org.springframework.context.annotation.Bean;
@@ -56,6 +56,16 @@ public class ControllerConfig {
         return loadView("templates/main.fxml");
     }
 
+    @Bean(name = "allowanceListView")
+    public ViewHolder getAllowanceListView() throws IOException {
+        return loadView("templates/list.fxml");
+    }
+
+    @Bean(name = "ticketListView")
+    public ViewHolder getTicketListView() throws IOException {
+        return loadView("templates/list.fxml");
+    }
+
     @Bean(name = "tripListView")
     public ViewHolder getTripListView() throws IOException {
         return loadView("templates/list.fxml");
@@ -66,24 +76,24 @@ public class ControllerConfig {
         return loadView("templates/list.fxml");
     }
 
-    @Bean(name = "loginView")
-    public ViewHolder getLoginView() throws IOException {
-        return loadView("templates/login.fxml");
-    }
-
     @Bean(name = "allowanceEditView")
     public ViewHolder getAllowanceEditView() throws IOException {
-        return loadView("templates/edit.fxml");
+        return loadView("templates/allowance_edit.fxml");
     }
+
+//    @Bean(name = "ticketEditView")
+//    public ViewHolder getTicketEditView() throws IOException {
+//        return loadView("templates/ticket_edit.fxml");
+//    }
+//
+//    @Bean(name = "tripEditView")
+//    public ViewHolder getTripEditView() throws IOException {
+//        return loadView("templates/trip_edit.fxml");
+//    }
 
     @Bean(name = "employeeEditView")
     public ViewHolder getEmployeeEditView() throws IOException {
-        return loadView("templates/edit.fxml");
-    }
-
-    @Bean(name = "tripEditView")
-    public ViewHolder getTripEditView() throws IOException {
-        return loadView("templates/edit.fxml");
+        return loadView("templates/employee_edit.fxml");
     }
 
     @Bean
@@ -92,42 +102,50 @@ public class ControllerConfig {
     }
 
     @Bean
+    public ListController getAllowanceListController() throws IOException {
+        ListController controller = (ListController) getAllowanceListView().getController();
+        controller.setType(Type.ALLOWANCE);
+        return controller;
+    }
+
+    @Bean
+    public ListController getTicketListController() throws IOException {
+        ListController controller = (ListController) getTicketListView().getController();
+        controller.setType(Type.TICKET);
+        return controller;
+    }
+
+    @Bean
     public ListController getTripListController() throws IOException {
         ListController controller = (ListController) getTripListView().getController();
-        controller.setType(ListType.TRIP);
+        controller.setType(Type.TRIP);
         return controller;
     }
 
     @Bean
     public ListController getEmployeeListController() throws IOException {
         ListController controller = (ListController) getEmployeeListView().getController();
-        controller.setType(ListType.EMPLOYEE);
+        controller.setType(Type.EMPLOYEE);
         return controller;
     }
 
     @Bean
-    public LoginController getLoginController() throws IOException {
-        return (LoginController) getLoginView().getController();
+    public EditAllowanceController getAllowanceEditController() throws IOException {
+        return (EditAllowanceController) getAllowanceEditView().getController();
     }
 
-    @Bean
-    public EditController getAllowanceEditController() throws IOException {
-        EditController controller = (EditController) getAllowanceEditView().getController();
-        controller.setType(ListType.ALLOWANCE);
-        return controller;
-    }
+//    @Bean
+//    public EditTicketController getTicketEditController() throws IOException {
+//        return (EditTicketController) getTicketEditView().getController();
+//    }
+
+//    @Bean
+//    public EditTripController getTripEditController() throws IOException {
+//        return (EditTripController) getTripEditView().getController();
+//    }
 
     @Bean
-    public EditController getEmployeeEditController() throws IOException {
-        EditController controller = (EditController) getAllowanceEditView().getController();
-        controller.setType(ListType.EMPLOYEE);
-        return controller;
-    }
-
-    @Bean
-    public EditController getTripEditController() throws IOException {
-        EditController controller = (EditController) getAllowanceEditView().getController();
-        controller.setType(ListType.TRIP);
-        return controller;
+    public EditEmployeeController getEmployeeEditController() throws IOException {
+        return (EditEmployeeController) getEmployeeEditView().getController();
     }
 }
