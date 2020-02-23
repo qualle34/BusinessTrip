@@ -1,8 +1,8 @@
-CREATE TABLE "allowance_dictionary" (
+CREATE TABLE "allowance" (
     "id" bigserial   NOT NULL,
     "value" float8   NOT NULL,
     "country" varchar   NOT NULL,
-    CONSTRAINT "pk_allowance_dictionary" PRIMARY KEY (
+    CONSTRAINT "pk_allowance" PRIMARY KEY (
         "id"
      )
 );
@@ -46,11 +46,11 @@ CREATE TABLE "trip" (
      )
 );
 
-CREATE TABLE "allowance" (
+CREATE TABLE "member_allowance" (
     "member_id" int8   NOT NULL,
     "allowance_id" int8   NOT NULL,
     "days" int4   NOT NULL,
-    CONSTRAINT "pk_allowance" PRIMARY KEY (
+    CONSTRAINT "pk_member_allowance" PRIMARY KEY (
         "member_id","allowance_id"
      )
 );
@@ -65,29 +65,17 @@ CREATE TABLE "member" (
      )
 );
 
-CREATE TABLE "user" (
-    "id" bigserial   NOT NULL,
-    "name" varchar   NOT NULL,
-    "email" varchar   NOT NULL,
-    "login" varchar   NOT NULL,
-    "password" varchar   NOT NULL,
-    CONSTRAINT "pk_user" PRIMARY KEY (
-        "id"
-     )
-);
-
 ALTER TABLE "ticket" ADD CONSTRAINT "fk_ticket_member_id" FOREIGN KEY("member_id")
 REFERENCES "member" ("id");
 
-ALTER TABLE "allowance" ADD CONSTRAINT "fk_allowance_member_id" FOREIGN KEY("member_id")
+ALTER TABLE "member_allowance" ADD CONSTRAINT "fk_member_allowance_member_id" FOREIGN KEY("member_id")
 REFERENCES "member" ("id");
 
-ALTER TABLE "allowance" ADD CONSTRAINT "fk_allowance_allowance_id" FOREIGN KEY("allowance_id")
-REFERENCES "allowance_dictionary" ("id");
+ALTER TABLE "member_allowance" ADD CONSTRAINT "fk_member_allowance_allowance_id" FOREIGN KEY("allowance_id")
+REFERENCES "allowance" ("id");
 
 ALTER TABLE "member" ADD CONSTRAINT "fk_member_employee_id" FOREIGN KEY("employee_id")
 REFERENCES "employee" ("id");
 
 ALTER TABLE "member" ADD CONSTRAINT "fk_member_trip_id" FOREIGN KEY("trip_id")
 REFERENCES "trip" ("id");
-

@@ -1,4 +1,4 @@
-allowance_dictionary
+allowance
 -
 id bigserial pk
 value float8
@@ -38,10 +38,10 @@ status varchar
 additional_expenses float8 null
 
 
-allowance
+member_allowance
 -
 member_id int8 pk FK >- member.id
-allowance_id int8 pk FK >- allowance_dictionary.id
+allowance_id int8 pk FK >- allowance.id
 days int4
 
 
@@ -51,15 +51,6 @@ id bigserial pk
 employee_id int8 FK >- employee.id
 trip_id int8 FK >- trip.id
 role varchar 
-
-
-user
--
-id bigserial pk
-name varchar
-email varchar
-login varchar
-password varchar
 
 
 

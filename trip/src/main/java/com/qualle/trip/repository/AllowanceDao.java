@@ -8,8 +8,6 @@ public interface AllowanceDao {
 
     List<Allowance> getAll();
 
-    List<Allowance> getAllByMember(long memberId);
-
     Allowance getById(long id);
 
     void add(Allowance allowance);

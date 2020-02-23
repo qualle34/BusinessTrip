@@ -22,7 +22,7 @@ public class Member {
     private Trip trip;
 
     @OneToMany(mappedBy = "member")
-    private Set<Allowance> allowances;
+    private Set<MemberAllowance> memberAllowances;
 
     @OneToMany(mappedBy = "member")
     private Set<Ticket> tickets;
@@ -33,10 +33,10 @@ public class Member {
     public Member() {
     }
 
-    public Member(Employee employee, Trip trip, Set<Allowance> allowances, Set<Ticket> tickets, String role) {
+    public Member(Employee employee, Trip trip, Set<MemberAllowance> memberAllowances, Set<Ticket> tickets, String role) {
         this.employee = employee;
         this.trip = trip;
-        this.allowances = allowances;
+        this.memberAllowances = memberAllowances;
         this.tickets = tickets;
         this.role = role;
     }
@@ -65,12 +65,12 @@ public class Member {
         this.trip = trip;
     }
 
-    public Set<Allowance> getAllowances() {
-        return allowances;
+    public Set<MemberAllowance> getMemberAllowances() {
+        return memberAllowances;
     }
 
-    public void setAllowances(Set<Allowance> allowances) {
-        this.allowances = allowances;
+    public void setMemberAllowances(Set<MemberAllowance> memberAllowances) {
+        this.memberAllowances = memberAllowances;
     }
 
     public Set<Ticket> getTickets() {

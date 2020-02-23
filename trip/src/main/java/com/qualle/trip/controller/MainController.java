@@ -101,61 +101,33 @@ public class MainController {
 
     @FXML
     public void showAllowance(ActionEvent event) {
-        Button button = (Button) event.getSource();
-        Stage dialog = new Stage();
-
-        if (allowanceListView.getView().getScene() != null) {
-            dialog.setScene(allowanceListView.getView().getScene());
-        } else {
-            dialog.setScene(new Scene(allowanceListView.getView()));
-        }
-
-        dialog.initOwner(button.getScene().getWindow());
-        dialog.initModality(Modality.WINDOW_MODAL);
-        dialog.showAndWait();
+        showList(event, allowanceListView);
     }
 
     @FXML
     public void showTickets(ActionEvent event) {
-        Button button = (Button) event.getSource();
-        Stage dialog = new Stage();
-
-        if (ticketListView.getView().getScene() != null) {
-            dialog.setScene(ticketListView.getView().getScene());
-        } else {
-            dialog.setScene(new Scene(ticketListView.getView()));
-        }
-
-        dialog.initOwner(button.getScene().getWindow());
-        dialog.initModality(Modality.WINDOW_MODAL);
-        dialog.showAndWait();
+        showList(event, ticketListView);
     }
 
     @FXML
     public void showTrips(ActionEvent event) {
-        Button button = (Button) event.getSource();
-        Stage dialog = new Stage();
-
-        if (tripListView.getView().getScene() != null) {
-            dialog.setScene(tripListView.getView().getScene());
-        } else {
-            dialog.setScene(new Scene(tripListView.getView()));
-        }
-
-        dialog.initOwner(button.getScene().getWindow());
-        dialog.initModality(Modality.WINDOW_MODAL);
-        dialog.showAndWait();
+        showList(event, tripListView);
     }
 
     @FXML
     public void showEmployees(ActionEvent event) {
+        showList(event, employeeListView);
+    }
+
+
+    private void showList(ActionEvent event, ControllerConfig.ViewHolder viewHolder) {
         Button button = (Button) event.getSource();
         Stage dialog = new Stage();
 
-        if (employeeListView.getView().getScene() != null) {
-            dialog.setScene(employeeListView.getView().getScene());
+        if (viewHolder.getView().getScene() != null) {
+            dialog.setScene(viewHolder.getView().getScene());
         } else {
-            dialog.setScene(new Scene(employeeListView.getView()));
+            dialog.setScene(new Scene(viewHolder.getView()));
         }
 
         dialog.initOwner(button.getScene().getWindow());
@@ -166,6 +138,4 @@ public class MainController {
     @FXML
     public void goToSettings(ActionEvent event) {
     }
-
-
 }

@@ -1,19 +1,11 @@
-INSERT INTO "user"(id, name, email, login, password) values(NEXTVAL('user_id_seq'), 'Андрей', 'andrey@test.ts', 'A1n', 'user');
-INSERT INTO "user"(id, name, email, login, password) values(NEXTVAL('user_id_seq'), 'Дима', 'dima@test.ts', 'Dimmer', 'user');
-INSERT INTO "user"(id, name, email, login, password) values(NEXTVAL('user_id_seq'), 'Максим', 'maxim@test.ts', 'Maximer', 'user');
-INSERT INTO "user"(id, name, email, login, password) values(NEXTVAL('user_id_seq'), 'Лена', 'lena@test.ts', 'Vova', 'user');
-INSERT INTO "user"(id, name, email, login, password) values(NEXTVAL('user_id_seq'), 'Аня', 'anna@test.ts', 'Anna', 'user');
-INSERT INTO "user"(id, name, email, login, password) values(NEXTVAL('user_id_seq'), 'Коля', 'kola@test.ts', 'Kola', 'user');
-INSERT INTO "user"(id, name, email, login, password) values(NEXTVAL('user_id_seq'), 'Test', 'test@test.ts', 'user', 'user');       
-
-INSERT INTO allowance_dictionary(id, country, value) values(NEXTVAL('allowance_dictionary_id_seq'), 'Россия', 6);
-INSERT INTO allowance_dictionary(id, country, value) values(NEXTVAL('allowance_dictionary_id_seq'), 'Германия', 12);
-INSERT INTO allowance_dictionary(id, country, value) values(NEXTVAL('allowance_dictionary_id_seq'), 'Польша', 9);
-INSERT INTO allowance_dictionary(id, country, value) values(NEXTVAL('allowance_dictionary_id_seq'), 'Швеция', 21);
-INSERT INTO allowance_dictionary(id, country, value) values(NEXTVAL('allowance_dictionary_id_seq'), 'Китай', 16);
-INSERT INTO allowance_dictionary(id, country, value) values(NEXTVAL('allowance_dictionary_id_seq'), 'Оман', 13);
-INSERT INTO allowance_dictionary(id, country, value) values(NEXTVAL('allowance_dictionary_id_seq'), 'Беларусь', 6);
-INSERT INTO allowance_dictionary(id, country, value) values(NEXTVAL('allowance_dictionary_id_seq'), 'Тайвань', 14);
+INSERT INTO allowance(id, country, value) values(NEXTVAL('allowance_id_seq'), 'Россия', 6);
+INSERT INTO allowance(id, country, value) values(NEXTVAL('allowance_id_seq'), 'Германия', 12);
+INSERT INTO allowance(id, country, value) values(NEXTVAL('allowance_id_seq'), 'Польша', 9);
+INSERT INTO allowance(id, country, value) values(NEXTVAL('allowance_id_seq'), 'Швеция', 21);
+INSERT INTO allowance(id, country, value) values(NEXTVAL('allowance_id_seq'), 'Китай', 16);
+INSERT INTO allowance(id, country, value) values(NEXTVAL('allowance_id_seq'), 'Оман', 13);
+INSERT INTO allowance(id, country, value) values(NEXTVAL('allowance_id_seq'), 'Беларусь', 6);
+INSERT INTO allowance(id, country, value) values(NEXTVAL('allowance_id_seq'), 'Тайвань', 14);
 
 INSERT INTO employee(id, name, surname, department, birthday, email, is_relevant) values(NEXTVAL('employee_id_seq'), 'Олег', 'Тестов', 'Отдел продаж', '1979-03-06', 'olg@test.ts', 'true');
 INSERT INTO employee(id, name, surname, department, birthday, email, is_relevant) values(NEXTVAL('employee_id_seq'), 'Александр', 'Тестов', 'Отдел кадров', '1989-03-06', 'sasha@test.ts', 'true');
@@ -27,19 +19,19 @@ INSERT INTO trip(id, title, description, date_start, date_end, status, additiona
 INSERT INTO trip(id, title, description, date_start, date_end, status, additional_expenses) values(NEXTVAL('trip_id_seq'), 'Проверка производства', 'Текст...', '2020-02-12 10:10:10-10', '2020-02-23 10:10:10-10', 'IN_PROGRESS', 10);
 INSERT INTO trip(id, title, description, date_start, date_end, status, additional_expenses) values(NEXTVAL('trip_id_seq'), 'Сертификат качества', 'Текст...', '2020-02-22 10:10:10-10', '2020-02-26 10:10:10-10', 'FUTURE', 23);
 
-INSERT INTO member(id, employee_id, trip_id, role) values(1, 5, 1, 'роль');
-INSERT INTO member(id, employee_id, trip_id, role) values(2, 2, 2, 'роль');
-INSERT INTO member(id, employee_id, trip_id, role) values(3, 1, 3, 'роль');
-INSERT INTO member(id, employee_id, trip_id, role) values(4, 3, 4, 'роль');
-INSERT INTO member(id, employee_id, trip_id, role) values(5, 4, 4, 'роль');
+INSERT INTO member(id, employee_id, trip_id, role) values(NEXTVAL('member_id_seq'), 5, 1, 'роль');
+INSERT INTO member(id, employee_id, trip_id, role) values(NEXTVAL('member_id_seq'), 2, 2, 'роль');
+INSERT INTO member(id, employee_id, trip_id, role) values(NEXTVAL('member_id_seq'), 1, 3, 'роль');
+INSERT INTO member(id, employee_id, trip_id, role) values(NEXTVAL('member_id_seq'), 3, 4, 'роль');
+INSERT INTO member(id, employee_id, trip_id, role) values(NEXTVAL('member_id_seq'), 4, 4, 'роль');
 
-INSERT INTO allowance(member_id, allowance_id, days) values(1, 5, 7);
-INSERT INTO allowance(member_id, allowance_id, days) values(2, 3, 13);
-INSERT INTO allowance(member_id, allowance_id, days) values(3, 4, 12);
-INSERT INTO allowance(member_id, allowance_id, days) values(4, 5, 3);
-INSERT INTO allowance(member_id, allowance_id, days) values(4, 8, 2);
-INSERT INTO allowance(member_id, allowance_id, days) values(5, 5, 3);
-INSERT INTO allowance(member_id, allowance_id, days) values(5, 8, 2);
+INSERT INTO member_allowance(member_id, allowance_id, days) values(1, 5, 7);
+INSERT INTO member_allowance(member_id, allowance_id, days) values(2, 3, 13);
+INSERT INTO member_allowance(member_id, allowance_id, days) values(3, 4, 12);
+INSERT INTO member_allowance(member_id, allowance_id, days) values(4, 5, 3);
+INSERT INTO member_allowance(member_id, allowance_id, days) values(4, 8, 2);
+INSERT INTO member_allowance(member_id, allowance_id, days) values(5, 5, 3);
+INSERT INTO member_allowance(member_id, allowance_id, days) values(5, 8, 2);
 
 INSERT INTO ticket(id, member_id, "from", "to", date, price, type) values(NEXTVAL('ticket_id_seq'), 1, 'Беларусь', 'Германия', '2020-01-16 10:10:10-10', 450, 'TRAIN');
 INSERT INTO ticket(id, member_id, "from", "to", date, price, type) values(NEXTVAL('ticket_id_seq'), 1, 'Германия', 'Беларусь', '2020-01-22 10:10:10-10', 380, 'TRAIN');

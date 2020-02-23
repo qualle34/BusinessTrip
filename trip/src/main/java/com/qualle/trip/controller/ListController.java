@@ -103,7 +103,7 @@ public class ListController {
         if (click.getClickCount() == 2) {
             ListView listView = (ListView) click.getSource();
             Stage dialog = new Stage();
-
+            dialog.setResizable(false);
             switch (type) {
                 case ALLOWANCE:
                     try {

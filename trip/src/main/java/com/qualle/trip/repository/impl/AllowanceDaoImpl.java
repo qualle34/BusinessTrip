@@ -1,7 +1,6 @@
 package com.qualle.trip.repository.impl;
 
 import com.qualle.trip.model.entity.Allowance;
-import com.qualle.trip.model.entity.AllowanceDictionary;
 import com.qualle.trip.repository.AllowanceDao;
 import org.springframework.stereotype.Repository;
 
@@ -18,13 +17,7 @@ public class AllowanceDaoImpl implements AllowanceDao {
 
     @Override
     public List<Allowance> getAll() {
-        Query query = entityManager.createQuery("SELECT a FROM AllowanceDictionary a", AllowanceDictionary.class);
-        return query.getResultList();
-    }
-
-    @Override
-    public List<Allowance> getAllByMember(long memberId) {
-        Query query = entityManager.createQuery("SELECT a FROM AllowanceDictionary a", AllowanceDictionary.class);
+        Query query = entityManager.createQuery("SELECT a FROM Allowance a", Allowance.class);
         return query.getResultList();
     }
 
