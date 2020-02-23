@@ -35,12 +35,12 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public Ticket getById(long id) {
-        return null;
+        return ticketDao.getById(id);
     }
 
     @Override
     public TicketDto getDtoById(long id) {
-        return null;
+        return toDto(getById(id));
     }
 
     @Override

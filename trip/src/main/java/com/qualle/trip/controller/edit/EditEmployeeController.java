@@ -20,7 +20,7 @@ import java.awt.event.WindowEvent;
 
 public class EditEmployeeController {
 
-    private long employeeId;
+    private long id;
 
     @Autowired
     private EmployeeService employeeService;
@@ -52,31 +52,23 @@ public class EditEmployeeController {
     @FXML
     private ListView<TicketDto> tickets;
 
-    @FXML
-    public void initialize() {
-    }
-
-    @PostConstruct
-    public void init() {
-    }
-
     public void doApprove(ActionEvent event) {
     }
 
-    public void setEmployeeId(long employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    public void onMove(WindowEvent event) {
-        if (employeeId != 0 && event.equals(WindowEvent.WINDOW_OPENED)) {
-            EmployeeDto dto = employeeService.getDtoById(employeeId);
+    public void onShow() {
+        if (id != 0) {
+            EmployeeDto dto = employeeService.getDtoById(id);
             name.setText(dto.getName());
             surname.setText(dto.getSurname());
             department.setText(dto.getDepartment());
             email.setText(dto.getEmail());
             birthday.setValue(dto.getBirthday());
             isRelevant.setSelected(dto.isRelevant());
-            trips.setItems(FXCollections.observableArrayList(tripService.getAllSimpleDtoByEmployee(employeeId)));
+            trips.setItems(FXCollections.observableArrayList(tripService.getAllSimpleDtoByEmployee(id)));
         }
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

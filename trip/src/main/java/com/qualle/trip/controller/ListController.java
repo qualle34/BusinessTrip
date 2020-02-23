@@ -3,8 +3,9 @@ package com.qualle.trip.controller;
 import com.qualle.trip.config.ControllerConfig;
 import com.qualle.trip.controller.edit.EditAllowanceController;
 import com.qualle.trip.controller.edit.EditEmployeeController;
-import com.qualle.trip.model.dto.AllowanceDto;
-import com.qualle.trip.model.dto.EmployeeSimpleDto;
+import com.qualle.trip.controller.edit.EditTicketController;
+import com.qualle.trip.controller.edit.EditTripController;
+import com.qualle.trip.model.dto.*;
 import com.qualle.trip.service.AllowanceService;
 import com.qualle.trip.service.EmployeeService;
 import com.qualle.trip.service.TicketService;
@@ -12,6 +13,7 @@ import com.qualle.trip.service.TripService;
 import com.qualle.trip.service.enums.Type;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -19,6 +21,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -32,13 +35,13 @@ public class ListController {
     @Autowired
     private ControllerConfig.ViewHolder allowanceEditView;
 
-//    @Qualifier("ticketEditView")
-//    @Autowired
-//    private ControllerConfig.ViewHolder ticketEditView;
-//
-//    @Qualifier("tripEditView")
-//    @Autowired
-//    private ControllerConfig.ViewHolder tripEditView;
+    @Qualifier("ticketEditView")
+    @Autowired
+    private ControllerConfig.ViewHolder ticketEditView;
+
+    @Qualifier("tripEditView")
+    @Autowired
+    private ControllerConfig.ViewHolder tripEditView;
 
     @Qualifier("employeeEditView")
     @Autowired
@@ -93,10 +96,6 @@ public class ListController {
 
     }
 
-    public void setType(Type type) {
-        this.type = type;
-    }
-
     @FXML
     public void getItem(MouseEvent click) {
 
@@ -104,52 +103,42 @@ public class ListController {
             ListView listView = (ListView) click.getSource();
             Stage dialog = new Stage();
             dialog.setResizable(false);
+
             switch (type) {
                 case ALLOWANCE:
-                    try {
-                        EditAllowanceController controller = (EditAllowanceController) allowanceEditView.getController();
-                        EmployeeSimpleDto dto = (EmployeeSimpleDto) list.getSelectionModel().getSelectedItem();
-                        controller.setAllowanceId(dto.getId());
-                    } catch (NullPointerException ignore) {
-                    }
 
-                    if (allowanceEditView.getView().getScene() != null) {
+                    EditAllowanceController allowanceController = (EditAllowanceController) allowanceEditView.getController();
+                    allowanceController.setId(((AllowanceDto) list.getSelectionModel().getSelectedItem()).getId());
+                    dialog.addEventHandler(WindowEvent.WINDOW_SHOWN, window -> allowanceController.onShow());
 
-                        dialog.setScene(allowanceEditView.getView().getScene());
-                    } else {
-                        dialog.setScene(new Scene(allowanceEditView.getView()));
-                    }
+                    setScene(dialog, allowanceEditView);
                     break;
 
-//                case TICKET:
-//                    if (ticketEditView.getView().getScene() != null) {
-//                        dialog.setScene(ticketEditView.getView().getScene());
-//                    } else {
-//                        dialog.setScene(new Scene(ticketEditView.getView()));
-//                    }
-//                    break;
-//
-//                case TRIP:
-//                    if (tripEditView.getView().getScene() != null) {
-//                        dialog.setScene(tripEditView.getView().getScene());
-//                    } else {
-//                        dialog.setScene(new Scene(tripEditView.getView()));
-//                    }
-//                    break;
+                case TICKET:
+
+                    EditTicketController ticketController = (EditTicketController) ticketEditView.getController();
+                    ticketController.setId(((TicketDto) list.getSelectionModel().getSelectedItem()).getId());
+                    dialog.addEventHandler(WindowEvent.WINDOW_SHOWN, window -> ticketController.onShow());
+
+                    setScene(dialog, ticketEditView);
+                    break;
+
+                case TRIP:
+
+                    EditTripController tripController = (EditTripController) tripEditView.getController();
+                    tripController.setId(((TripSimpleDto) list.getSelectionModel().getSelectedItem()).getId());
+                    dialog.addEventHandler(WindowEvent.WINDOW_SHOWN, window -> tripController.onShow());
+
+                    setScene(dialog, tripEditView);
+                    break;
 
                 case EMPLOYEE:
-                    try {
-                        EditEmployeeController controller = (EditEmployeeController) employeeEditView.getController();
-                        EmployeeSimpleDto dto = (EmployeeSimpleDto) list.getSelectionModel().getSelectedItem();
-                        controller.setEmployeeId(dto.getId());
-                    } catch (NullPointerException ignore) {
-                    }
 
-                    if (employeeEditView.getView().getScene() != null) {
-                        dialog.setScene(employeeEditView.getView().getScene());
-                    } else {
-                        dialog.setScene(new Scene(employeeEditView.getView()));
-                    }
+                    EditEmployeeController employeeController = (EditEmployeeController) employeeEditView.getController();
+                    employeeController.setId(((EmployeeSimpleDto) list.getSelectionModel().getSelectedItem()).getId());
+                    dialog.addEventHandler(WindowEvent.WINDOW_SHOWN, window -> employeeController.onShow());
+
+                    setScene(dialog, employeeEditView);
                     break;
             }
 
@@ -157,5 +146,17 @@ public class ListController {
             dialog.initModality(Modality.WINDOW_MODAL);
             dialog.showAndWait();
         }
+    }
+
+    private void setScene(Stage dialog, ControllerConfig.ViewHolder viewHolder) {
+        if (viewHolder.getView().getScene() != null) {
+            dialog.setScene(viewHolder.getView().getScene());
+        } else {
+            dialog.setScene(new Scene(viewHolder.getView()));
+        }
+    }
+
+    public void setType(Type type) {
+        this.type = type;
     }
 }

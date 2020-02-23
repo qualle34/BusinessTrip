@@ -2,7 +2,7 @@ package com.qualle.trip.model.dto;
 
 public class EmployeeSimpleDto {
 
-    private Long id;
+    private long id;
     private String name;
     private String surname;
     private String email;
@@ -16,11 +16,11 @@ public class EmployeeSimpleDto {
         this.email = email;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

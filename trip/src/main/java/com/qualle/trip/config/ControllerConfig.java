@@ -4,6 +4,8 @@ import com.qualle.trip.controller.ListController;
 import com.qualle.trip.controller.MainController;
 import com.qualle.trip.controller.edit.EditAllowanceController;
 import com.qualle.trip.controller.edit.EditEmployeeController;
+import com.qualle.trip.controller.edit.EditTicketController;
+import com.qualle.trip.controller.edit.EditTripController;
 import com.qualle.trip.service.enums.Type;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -81,15 +83,15 @@ public class ControllerConfig {
         return loadView("templates/allowance_edit.fxml");
     }
 
-//    @Bean(name = "ticketEditView")
-//    public ViewHolder getTicketEditView() throws IOException {
-//        return loadView("templates/ticket_edit.fxml");
-//    }
-//
-//    @Bean(name = "tripEditView")
-//    public ViewHolder getTripEditView() throws IOException {
-//        return loadView("templates/trip_edit.fxml");
-//    }
+    @Bean(name = "ticketEditView")
+    public ViewHolder getTicketEditView() throws IOException {
+        return loadView("templates/ticket_edit.fxml");
+    }
+
+    @Bean(name = "tripEditView")
+    public ViewHolder getTripEditView() throws IOException {
+        return loadView("templates/trip_edit.fxml");
+    }
 
     @Bean(name = "employeeEditView")
     public ViewHolder getEmployeeEditView() throws IOException {
@@ -134,15 +136,15 @@ public class ControllerConfig {
         return (EditAllowanceController) getAllowanceEditView().getController();
     }
 
-//    @Bean
-//    public EditTicketController getTicketEditController() throws IOException {
-//        return (EditTicketController) getTicketEditView().getController();
-//    }
+    @Bean
+    public EditTicketController getTicketEditController() throws IOException {
+        return (EditTicketController) getTicketEditView().getController();
+    }
 
-//    @Bean
-//    public EditTripController getTripEditController() throws IOException {
-//        return (EditTripController) getTripEditView().getController();
-//    }
+    @Bean
+    public EditTripController getTripEditController() throws IOException {
+        return (EditTripController) getTripEditView().getController();
+    }
 
     @Bean
     public EditEmployeeController getEmployeeEditController() throws IOException {
