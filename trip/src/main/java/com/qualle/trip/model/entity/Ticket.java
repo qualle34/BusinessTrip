@@ -1,5 +1,7 @@
 package com.qualle.trip.model.entity;
 
+import com.qualle.trip.model.enums.TicketType;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -25,6 +27,10 @@ public class Ticket {
 
     @Column(name = "price")
     private double price;
+
+    @Column(name = "type")
+    @Enumerated(EnumType.STRING)
+    private TicketType type;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
@@ -80,16 +86,19 @@ public class Ticket {
         this.price = price;
     }
 
+    public TicketType getType() {
+        return type;
+    }
+
+    public void setType(TicketType type) {
+        this.type = type;
+    }
+
     public Member getMember() {
         return member;
     }
 
     public void setMember(Member member) {
         this.member = member;
-    }
-
-    @Override
-    public String toString() {
-        return id + " " + from + " " + to + " " + date + " " + price;
     }
 }

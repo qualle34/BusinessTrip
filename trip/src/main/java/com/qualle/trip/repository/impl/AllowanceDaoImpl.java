@@ -22,6 +22,13 @@ public class AllowanceDaoImpl implements AllowanceDao {
     }
 
     @Override
+    public List<Allowance> getByCountry(String country) {
+        Query query = entityManager.createQuery("SELECT a FROM Allowance a WHERE lower(a.country) like lower(concat('%', :country,'%'))");
+        query.setParameter("country", country);
+        return query.getResultList();
+    }
+
+    @Override
     public Allowance getById(long id) {
         return entityManager.find(Allowance.class, id);
     }

@@ -5,7 +5,10 @@ import com.qualle.trip.controller.edit.EditAllowanceController;
 import com.qualle.trip.controller.edit.EditEmployeeController;
 import com.qualle.trip.controller.edit.EditTicketController;
 import com.qualle.trip.controller.edit.EditTripController;
-import com.qualle.trip.model.dto.*;
+import com.qualle.trip.model.dto.AllowanceDto;
+import com.qualle.trip.model.dto.EmployeeSimpleDto;
+import com.qualle.trip.model.dto.TicketDto;
+import com.qualle.trip.model.dto.TripSimpleDto;
 import com.qualle.trip.service.AllowanceService;
 import com.qualle.trip.service.EmployeeService;
 import com.qualle.trip.service.TicketService;
@@ -13,11 +16,12 @@ import com.qualle.trip.service.TripService;
 import com.qualle.trip.service.enums.Type;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -63,6 +67,9 @@ public class ListController {
     private ListView<Object> list;
 
     @FXML
+    private TextField search;
+
+    @FXML
     private Label pageTitle;
 
     @FXML
@@ -94,6 +101,33 @@ public class ListController {
     @FXML
     public void add(ActionEvent event) {
 
+    }
+
+    @FXML
+    public void doSearch(KeyEvent event) {
+
+        switch (type) {
+            case ALLOWANCE:
+                list.setItems(FXCollections.observableArrayList(search.getText().isEmpty()
+                        ? allowanceService.getAllDto()
+                        : allowanceService.getDtoByCountry(search.getText())));
+                break;
+            case TICKET:
+                list.setItems(FXCollections.observableArrayList(search.getText().isEmpty()
+                        ? ticketService.getAllDto()
+                        : ticketService.getDtoByLocation(search.getText())));
+                break;
+            case TRIP:
+                list.setItems(FXCollections.observableArrayList(search.getText().isEmpty()
+                        ? tripService.getAllSimpleDto()
+                        : tripService.getSimpleDtoByTitle(search.getText())));
+                break;
+            case EMPLOYEE:
+                list.setItems(FXCollections.observableArrayList(search.getText().isEmpty()
+                        ? employeeService.getAllDto()
+                        : employeeService.getSimpleDtoByName(search.getText())));
+                break;
+        }
     }
 
     @FXML

@@ -1,5 +1,7 @@
 package com.qualle.trip.model.dto;
 
+import com.qualle.trip.model.enums.TicketType;
+
 import java.util.Date;
 
 public class TicketDto {
@@ -9,15 +11,17 @@ public class TicketDto {
     private String to;
     private Date date;
     private double price;
+    private TicketType type;
 
     public TicketDto() {
     }
 
-    public TicketDto(String from, String to, Date date, double price) {
+    public TicketDto(String from, String to, Date date, double price, TicketType type) {
         this.from = from;
         this.to = to;
         this.date = date;
         this.price = price;
+        this.type = type;
     }
 
     public long getId() {
@@ -60,8 +64,16 @@ public class TicketDto {
         this.price = price;
     }
 
+    public TicketType getType() {
+        return type;
+    }
+
+    public void setType(TicketType type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
-        return from + " - " + to + ", " + date.toString();
+        return id + " - " + from + " - " + to + ", " + date.toString();
     }
 }

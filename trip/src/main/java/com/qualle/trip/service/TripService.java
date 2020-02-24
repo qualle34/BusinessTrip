@@ -20,6 +20,8 @@ public interface TripService {
 
     TripSimpleDto getSimpleDtoById(long id);
 
+    List<TripSimpleDto> getSimpleDtoByTitle(String title);
+
     TripDto toDto(Trip trip);
 
     TripSimpleDto toSimpleDto(Trip trip);

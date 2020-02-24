@@ -5,13 +5,15 @@ public class AllowanceDto {
     private long id;
     private String country;
     private double value;
+    private String currency;
 
     public AllowanceDto() {
     }
 
-    public AllowanceDto(String country, double value) {
+    public AllowanceDto(String country, double value, String currency) {
         this.country = country;
         this.value = value;
+        this.currency = currency;
     }
 
     public long getId() {
@@ -38,8 +40,16 @@ public class AllowanceDto {
         this.value = value;
     }
 
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
     @Override
     public String toString() {
-        return country;
+        return id + " - " + country;
     }
 }

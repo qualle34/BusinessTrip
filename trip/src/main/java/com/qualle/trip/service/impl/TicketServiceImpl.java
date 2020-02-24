@@ -30,7 +30,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public List<TicketDto> getAllDtoByMember(long memberId) {
-        return toDtoArray(ticketDao.getAllByMember(memberId));
+        return toDtoArray(ticketDao.getByMember(memberId));
     }
 
     @Override
@@ -41,6 +41,11 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public TicketDto getDtoById(long id) {
         return toDto(getById(id));
+    }
+
+    @Override
+    public List<TicketDto> getDtoByLocation(String location) {
+        return toDtoArray(ticketDao.getByLocation(location));
     }
 
     @Override
@@ -60,7 +65,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public TicketDto toDto(Ticket ticket) {
-        TicketDto dto = new TicketDto(ticket.getFrom(), ticket.getTo(), ticket.getDate(), ticket.getPrice());
+        TicketDto dto = new TicketDto(ticket.getFrom(), ticket.getTo(), ticket.getDate(), ticket.getPrice(), ticket.getType());
         dto.setId(ticket.getId());
         return dto;
     }

@@ -8,7 +8,9 @@ public interface TripDao {
 
     List<Trip> getAll();
 
-    List<Trip> getAllByEmployee(long employeeId);
+    List<Trip> getByEmployee(long employeeId);
+
+    List<Trip> getByTitle(String title);
 
     Trip getById(long id);
 }

@@ -29,7 +29,7 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public List<TripSimpleDto> getAllSimpleDtoByEmployee(long employeeId) {
-        return toSimpleDtoArray(tripDao.getAllByEmployee(employeeId));
+        return toSimpleDtoArray(tripDao.getByEmployee(employeeId));
     }
 
     @Override
@@ -45,6 +45,11 @@ public class TripServiceImpl implements TripService {
     @Override
     public TripSimpleDto getSimpleDtoById(long id) {
         return toSimpleDto(getById(id));
+    }
+
+    @Override
+    public List<TripSimpleDto> getSimpleDtoByTitle(String title) {
+        return toSimpleDtoArray(tripDao.getByTitle(title));
     }
 
     @Override

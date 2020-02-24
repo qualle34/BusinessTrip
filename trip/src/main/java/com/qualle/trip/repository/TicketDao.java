@@ -8,7 +8,9 @@ public interface TicketDao {
 
     List<Ticket> getAll();
 
-    List<Ticket> getAllByMember(long memberId);
+    List<Ticket> getByMember(long memberId);
+
+    List<Ticket> getByLocation(String location);
 
     Ticket getById(long id);
 

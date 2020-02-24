@@ -1,5 +1,6 @@
 package com.qualle.trip.repository.impl;
 
+import com.qualle.trip.model.entity.Employee;
 import com.qualle.trip.model.entity.Trip;
 import com.qualle.trip.repository.TripDao;
 import org.springframework.stereotype.Repository;
@@ -22,9 +23,16 @@ public class TripDaoImpl implements TripDao {
     }
 
     @Override
-    public List<Trip> getAllByEmployee(long employeeId) {
+    public List<Trip> getByEmployee(long employeeId) {
         Query query = entityManager.createQuery("SELECT t FROM Trip t INNER JOIN t.members m JOIN m.employee e WHERE e.id = :employeeId", Trip.class);
         query.setParameter("employeeId", employeeId);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Trip> getByTitle(String title) {
+        Query query = entityManager.createQuery("SELECT t FROM Trip t WHERE lower(t.title) like lower(concat('%', :title,'%'))", Trip.class);
+        query.setParameter("title", title);
         return query.getResultList();
     }
 

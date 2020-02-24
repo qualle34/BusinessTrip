@@ -22,6 +22,8 @@ public interface EmployeeService {
 
     EmployeeDto getDtoById(long id);
 
+    List<EmployeeSimpleDto> getSimpleDtoByName(String name);
+
     void add(Employee employee);
 
     void update(Employee employee);

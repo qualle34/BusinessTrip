@@ -48,6 +48,11 @@ public class AllowanceServiceImpl implements AllowanceService {
     }
 
     @Override
+    public List<AllowanceDto> getDtoByCountry(String country) {
+        return toDtoArray(allowanceDao.getByCountry(country));
+    }
+
+    @Override
     public void add(MemberAllowance memberAllowance) {
         memberAllowanceDao.add(memberAllowance);
     }
@@ -74,16 +79,14 @@ public class AllowanceServiceImpl implements AllowanceService {
 
     @Override
     public AllowanceDto toDto(Allowance allowance) {
-        AllowanceDto dto = new AllowanceDto(allowance.getCountry(), allowance.getValue());
+        AllowanceDto dto = new AllowanceDto(allowance.getCountry(), allowance.getValue(), allowance.getCurrency());
         dto.setId(allowance.getId());
         return dto;
     }
 
     @Override
     public MemberAllowanceDto toMemberDto(MemberAllowance memberAllowance) {
-        MemberAllowanceDto dto = new MemberAllowanceDto(memberAllowance.getDictionary().getCountry(), memberAllowance.getDictionary().getValue(), memberAllowance.getDays());
-        dto.setId(0);
-        return dto;
+        return new MemberAllowanceDto(memberAllowance.getAllowance().getCountry(), memberAllowance.getAllowance().getValue(),  memberAllowance.getAllowance().getCurrency(), memberAllowance.getDays());
     }
 
     @Override

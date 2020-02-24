@@ -10,7 +10,7 @@ public class Allowance {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "allowance_seq")
-    @SequenceGenerator(name = "allowance_dictionary_seq", sequenceName = "allowance_dictionary_id_seq", allocationSize = 1)
+    @SequenceGenerator(name = "allowance_seq", sequenceName = "allowance_id_seq", allocationSize = 1)
     private Long id;
 
     @Column(name = "value")
@@ -19,15 +19,19 @@ public class Allowance {
     @Column(name = "country")
     private String country;
 
-    @OneToMany(mappedBy = "dictionary")
+    @Column(name = "currency")
+    private String currency;
+
+    @OneToMany(mappedBy = "allowance")
     private Set<MemberAllowance> memberAllowances;
 
     public Allowance() {
     }
 
-    public Allowance(double value, String country) {
+    public Allowance(double value, String country, String currency) {
         this.value = value;
         this.country = country;
+        this.currency = currency;
     }
 
     public Long getId() {
@@ -54,16 +58,19 @@ public class Allowance {
         this.country = country;
     }
 
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
     public Set<MemberAllowance> getMemberAllowances() {
         return memberAllowances;
     }
 
     public void setMemberAllowances(Set<MemberAllowance> memberAllowances) {
         this.memberAllowances = memberAllowances;
-    }
-
-    @Override
-    public String toString() {
-        return id + " " + value + " " + country;
     }
 }

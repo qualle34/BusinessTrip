@@ -50,6 +50,6 @@ public class EmployeeSimpleDto {
 
     @Override
     public String toString() {
-        return surname + " " + name;
+        return id + " - " + surname + " " + name;
     }
 }

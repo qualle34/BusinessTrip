@@ -1,6 +1,6 @@
-DROP TABLE "member_allowance";
-DROP TABLE "ticket";
-DROP TABLE "member";
-DROP TABLE "trip";
-DROP TABLE "employee";
-DROP TABLE "allowance";
+DROP TABLE "member_allowance" CASCADE;
+DROP TABLE "ticket" CASCADE;
+DROP TABLE "member" CASCADE;
+DROP TABLE "trip" CASCADE;
+DROP TABLE "employee" CASCADE;
+DROP TABLE "allowance" CASCADE;

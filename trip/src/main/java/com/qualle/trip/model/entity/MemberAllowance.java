@@ -10,7 +10,7 @@ public class MemberAllowance implements Serializable {
     @Id
     @ManyToOne
     @JoinColumn(name = "allowance_id")
-    private Allowance dictionary;
+    private Allowance allowance;
 
     @Id
     @ManyToOne
@@ -23,12 +23,18 @@ public class MemberAllowance implements Serializable {
     public MemberAllowance() {
     }
 
-    public Allowance getDictionary() {
-        return dictionary;
+    public MemberAllowance(Allowance allowance, Member member, int days) {
+        this.allowance = allowance;
+        this.member = member;
+        this.days = days;
     }
 
-    public void setDictionary(Allowance dictionary) {
-        this.dictionary = dictionary;
+    public Allowance getAllowance() {
+        return allowance;
+    }
+
+    public void setAllowance(Allowance allowance) {
+        this.allowance = allowance;
     }
 
     public Member getMember() {
@@ -45,10 +51,5 @@ public class MemberAllowance implements Serializable {
 
     public void setDays(int days) {
         this.days = days;
-    }
-
-    @Override
-    public String toString() {
-        return String.valueOf(days);
     }
 }

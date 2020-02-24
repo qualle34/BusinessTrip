@@ -29,9 +29,6 @@ public class Employee {
     @Column(name = "birthday")
     private LocalDate birthday;
 
-    @Column(name = "is_relevant")
-    private boolean isRelevant;
-
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
     private Set<Member> members;
 
@@ -94,25 +91,12 @@ public class Employee {
         this.birthday = birthday;
     }
 
-    public boolean isRelevant() {
-        return isRelevant;
-    }
-
-    public void setRelevant(boolean relevant) {
-        isRelevant = relevant;
-    }
-
     public Set<Member> getMembers() {
         return members;
     }
 
     public void setMembers(Set<Member> members) {
         this.members = members;
-    }
-
-    @Override
-    public String toString() {
-        return id + " " + name + " " + email + " " + surname + " " + department;
     }
 }
 

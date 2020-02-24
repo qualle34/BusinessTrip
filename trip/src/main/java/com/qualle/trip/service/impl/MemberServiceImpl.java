@@ -7,6 +7,7 @@ import com.qualle.trip.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,17 +18,17 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public List<MemberDto> getAllDto() {
-        return null;
+        return toDtoArray(memberDao.getAll());
     }
 
     @Override
     public Member getById(long id) {
-        return null;
+        return memberDao.getById(id);
     }
 
     @Override
     public MemberDto getDtoById(long id) {
-        return null;
+        return toDto(getById(id));
     }
 
     @Override
@@ -46,12 +47,16 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public MemberDto toDto() {
-        return null;
+    public MemberDto toDto(Member member) {
+        return new MemberDto();
     }
 
     @Override
-    public List<MemberDto> toDtoArray() {
-        return null;
+    public List<MemberDto> toDtoArray(List<Member> members) {
+        List<MemberDto> dto = new ArrayList<>();
+        for (Member member : members) {
+            dto.add(toDto(member));
+        }
+        return dto;
     }
 }

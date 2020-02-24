@@ -19,6 +19,8 @@ public interface AllowanceService {
 
     AllowanceDto getDtoById(long id);
 
+    List<AllowanceDto> getDtoByCountry(String name);
+
     void add(MemberAllowance memberAllowance);
 
     void add(Allowance allowance);

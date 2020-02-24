@@ -2,6 +2,7 @@ CREATE TABLE "allowance" (
     "id" bigserial   NOT NULL,
     "value" float8   NOT NULL,
     "country" varchar   NOT NULL,
+    "currency" varchar   NOT NULL,
     CONSTRAINT "pk_allowance" PRIMARY KEY (
         "id"
      )
@@ -14,7 +15,6 @@ CREATE TABLE "employee" (
     "department" varchar   NULL,
     "birthday" date   NULL,
     "email" varchar   NOT NULL,
-    "is_relevant" bool   NULL,
     CONSTRAINT "pk_employee" PRIMARY KEY (
         "id"
      )
@@ -36,10 +36,10 @@ CREATE TABLE "ticket" (
 CREATE TABLE "trip" (
     "id" bigserial   NOT NULL,
     "title" varchar   NOT NULL,
+    "place" varchar   NOT NULL,
     "description" varchar   NULL,
     "date_start" timestamp   NULL,
     "date_end" timestamp   NULL,
-    "status" varchar   NOT NULL,
     "additional_expenses" float8   NULL,
     CONSTRAINT "pk_trip" PRIMARY KEY (
         "id"
@@ -79,3 +79,4 @@ REFERENCES "employee" ("id");
 
 ALTER TABLE "member" ADD CONSTRAINT "fk_member_trip_id" FOREIGN KEY("trip_id")
 REFERENCES "trip" ("id");
+

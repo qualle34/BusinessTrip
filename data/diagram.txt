@@ -3,6 +3,7 @@ allowance
 id bigserial pk
 value float8
 country varchar
+currency varchar
 
 
 employee
@@ -13,8 +14,6 @@ surname varchar null
 department varchar null
 birthday date null
 email varchar
-is_relevant bool null
-
 
 ticket
 -
@@ -31,10 +30,10 @@ trip
 -
 id bigserial pk
 title varchar
+place varchar
 description varchar null
 date_start timestamp null
 date_end timestamp null
-status varchar
 additional_expenses float8 null
 
 
@@ -51,7 +50,3 @@ id bigserial pk
 employee_id int8 FK >- employee.id
 trip_id int8 FK >- trip.id
 role varchar 
-
-
-
-

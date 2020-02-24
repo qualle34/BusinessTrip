@@ -19,7 +19,7 @@ public interface MemberService {
 
     void delete(long id);
 
-    MemberDto toDto();
+    MemberDto toDto(Member member);
 
-    List<MemberDto> toDtoArray();
+    List<MemberDto> toDtoArray(List<Member> members);
 }

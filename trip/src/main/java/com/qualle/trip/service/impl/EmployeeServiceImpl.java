@@ -34,12 +34,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<EmployeeSimpleDto> getAllSimpleDtoByTrip() {
-        return toSimpleDtoArray(employeeDao.getAllByTrip());
+        return toSimpleDtoArray(employeeDao.getByTrip());
     }
 
     @Override
     public List<EmployeeSimpleDto> getAllSimpleDtoByTrip(long tripId) {
-        return toSimpleDtoArray(employeeDao.getAllByTrip(tripId));
+        return toSimpleDtoArray(employeeDao.getByTrip(tripId));
     }
 
     @Override
@@ -50,6 +50,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public EmployeeDto getDtoById(long id) {
         return toDto(getById(id));
+    }
+
+    @Override
+    public List<EmployeeSimpleDto> getSimpleDtoByName(String name) {
+        return toSimpleDtoArray(employeeDao.getByName(name));
     }
 
     @Override
@@ -69,7 +74,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto toDto(Employee employee) {
-        EmployeeDto dto = new EmployeeDto(employee.getName(), employee.getSurname(), employee.getEmail(), employee.getDepartment(), employee.getBirthday(), employee.isRelevant());
+        EmployeeDto dto = new EmployeeDto(employee.getName(), employee.getSurname(), employee.getEmail(), employee.getDepartment(), employee.getBirthday());
         dto.setId(employee.getId());
         return dto;
     }

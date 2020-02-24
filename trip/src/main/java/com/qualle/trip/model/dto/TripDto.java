@@ -14,6 +14,7 @@ public class TripDto {
     private String from;
     private String to;
     private double expenses;
+    private String status;
     private List<EmployeeDto> members;
     private Map<String, List<TicketDto>> tickets;
     private Map<String, List<AllowanceDto>> allowances;
@@ -91,6 +92,14 @@ public class TripDto {
 
     public void setExpenses(double expenses) {
         this.expenses = expenses;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public List<EmployeeDto> getMembers() {

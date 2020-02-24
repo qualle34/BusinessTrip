@@ -12,11 +12,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.annotation.PostConstruct;
-import java.awt.event.WindowEvent;
 
 public class EditEmployeeController {
 
@@ -44,9 +40,6 @@ public class EditEmployeeController {
     private DatePicker birthday;
 
     @FXML
-    private CheckBox isRelevant;
-
-    @FXML
     private ListView<TripSimpleDto> trips;
 
     @FXML
@@ -63,7 +56,6 @@ public class EditEmployeeController {
             department.setText(dto.getDepartment());
             email.setText(dto.getEmail());
             birthday.setValue(dto.getBirthday());
-            isRelevant.setSelected(dto.isRelevant());
             trips.setItems(FXCollections.observableArrayList(tripService.getAllSimpleDtoByEmployee(id)));
         }
     }

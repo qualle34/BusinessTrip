@@ -1,7 +1,6 @@
 package com.qualle.trip.service;
 
 import com.qualle.trip.model.dto.TicketDto;
-import com.qualle.trip.model.entity.Member;
 import com.qualle.trip.model.entity.Ticket;
 
 import java.util.List;
@@ -17,6 +16,8 @@ public interface TicketService {
     Ticket getById(long id);
 
     TicketDto getDtoById(long id);
+
+    List<TicketDto> getDtoByLocation(String location);
 
     void add(Ticket ticket);
 

@@ -1,7 +1,5 @@
 package com.qualle.trip.model.entity;
 
-import com.qualle.trip.model.enums.TripStatus;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -22,6 +20,9 @@ public class Trip {
     @Column(name="description")
     private String description;
 
+    @Column(name="place")
+    private String place;
+
     @Column(name = "date_start")
     @Temporal(TemporalType.TIMESTAMP)
     private Date start;
@@ -29,10 +30,6 @@ public class Trip {
     @Column(name = "date_end")
     @Temporal(TemporalType.TIMESTAMP)
     private Date end;
-
-    @Column(name = "status")
-    @Enumerated(EnumType.STRING)
-    private TripStatus status;
 
     @Column(name = "additional_expenses")
     private double additionalExpenses;
@@ -43,17 +40,10 @@ public class Trip {
     public Trip() {
     }
 
-    public Trip(String title, String description) {
+    public Trip(String title, String description, String place) {
         this.title = title;
         this.description = description;
-    }
-
-    public Trip(Long id, Date start, Date end, TripStatus status, Set<Member> members) {
-        this.id = id;
-        this.start = start;
-        this.end = end;
-        this.status = status;
-        this.members = members;
+        this.place = place;
     }
 
     public Long getId() {
@@ -80,6 +70,14 @@ public class Trip {
         this.description = description;
     }
 
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
     public Date getStart() {
         return start;
     }
@@ -96,14 +94,6 @@ public class Trip {
         this.end = end;
     }
 
-    public TripStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(TripStatus status) {
-        this.status = status;
-    }
-
     public double getAdditionalExpenses() {
         return additionalExpenses;
     }
@@ -118,10 +108,5 @@ public class Trip {
 
     public void setMembers(Set<Member> members) {
         this.members = members;
-    }
-
-    @Override
-    public String toString() {
-        return id + " " + title + " " + description;
     }
 }

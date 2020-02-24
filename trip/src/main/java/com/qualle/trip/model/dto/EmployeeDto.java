@@ -10,18 +10,16 @@ public class EmployeeDto {
     private String email;
     private String department;
     private LocalDate birthday;
-    private boolean isRelevant;
 
     public EmployeeDto() {
     }
 
-    public EmployeeDto(String name, String surname, String email, String department, LocalDate birthday, boolean isRelevant) {
+    public EmployeeDto(String name, String surname, String email, String department, LocalDate birthday) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.department = department;
         this.birthday = birthday;
-        this.isRelevant = isRelevant;
     }
 
     public Long getId() {
@@ -72,11 +70,8 @@ public class EmployeeDto {
         this.birthday = birthday;
     }
 
-    public boolean isRelevant() {
-        return isRelevant;
-    }
-
-    public void setRelevant(boolean relevant) {
-        isRelevant = relevant;
+    @Override
+    public String toString() {
+        return id + " - " + surname + " " + name;
     }
 }
