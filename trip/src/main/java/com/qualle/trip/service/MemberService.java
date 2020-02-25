@@ -3,6 +3,7 @@ package com.qualle.trip.service;
 import com.qualle.trip.model.dto.MemberDto;
 import com.qualle.trip.model.entity.Member;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface MemberService {
@@ -13,6 +14,8 @@ public interface MemberService {
 
     MemberDto getDtoById(long id);
 
+    MemberDto getFullDtoById(long id);
+
     void add(Member member);
 
     void update(Member member);
@@ -21,5 +24,5 @@ public interface MemberService {
 
     MemberDto toDto(Member member);
 
-    List<MemberDto> toDtoArray(List<Member> members);
+    List<MemberDto> toDtoArray(Collection<Member> members);
 }

@@ -10,6 +10,8 @@ public interface MemberDao {
 
     Member getById(long id);
 
+    Member getFullById(long id);
+
     void add(Member member);
 
     void update(Member member);

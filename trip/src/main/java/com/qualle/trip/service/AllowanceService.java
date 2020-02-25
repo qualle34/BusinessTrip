@@ -5,6 +5,7 @@ import com.qualle.trip.model.dto.MemberAllowanceDto;
 import com.qualle.trip.model.entity.MemberAllowance;
 import com.qualle.trip.model.entity.Allowance;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface AllowanceService {
@@ -23,11 +24,11 @@ public interface AllowanceService {
 
     void add(MemberAllowance memberAllowance);
 
-    void add(Allowance allowance);
+    void add(AllowanceDto dto);
 
     void update(MemberAllowance memberAllowance);
 
-    void update(Allowance allowance);
+    void update(AllowanceDto dto);
 
     void delete(long id);
 
@@ -35,7 +36,7 @@ public interface AllowanceService {
 
     MemberAllowanceDto toMemberDto(MemberAllowance memberAllowance);
 
-    List<AllowanceDto> toDtoArray(List<Allowance> allowances);
+    List<AllowanceDto> toDtoArray(Collection<Allowance> allowances);
 
-    List<MemberAllowanceDto> toMemberDtoArray(List<MemberAllowance> memberAllowances);
+    List<MemberAllowanceDto> toMemberDtoArray(Collection<MemberAllowance> memberAllowances);
 }

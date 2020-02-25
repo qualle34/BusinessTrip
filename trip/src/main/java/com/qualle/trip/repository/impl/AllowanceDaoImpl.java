@@ -35,12 +35,12 @@ public class AllowanceDaoImpl implements AllowanceDao {
 
     @Override
     public void add(Allowance allowance) {
-
+        entityManager.persist(allowance);
     }
 
     @Override
     public void update(Allowance allowance) {
-
+        entityManager.merge(allowance);
     }
 
     @Override

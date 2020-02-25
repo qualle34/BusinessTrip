@@ -1,9 +1,11 @@
 package com.qualle.trip.service;
 
 import com.qualle.trip.model.dto.TripDto;
+import com.qualle.trip.model.dto.TripFullDto;
 import com.qualle.trip.model.dto.TripSimpleDto;
 import com.qualle.trip.model.entity.Trip;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface TripService {
@@ -22,11 +24,13 @@ public interface TripService {
 
     List<TripSimpleDto> getSimpleDtoByTitle(String title);
 
+    TripFullDto getFullDtoById(long id);
+
     TripDto toDto(Trip trip);
 
     TripSimpleDto toSimpleDto(Trip trip);
 
-    List<TripDto> toDtoArray(List<Trip> trips);
+    List<TripDto> toDtoArray(Collection<Trip> trips);
 
-    List<TripSimpleDto> toSimpleDtoArray(List<Trip> trips);
+    List<TripSimpleDto> toSimpleDtoArray(Collection<Trip> trips);
 }

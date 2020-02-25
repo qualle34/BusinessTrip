@@ -5,18 +5,21 @@ import java.util.List;
 public class MemberDto {
 
     private long id;
+    private double allowanceExpenses;
+    private double ticketsExpenses;
     private EmployeeDto employee;
-    private TripDto tripDto;
+    private TripDto trip;
     private List<MemberAllowanceDto> allowances;
     private List<TicketDto> tickets;
 
     public MemberDto() {
     }
 
-    public MemberDto(long id, EmployeeDto employee, TripDto tripDto, List<MemberAllowanceDto> allowances, List<TicketDto> tickets) {
-        this.id = id;
+    public MemberDto(double allowanceExpenses, double ticketsExpenses, EmployeeDto employee, TripDto trip, List<MemberAllowanceDto> allowances, List<TicketDto> tickets) {
+        this.allowanceExpenses = allowanceExpenses;
+        this.ticketsExpenses = ticketsExpenses;
         this.employee = employee;
-        this.tripDto = tripDto;
+        this.trip = trip;
         this.allowances = allowances;
         this.tickets = tickets;
     }
@@ -29,6 +32,22 @@ public class MemberDto {
         this.id = id;
     }
 
+    public double getAllowanceExpenses() {
+        return allowanceExpenses;
+    }
+
+    public void setAllowanceExpenses(double allowanceExpenses) {
+        this.allowanceExpenses = allowanceExpenses;
+    }
+
+    public double getTicketsExpenses() {
+        return ticketsExpenses;
+    }
+
+    public void setTicketsExpenses(double ticketsExpenses) {
+        this.ticketsExpenses = ticketsExpenses;
+    }
+
     public EmployeeDto getEmployee() {
         return employee;
     }
@@ -37,12 +56,12 @@ public class MemberDto {
         this.employee = employee;
     }
 
-    public TripDto getTripDto() {
-        return tripDto;
+    public TripDto getTrip() {
+        return trip;
     }
 
-    public void setTripDto(TripDto tripDto) {
-        this.tripDto = tripDto;
+    public void setTrip(TripDto trip) {
+        this.trip = trip;
     }
 
     public List<MemberAllowanceDto> getAllowances() {
@@ -59,5 +78,10 @@ public class MemberDto {
 
     public void setTickets(List<TicketDto> tickets) {
         this.tickets = tickets;
+    }
+
+    @Override
+    public String toString() {
+        return employee.toString();
     }
 }

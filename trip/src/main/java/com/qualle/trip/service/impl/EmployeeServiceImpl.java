@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -87,7 +88,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<EmployeeDto> toDtoArray(List<Employee> employees) {
+    public List<EmployeeDto> toDtoArray(Collection<Employee> employees) {
         List<EmployeeDto> dto = new ArrayList<>();
         for (Employee employee : employees) {
             dto.add(toDto(employee));
@@ -96,7 +97,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<EmployeeSimpleDto> toSimpleDtoArray(List<Employee> employees) {
+    public List<EmployeeSimpleDto> toSimpleDtoArray(Collection<Employee> employees) {
         List<EmployeeSimpleDto> dto = new ArrayList<>();
         for (Employee employee : employees) {
             dto.add(toSimpleDto(employee));

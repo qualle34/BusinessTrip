@@ -1,6 +1,5 @@
 package com.qualle.trip.repository.impl;
 
-import com.qualle.trip.model.entity.Employee;
 import com.qualle.trip.model.entity.Trip;
 import com.qualle.trip.repository.TripDao;
 import org.springframework.stereotype.Repository;
@@ -39,5 +38,19 @@ public class TripDaoImpl implements TripDao {
     @Override
     public Trip getById(long id) {
         return entityManager.find(Trip.class, id);
+    }
+
+    @Override
+    public Trip getFullById(long id) {
+        Query query = entityManager.createQuery(
+                "SELECT t FROM Trip t " +
+                "LEFT JOIN FETCH t.members m " +
+                "INNER JOIN FETCH m.employee " +
+                "INNER JOIN FETCH m.memberAllowances a " +
+                "INNER JOIN FETCH a.allowance " +
+                "LEFT JOIN FETCH m.tickets " +
+                "WHERE t.id = :id", Trip.class);
+        query.setParameter("id", id);
+        return (Trip) query.getSingleResult();
     }
 }

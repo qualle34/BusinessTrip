@@ -18,13 +18,13 @@ public class MemberAllowanceDaoImpl implements MemberAllowanceDao {
 
     @Override
     public List<MemberAllowance> getAll() {
-        Query query = entityManager.createQuery("SELECT a FROM AllowanceDictionary a", Allowance.class);
+        Query query = entityManager.createQuery("SELECT a FROM Allowance a", Allowance.class);
         return query.getResultList();
     }
 
     @Override
     public List<MemberAllowance> getAllByMember(long memberId) {
-        Query query = entityManager.createQuery("SELECT a FROM AllowanceDictionary a", Allowance.class);
+        Query query = entityManager.createQuery("SELECT a FROM Allowance a", Allowance.class);
         return query.getResultList();
     }
 

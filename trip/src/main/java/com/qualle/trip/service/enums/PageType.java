@@ -1,6 +1,6 @@
 package com.qualle.trip.service.enums;
 
-public enum Type {
+public enum PageType {
 
     TRIP,
     EMPLOYEE,

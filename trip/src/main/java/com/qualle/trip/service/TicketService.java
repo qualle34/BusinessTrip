@@ -3,6 +3,7 @@ package com.qualle.trip.service;
 import com.qualle.trip.model.dto.TicketDto;
 import com.qualle.trip.model.entity.Ticket;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface TicketService {
@@ -27,7 +28,7 @@ public interface TicketService {
 
     TicketDto toDto(Ticket ticket);
 
-    List<TicketDto> toDtoArray(List<Ticket> tickets);
+    List<TicketDto> toDtoArray(Collection<Ticket> tickets);
 
     Ticket fromDto(TicketDto dto);
 }

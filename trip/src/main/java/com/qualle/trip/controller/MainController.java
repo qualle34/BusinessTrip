@@ -53,10 +53,6 @@ public class MainController {
     @FXML
     private ListView<TripSimpleDto> tripList;
 
-    @FXML
-    public void initialize() {
-    }
-
     @PostConstruct
     public void init() {
         employeeList.setItems(FXCollections.observableArrayList(employeeService.getAllSimpleDtoByTrip()));

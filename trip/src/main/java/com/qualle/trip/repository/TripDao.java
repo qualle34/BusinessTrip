@@ -13,4 +13,6 @@ public interface TripDao {
     List<Trip> getByTitle(String title);
 
     Trip getById(long id);
+
+    Trip getFullById(long id);
 }

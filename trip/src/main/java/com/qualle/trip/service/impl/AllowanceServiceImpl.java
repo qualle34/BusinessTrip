@@ -2,15 +2,16 @@ package com.qualle.trip.service.impl;
 
 import com.qualle.trip.model.dto.AllowanceDto;
 import com.qualle.trip.model.dto.MemberAllowanceDto;
-import com.qualle.trip.model.entity.MemberAllowance;
 import com.qualle.trip.model.entity.Allowance;
-import com.qualle.trip.repository.MemberAllowanceDao;
+import com.qualle.trip.model.entity.MemberAllowance;
 import com.qualle.trip.repository.AllowanceDao;
+import com.qualle.trip.repository.MemberAllowanceDao;
 import com.qualle.trip.service.AllowanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -58,8 +59,8 @@ public class AllowanceServiceImpl implements AllowanceService {
     }
 
     @Override
-    public void add(Allowance allowance) {
-        allowanceDao.add(allowance);
+    public void add(AllowanceDto dto) {
+        allowanceDao.add(new Allowance(dto.getValue(), dto.getCountry(), dto.getCurrency()));
     }
 
     @Override
@@ -68,7 +69,11 @@ public class AllowanceServiceImpl implements AllowanceService {
     }
 
     @Override
-    public void update(Allowance allowance) {
+    public void update(AllowanceDto dto) {
+        Allowance allowance = getById(dto.getId());
+        allowance.setCountry(dto.getCountry());
+        allowance.setCurrency(dto.getCurrency());
+        allowance.setValue(dto.getValue());
         allowanceDao.update(allowance);
     }
 
@@ -86,11 +91,11 @@ public class AllowanceServiceImpl implements AllowanceService {
 
     @Override
     public MemberAllowanceDto toMemberDto(MemberAllowance memberAllowance) {
-        return new MemberAllowanceDto(memberAllowance.getAllowance().getCountry(), memberAllowance.getAllowance().getValue(),  memberAllowance.getAllowance().getCurrency(), memberAllowance.getDays());
+        return new MemberAllowanceDto(memberAllowance.getAllowance().getCountry(), memberAllowance.getAllowance().getValue(), memberAllowance.getAllowance().getCurrency(), memberAllowance.getDays());
     }
 
     @Override
-    public List<AllowanceDto> toDtoArray(List<Allowance> allowances) {
+    public List<AllowanceDto> toDtoArray(Collection<Allowance> allowances) {
         List<AllowanceDto> dto = new ArrayList<>();
         for (Allowance allowance : allowances) {
             dto.add(toDto(allowance));
@@ -99,7 +104,7 @@ public class AllowanceServiceImpl implements AllowanceService {
     }
 
     @Override
-    public List<MemberAllowanceDto> toMemberDtoArray(List<MemberAllowance> memberAllowances) {
+    public List<MemberAllowanceDto> toMemberDtoArray(Collection<MemberAllowance> memberAllowances) {
         List<MemberAllowanceDto> dto = new ArrayList<>();
         for (MemberAllowance memberAllowance : memberAllowances) {
             dto.add(toMemberDto(memberAllowance));

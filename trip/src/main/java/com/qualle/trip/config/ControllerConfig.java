@@ -2,16 +2,12 @@ package com.qualle.trip.config;
 
 import com.qualle.trip.controller.ListController;
 import com.qualle.trip.controller.MainController;
-import com.qualle.trip.controller.edit.EditAllowanceController;
-import com.qualle.trip.controller.edit.EditEmployeeController;
-import com.qualle.trip.controller.edit.EditTicketController;
-import com.qualle.trip.controller.edit.EditTripController;
-import com.qualle.trip.service.enums.Type;
+import com.qualle.trip.controller.edit.*;
+import com.qualle.trip.service.enums.PageType;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -98,6 +94,11 @@ public class ControllerConfig {
         return loadView("templates/employee_edit.fxml");
     }
 
+    @Bean(name = "memberEditView")
+    public ViewHolder getMemberEditView() throws IOException {
+        return loadView("templates/member_edit.fxml");
+    }
+
     @Bean
     public MainController getMainController() throws IOException {
         return (MainController) getMainView().getController();
@@ -106,28 +107,28 @@ public class ControllerConfig {
     @Bean
     public ListController getAllowanceListController() throws IOException {
         ListController controller = (ListController) getAllowanceListView().getController();
-        controller.setType(Type.ALLOWANCE);
+        controller.setType(PageType.ALLOWANCE);
         return controller;
     }
 
     @Bean
     public ListController getTicketListController() throws IOException {
         ListController controller = (ListController) getTicketListView().getController();
-        controller.setType(Type.TICKET);
+        controller.setType(PageType.TICKET);
         return controller;
     }
 
     @Bean
     public ListController getTripListController() throws IOException {
         ListController controller = (ListController) getTripListView().getController();
-        controller.setType(Type.TRIP);
+        controller.setType(PageType.TRIP);
         return controller;
     }
 
     @Bean
     public ListController getEmployeeListController() throws IOException {
         ListController controller = (ListController) getEmployeeListView().getController();
-        controller.setType(Type.EMPLOYEE);
+        controller.setType(PageType.EMPLOYEE);
         return controller;
     }
 
@@ -149,5 +150,10 @@ public class ControllerConfig {
     @Bean
     public EditEmployeeController getEmployeeEditController() throws IOException {
         return (EditEmployeeController) getEmployeeEditView().getController();
+    }
+
+    @Bean
+    public EditMemberController getMemberEditController() throws IOException {
+        return (EditMemberController) getMemberEditView().getController();
     }
 }

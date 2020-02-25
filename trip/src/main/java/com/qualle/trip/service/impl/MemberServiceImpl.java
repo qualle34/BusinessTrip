@@ -1,13 +1,17 @@
 package com.qualle.trip.service.impl;
 
 import com.qualle.trip.model.dto.MemberDto;
+import com.qualle.trip.model.entity.Allowance;
 import com.qualle.trip.model.entity.Member;
+import com.qualle.trip.model.entity.MemberAllowance;
+import com.qualle.trip.model.entity.Ticket;
 import com.qualle.trip.repository.MemberDao;
-import com.qualle.trip.service.MemberService;
+import com.qualle.trip.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -15,6 +19,18 @@ public class MemberServiceImpl implements MemberService {
 
     @Autowired
     private MemberDao memberDao;
+
+    @Autowired
+    private EmployeeService employeeService;
+
+    @Autowired
+    private TripService tripService;
+
+    @Autowired
+    private TicketService ticketService;
+
+    @Autowired
+    private AllowanceService allowanceService;
 
     @Override
     public List<MemberDto> getAllDto() {
@@ -29,6 +45,11 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public MemberDto getDtoById(long id) {
         return toDto(getById(id));
+    }
+
+    @Override
+    public MemberDto getFullDtoById(long id) {
+        return toDto(memberDao.getFullById(id));
     }
 
     @Override
@@ -48,11 +69,16 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public MemberDto toDto(Member member) {
-        return new MemberDto();
+        double ticketsExpenses = member.getTickets().stream().mapToDouble(Ticket::getPrice).sum();
+        double allowancesExpenses = member.getMemberAllowances().stream().map(MemberAllowance::getAllowance).mapToDouble(Allowance::getValue).sum();
+        MemberDto dto =  new MemberDto(allowancesExpenses ,ticketsExpenses, employeeService.toDto(member.getEmployee()), tripService.toDto(member.getTrip()),
+                allowanceService.toMemberDtoArray(member.getMemberAllowances()), ticketService.toDtoArray(member.getTickets()));
+        dto.setId(member.getId());
+        return dto;
     }
 
     @Override
-    public List<MemberDto> toDtoArray(List<Member> members) {
+    public List<MemberDto> toDtoArray(Collection<Member> members) {
         List<MemberDto> dto = new ArrayList<>();
         for (Member member : members) {
             dto.add(toDto(member));

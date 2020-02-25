@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -71,7 +72,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public List<TicketDto> toDtoArray(List<Ticket> tickets) {
+    public List<TicketDto> toDtoArray(Collection<Ticket> tickets) {
         List<TicketDto> dto = new ArrayList<>();
         for (Ticket ticket : tickets) {
             dto.add(toDto(ticket));

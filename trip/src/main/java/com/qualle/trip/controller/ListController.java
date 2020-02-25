@@ -13,11 +13,12 @@ import com.qualle.trip.service.AllowanceService;
 import com.qualle.trip.service.EmployeeService;
 import com.qualle.trip.service.TicketService;
 import com.qualle.trip.service.TripService;
-import com.qualle.trip.service.enums.Type;
+import com.qualle.trip.service.enums.PageType;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -33,7 +34,7 @@ import javax.annotation.PostConstruct;
 
 public class ListController {
 
-    private Type type;
+    private PageType type;
 
     @Qualifier("allowanceEditView")
     @Autowired
@@ -100,7 +101,31 @@ public class ListController {
 
     @FXML
     public void add(ActionEvent event) {
+        Button button = (Button) event.getSource();
+        Stage dialog = new Stage();
+        dialog.setResizable(false);
 
+        switch (type) {
+            case ALLOWANCE:
+                setScene(dialog, allowanceEditView);
+                break;
+
+            case TICKET:
+                setScene(dialog, ticketEditView);
+                break;
+
+            case TRIP:
+                setScene(dialog, tripEditView);
+                break;
+
+            case EMPLOYEE:
+                setScene(dialog, employeeEditView);
+                break;
+        }
+
+        dialog.initOwner(button.getScene().getWindow());
+        dialog.initModality(Modality.WINDOW_MODAL);
+        dialog.showAndWait();
     }
 
     @FXML
@@ -110,22 +135,22 @@ public class ListController {
             case ALLOWANCE:
                 list.setItems(FXCollections.observableArrayList(search.getText().isEmpty()
                         ? allowanceService.getAllDto()
-                        : allowanceService.getDtoByCountry(search.getText())));
+                        : allowanceService.getDtoByCountry(search.getText().trim())));
                 break;
             case TICKET:
                 list.setItems(FXCollections.observableArrayList(search.getText().isEmpty()
                         ? ticketService.getAllDto()
-                        : ticketService.getDtoByLocation(search.getText())));
+                        : ticketService.getDtoByLocation(search.getText().trim())));
                 break;
             case TRIP:
                 list.setItems(FXCollections.observableArrayList(search.getText().isEmpty()
                         ? tripService.getAllSimpleDto()
-                        : tripService.getSimpleDtoByTitle(search.getText())));
+                        : tripService.getSimpleDtoByTitle(search.getText().trim())));
                 break;
             case EMPLOYEE:
                 list.setItems(FXCollections.observableArrayList(search.getText().isEmpty()
                         ? employeeService.getAllDto()
-                        : employeeService.getSimpleDtoByName(search.getText())));
+                        : employeeService.getSimpleDtoByName(search.getText().trim())));
                 break;
         }
     }
@@ -190,7 +215,7 @@ public class ListController {
         }
     }
 
-    public void setType(Type type) {
+    public void setType(PageType type) {
         this.type = type;
     }
 }

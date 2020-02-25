@@ -4,6 +4,7 @@ import com.qualle.trip.model.dto.EmployeeDto;
 import com.qualle.trip.model.dto.EmployeeSimpleDto;
 import com.qualle.trip.model.entity.Employee;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface EmployeeService {
@@ -34,9 +35,9 @@ public interface EmployeeService {
 
     EmployeeSimpleDto toSimpleDto(Employee employee);
 
-    List<EmployeeDto> toDtoArray(List<Employee> employees);
+    List<EmployeeDto> toDtoArray(Collection<Employee> employees);
 
-    List<EmployeeSimpleDto> toSimpleDtoArray(List<Employee> employees);
+    List<EmployeeSimpleDto> toSimpleDtoArray(Collection<Employee> employees);
 
     Employee fromDto(EmployeeDto dto);
 }
