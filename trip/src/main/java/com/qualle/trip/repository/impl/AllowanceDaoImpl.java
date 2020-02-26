@@ -45,6 +45,7 @@ public class AllowanceDaoImpl implements AllowanceDao {
 
     @Override
     public void delete(long id) {
-
+        Query query = entityManager.createQuery("DELETE FROM Allowance a WHERE a.id = :id ");
+        query.executeUpdate();
     }
 }

@@ -1,20 +1,17 @@
 package com.qualle.trip.service.impl;
 
 import com.qualle.trip.model.dto.TripDto;
-import com.qualle.trip.model.dto.TripFullDto;
 import com.qualle.trip.model.dto.TripSimpleDto;
 import com.qualle.trip.model.entity.*;
 import com.qualle.trip.model.enums.TripStatus;
 import com.qualle.trip.repository.TripDao;
 import com.qualle.trip.service.MemberService;
 import com.qualle.trip.service.TripService;
+import com.qualle.trip.service.util.WordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -62,18 +59,50 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public TripFullDto getFullDtoById(long id) {
+    public TripDto getFullDtoById(long id) {
         Trip trip = tripDao.getFullById(id);
-        TripFullDto dto = new TripFullDto(trip.getTitle(), trip.getDescription(), trip.getPlace(), trip.getStart(), trip.getEnd(), trip.getAdditionalExpenses());
+        TripDto dto = new TripDto(trip.getTitle(), trip.getDescription(), trip.getPlace(), trip.getStart(), trip.getEnd(), trip.getAdditionalExpenses());
         dto.setStatus(getStatus(trip.getStart(), trip.getEnd()).toString());
         dto.setExpenses(calculateExpenses(trip.getMembers(), trip.getAdditionalExpenses()));
-        dto.setMembers(memberService.toDtoArray(trip.getMembers()));
+        dto.setMembers(memberService.toSimpleDtoArray(trip.getMembers()));
         return dto;
     }
 
     @Override
+    public void add(TripDto dto) {
+        Trip trip = new Trip(dto.getTitle(), dto.getDescription(), dto.getPlace());
+        tripDao.add(trip);
+    }
+
+    @Override
+    public void update(TripDto dto) {
+        Trip trip = tripDao.getById(dto.getId());
+        trip.setTitle(dto.getTitle());
+        tripDao.update(trip);
+    }
+
+    @Override
+    public void delete(long id) {
+        tripDao.delete(id);
+    }
+
+    @Override
+    public void report(long id, String path) {
+        Map<String, String> data = new HashMap<>();
+        Trip trip = tripDao.getFullById(id);
+
+        data.put("title", trip.getTitle());
+        data.put("description", trip.getDescription());
+        data.put("members", "test, test");
+        data.put("expenses", String.valueOf(trip.getAdditionalExpenses()));
+        data.put("date_start", trip.getEnd().toString());
+        data.put("date_end", trip.getStart().toString());
+        WordUtil.createReport(path, data);
+    }
+
+    @Override
     public TripDto toDto(Trip trip) {
-        TripDto dto = new TripDto(trip.getTitle(), trip.getDescription(), trip.getStart(), trip.getEnd(), trip.getAdditionalExpenses());
+        TripDto dto = new TripDto(trip.getTitle(), trip.getDescription(), trip.getPlace(), trip.getStart(), trip.getEnd(), trip.getAdditionalExpenses());
         dto.setId(trip.getId());
         return dto;
     }

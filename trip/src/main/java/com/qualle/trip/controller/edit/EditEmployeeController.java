@@ -40,23 +40,24 @@ public class EditEmployeeController {
     private DatePicker birthday;
 
     @FXML
-    private ListView<TripSimpleDto> trips;
+    private ListView<TicketDto> tickets;
 
     @FXML
-    private ListView<TicketDto> tickets;
+    private ListView<TripSimpleDto> trips;
 
     public void doApprove(ActionEvent event) {
     }
 
     public void onShow() {
         if (id != 0) {
-            EmployeeDto dto = employeeService.getDtoById(id);
+            EmployeeDto dto = employeeService.getFullDtoById(id);
             name.setText(dto.getName());
             surname.setText(dto.getSurname());
             department.setText(dto.getDepartment());
             email.setText(dto.getEmail());
             birthday.setValue(dto.getBirthday());
-            trips.setItems(FXCollections.observableArrayList(tripService.getAllSimpleDtoByEmployee(id)));
+            tickets.setItems(FXCollections.observableArrayList(dto.getTickets()));
+            trips.setItems(FXCollections.observableArrayList(dto.getTrips()));
         }
     }
 

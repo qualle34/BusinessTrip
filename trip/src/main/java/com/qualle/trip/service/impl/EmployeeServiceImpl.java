@@ -3,8 +3,11 @@ package com.qualle.trip.service.impl;
 import com.qualle.trip.model.dto.EmployeeDto;
 import com.qualle.trip.model.dto.EmployeeSimpleDto;
 import com.qualle.trip.model.entity.Employee;
+import com.qualle.trip.model.entity.Member;
 import com.qualle.trip.repository.EmployeeDao;
 import com.qualle.trip.service.EmployeeService;
+import com.qualle.trip.service.TicketService;
+import com.qualle.trip.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
     private EmployeeDao employeeDao;
+
+    @Autowired
+    private TripService tripService;
+
+    @Autowired
+    private TicketService ticketService;
 
     @Override
     public List<Employee> getAll() {
@@ -54,6 +63,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public EmployeeDto getFullDtoById(long id) {
+        return toDto(employeeDao.getFullById(id));
+    }
+
+    @Override
     public List<EmployeeSimpleDto> getSimpleDtoByName(String name) {
         return toSimpleDtoArray(employeeDao.getByName(name));
     }
@@ -77,6 +91,19 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeDto toDto(Employee employee) {
         EmployeeDto dto = new EmployeeDto(employee.getName(), employee.getSurname(), employee.getEmail(), employee.getDepartment(), employee.getBirthday());
         dto.setId(employee.getId());
+
+        if (employee.getMembers() == null) {
+            return dto;
+        }
+
+        for (Member member : employee.getMembers()) {
+            if (dto.getTickets() == null && dto.getTrips() == null) {
+                dto.setTickets(new ArrayList<>());
+                dto.setTrips(new ArrayList<>());
+            }
+            dto.getTickets().addAll(ticketService.toDtoArray(member.getTickets()));
+            dto.getTrips().add(tripService.toSimpleDto(member.getTrip()));
+        }
         return dto;
     }
 

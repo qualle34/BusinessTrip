@@ -51,14 +51,15 @@ public class EditTripController {
     private TextField expenses;
 
     @FXML
-    private ListView<MemberDto> members;
+    private ListView<MemberSimpleDto> members;
 
     public void doApprove(ActionEvent event) {
     }
 
     public void onShow() {
+
         if (id != 0) {
-            TripFullDto dto = tripService.getFullDtoById(id);
+            TripDto dto = tripService.getFullDtoById(id);
             title.setText(dto.getTitle());
             description.setText(dto.getDescription());
             start.setText(dto.getStart().toString());
@@ -91,6 +92,7 @@ public class EditTripController {
     }
 
     private void setScene(Stage dialog, ControllerConfig.ViewHolder viewHolder) {
+
         if (viewHolder.getView().getScene() != null) {
             dialog.setScene(viewHolder.getView().getScene());
         } else {

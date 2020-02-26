@@ -16,6 +16,8 @@ public interface EmployeeDao {
 
     Employee getById(long id);
 
+    Employee getFullById(long id);
+
     void add(Employee employee);
 
     void update(Employee employee);

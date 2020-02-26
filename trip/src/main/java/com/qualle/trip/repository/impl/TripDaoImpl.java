@@ -44,13 +44,30 @@ public class TripDaoImpl implements TripDao {
     public Trip getFullById(long id) {
         Query query = entityManager.createQuery(
                 "SELECT t FROM Trip t " +
-                "LEFT JOIN FETCH t.members m " +
-                "INNER JOIN FETCH m.employee " +
-                "INNER JOIN FETCH m.memberAllowances a " +
-                "INNER JOIN FETCH a.allowance " +
-                "LEFT JOIN FETCH m.tickets " +
-                "WHERE t.id = :id", Trip.class);
+                        "LEFT JOIN FETCH t.members m " +
+                        "INNER JOIN FETCH m.employee " +
+                        "INNER JOIN FETCH m.memberAllowances a " +
+                        "INNER JOIN FETCH a.allowance " +
+                        "LEFT JOIN FETCH m.tickets " +
+                        "WHERE t.id = :id", Trip.class);
         query.setParameter("id", id);
         return (Trip) query.getSingleResult();
+    }
+
+    @Override
+    public void add(Trip trip) {
+        entityManager.persist(trip);
+    }
+
+    @Override
+    public void update(Trip trip) {
+        entityManager.merge(trip);
+    }
+
+    @Override
+    public void delete(long id) {
+        Query query = entityManager.createQuery("DELETE FROM Trip t WHERE t.id = :id");
+        query.setParameter("id", id);
+        query.executeUpdate();
     }
 }

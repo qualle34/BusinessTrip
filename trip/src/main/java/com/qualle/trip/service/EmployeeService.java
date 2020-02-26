@@ -23,6 +23,8 @@ public interface EmployeeService {
 
     EmployeeDto getDtoById(long id);
 
+    EmployeeDto getFullDtoById(long id);
+
     List<EmployeeSimpleDto> getSimpleDtoByName(String name);
 
     void add(Employee employee);

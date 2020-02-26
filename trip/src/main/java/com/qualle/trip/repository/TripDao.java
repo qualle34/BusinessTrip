@@ -15,4 +15,10 @@ public interface TripDao {
     Trip getById(long id);
 
     Trip getFullById(long id);
+
+    void add(Trip trip);
+
+    void update(Trip trip);
+
+    void delete(long id);
 }

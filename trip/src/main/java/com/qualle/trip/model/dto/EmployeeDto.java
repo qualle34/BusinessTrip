@@ -1,6 +1,7 @@
 package com.qualle.trip.model.dto;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class EmployeeDto {
 
@@ -10,6 +11,8 @@ public class EmployeeDto {
     private String email;
     private String department;
     private LocalDate birthday;
+    private List<TripSimpleDto> trips;
+    private List<TicketDto> tickets;
 
     public EmployeeDto() {
     }
@@ -70,8 +73,24 @@ public class EmployeeDto {
         this.birthday = birthday;
     }
 
+    public List<TripSimpleDto> getTrips() {
+        return trips;
+    }
+
+    public void setTrips(List<TripSimpleDto> trips) {
+        this.trips = trips;
+    }
+
+    public List<TicketDto> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<TicketDto> tickets) {
+        this.tickets = tickets;
+    }
+
     @Override
     public String toString() {
-        return id + " - " + surname + " " + name;
+        return surname + " " + name;
     }
 }

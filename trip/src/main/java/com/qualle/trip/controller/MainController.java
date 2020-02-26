@@ -1,12 +1,11 @@
 package com.qualle.trip.controller;
 
 import com.qualle.trip.config.ControllerConfig;
+import com.qualle.trip.controller.edit.EditTripController;
 import com.qualle.trip.model.dto.EmployeeSimpleDto;
 import com.qualle.trip.model.dto.TripSimpleDto;
-import com.qualle.trip.model.entity.Trip;
 import com.qualle.trip.service.EmployeeService;
 import com.qualle.trip.service.TripService;
-import com.qualle.trip.service.util.WordUtil;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,12 +15,11 @@ import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.annotation.PostConstruct;
-import java.util.HashMap;
-import java.util.Map;
 
 public class MainController {
 
@@ -40,6 +38,10 @@ public class MainController {
     @Qualifier("employeeListView")
     @Autowired
     private ControllerConfig.ViewHolder employeeListView;
+
+    @Qualifier("tripEditView")
+    @Autowired
+    private ControllerConfig.ViewHolder tripEditView;
 
     @Autowired
     private TripService tripService;
@@ -83,16 +85,19 @@ public class MainController {
     }
 
     @FXML
-    public void addTrip() {
-        Trip trip = tripService.getById(1);
-        Map<String, String> data = new HashMap<>();
-        data.put("title", trip.getTitle());
-        data.put("description", trip.getDescription());
-        data.put("members", "test, test");
-        data.put("expenses", String.valueOf(trip.getAdditionalExpenses()));
-        data.put("date_start", trip.getEnd().toString());
-        data.put("date_end", trip.getStart().toString());
-        WordUtil.createReport("", data);
+    public void add(ActionEvent event) {
+        Button button = (Button) event.getSource();
+        Stage dialog = new Stage();
+
+        if (tripEditView.getView().getScene() != null) {
+            dialog.setScene(tripEditView.getView().getScene());
+        } else {
+            dialog.setScene(new Scene(tripEditView.getView()));
+        }
+
+        dialog.initOwner(button.getScene().getWindow());
+        dialog.initModality(Modality.WINDOW_MODAL);
+        dialog.showAndWait();
     }
 
     @FXML
@@ -119,6 +124,8 @@ public class MainController {
     private void showList(ActionEvent event, ControllerConfig.ViewHolder viewHolder) {
         Button button = (Button) event.getSource();
         Stage dialog = new Stage();
+        ListController controller = (ListController) viewHolder.getController();
+        dialog.addEventHandler(WindowEvent.WINDOW_SHOWN, window -> controller.onShow());
 
         if (viewHolder.getView().getScene() != null) {
             dialog.setScene(viewHolder.getView().getScene());
@@ -129,9 +136,5 @@ public class MainController {
         dialog.initOwner(button.getScene().getWindow());
         dialog.initModality(Modality.WINDOW_MODAL);
         dialog.showAndWait();
-    }
-
-    @FXML
-    public void goToSettings(ActionEvent event) {
     }
 }

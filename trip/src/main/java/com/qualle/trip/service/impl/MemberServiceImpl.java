@@ -1,6 +1,7 @@
 package com.qualle.trip.service.impl;
 
 import com.qualle.trip.model.dto.MemberDto;
+import com.qualle.trip.model.dto.MemberSimpleDto;
 import com.qualle.trip.model.entity.Allowance;
 import com.qualle.trip.model.entity.Member;
 import com.qualle.trip.model.entity.MemberAllowance;
@@ -33,8 +34,8 @@ public class MemberServiceImpl implements MemberService {
     private AllowanceService allowanceService;
 
     @Override
-    public List<MemberDto> getAllDto() {
-        return toDtoArray(memberDao.getAll());
+    public List<MemberSimpleDto> getAllDto() {
+        return toSimpleDtoArray(memberDao.getAll());
     }
 
     @Override
@@ -78,10 +79,17 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<MemberDto> toDtoArray(Collection<Member> members) {
-        List<MemberDto> dto = new ArrayList<>();
+    public MemberSimpleDto toSimpleDto(Member member) {
+        MemberSimpleDto dto =  new MemberSimpleDto(member.getId(), member.getEmployee().getName(), member.getEmployee().getSurname(), member.getRole());
+        dto.setId(member.getId());
+        return dto;
+    }
+
+    @Override
+    public List<MemberSimpleDto> toSimpleDtoArray(Collection<Member> members) {
+        List<MemberSimpleDto> dto = new ArrayList<>();
         for (Member member : members) {
-            dto.add(toDto(member));
+            dto.add(toSimpleDto(member));
         }
         return dto;
     }

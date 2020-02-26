@@ -1,28 +1,34 @@
 package com.qualle.trip.model.dto;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 public class TripDto {
 
     private long id;
     private String title;
     private String description;
+    private String place;
     private Date start;
     private Date end;
-    private String from;
-    private String to;
+    private double additionalExpenses;
     private double expenses;
     private String status;
+    private List<MemberSimpleDto> members;
+    private Map<String, List<TicketDto>> tickets;
+    private Map<String, List<AllowanceDto>> allowances;
 
     public TripDto() {
     }
 
-    public TripDto(String title, String description, Date start, Date end, double expenses) {
+    public TripDto(String title, String description, String place, Date start, Date end, double additionalExpenses) {
         this.title = title;
         this.description = description;
+        this.place = place;
         this.start = start;
         this.end = end;
-        this.expenses = expenses;
+        this.additionalExpenses = additionalExpenses;
     }
 
     public long getId() {
@@ -49,6 +55,14 @@ public class TripDto {
         this.description = description;
     }
 
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
     public Date getStart() {
         return start;
     }
@@ -65,20 +79,12 @@ public class TripDto {
         this.end = end;
     }
 
-    public String getFrom() {
-        return from;
+    public double getAdditionalExpenses() {
+        return additionalExpenses;
     }
 
-    public void setFrom(String from) {
-        this.from = from;
-    }
-
-    public String getTo() {
-        return to;
-    }
-
-    public void setTo(String to) {
-        this.to = to;
+    public void setAdditionalExpenses(double additionalExpenses) {
+        this.additionalExpenses = additionalExpenses;
     }
 
     public double getExpenses() {
@@ -95,5 +101,29 @@ public class TripDto {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public List<MemberSimpleDto> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<MemberSimpleDto> members) {
+        this.members = members;
+    }
+
+    public Map<String, List<TicketDto>> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(Map<String, List<TicketDto>> tickets) {
+        this.tickets = tickets;
+    }
+
+    public Map<String, List<AllowanceDto>> getAllowances() {
+        return allowances;
+    }
+
+    public void setAllowances(Map<String, List<AllowanceDto>> allowances) {
+        this.allowances = allowances;
     }
 }

@@ -9,21 +9,27 @@ import com.qualle.trip.model.dto.AllowanceDto;
 import com.qualle.trip.model.dto.EmployeeSimpleDto;
 import com.qualle.trip.model.dto.TicketDto;
 import com.qualle.trip.model.dto.TripSimpleDto;
+import com.qualle.trip.model.entity.Trip;
 import com.qualle.trip.service.AllowanceService;
 import com.qualle.trip.service.EmployeeService;
 import com.qualle.trip.service.TicketService;
 import com.qualle.trip.service.TripService;
 import com.qualle.trip.service.enums.PageType;
+import com.qualle.trip.service.util.WordUtil;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -31,6 +37,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.annotation.PostConstruct;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ListController {
 
@@ -74,11 +82,15 @@ public class ListController {
     private Label pageTitle;
 
     @FXML
+    private Button report;
+
+    @FXML
     public void initialize() {
     }
 
     @PostConstruct
     public void init() {
+
         switch (type) {
             case ALLOWANCE:
                 pageTitle.setText("Размеры возмещения расходов при командировках");
@@ -156,6 +168,28 @@ public class ListController {
     }
 
     @FXML
+    public void delete(ActionEvent event) {
+
+        switch (type) {
+            case ALLOWANCE:
+                allowanceService.delete(((AllowanceDto) list.getSelectionModel().getSelectedItem()).getId());
+                break;
+
+            case TICKET:
+                ticketService.delete(((TicketDto) list.getSelectionModel().getSelectedItem()).getId());
+                break;
+
+            case TRIP:
+                tripService.delete(((TripSimpleDto) list.getSelectionModel().getSelectedItem()).getId());
+                break;
+
+            case EMPLOYEE:
+                employeeService.delete(((EmployeeSimpleDto) list.getSelectionModel().getSelectedItem()).getId());
+                break;
+        }
+    }
+
+    @FXML
     public void getItem(MouseEvent click) {
 
         if (click.getClickCount() == 2) {
@@ -215,7 +249,55 @@ public class ListController {
         }
     }
 
+    public void onShow() {
+        if (type.equals(PageType.TRIP)) {
+            report.setVisible(true);
+        } else {
+            report.setVisible(false);
+        }
+    }
+
     public void setType(PageType type) {
         this.type = type;
+    }
+
+    public void doReport(ActionEvent event) {
+        long id = ((TripSimpleDto) list.getSelectionModel().getSelectedItem()).getId();
+
+        if (type.equals(PageType.TRIP) && id != 0) {
+            Stage stage = new Stage();
+            stage.setTitle("Создание отчёта");
+            stage.setResizable(false);
+            Group root = new Group();
+            Scene scene = new Scene(root, 300, 200, Color.WHITE);
+
+            GridPane grid = new GridPane();
+            grid.setPadding(new Insets(20, 50, 50, 50));
+            grid.setVgap(30);
+            grid.setPrefWidth(300);
+            grid.setPrefHeight(200);
+
+
+            final TextField path = new TextField("D:\\");
+            path.setPromptText("Путь к отчёту");
+            path.setPrefWidth(200);
+            path.setPrefHeight(30);
+            grid.add(path, 1, 1);
+
+            Button approve = new Button("OK");
+            approve.setPrefHeight(30);
+            approve.setOnAction(new EventHandler<ActionEvent>() {
+
+                public void handle(ActionEvent event) {
+                    tripService.report(id, path.getText());
+                    stage.close();
+                }
+            });
+            grid.add(approve, 1, 2);
+            GridPane.setHalignment(approve, HPos.CENTER);
+            root.getChildren().add(grid);
+            stage.setScene(scene);
+            stage.show();
+        }
     }
 }

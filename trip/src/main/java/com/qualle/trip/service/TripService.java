@@ -1,7 +1,6 @@
 package com.qualle.trip.service;
 
 import com.qualle.trip.model.dto.TripDto;
-import com.qualle.trip.model.dto.TripFullDto;
 import com.qualle.trip.model.dto.TripSimpleDto;
 import com.qualle.trip.model.entity.Trip;
 
@@ -24,7 +23,15 @@ public interface TripService {
 
     List<TripSimpleDto> getSimpleDtoByTitle(String title);
 
-    TripFullDto getFullDtoById(long id);
+    TripDto getFullDtoById(long id);
+
+    void add(TripDto dto);
+
+    void update(TripDto dto);
+
+    void delete(long id);
+
+    void report(long id, String path);
 
     TripDto toDto(Trip trip);
 

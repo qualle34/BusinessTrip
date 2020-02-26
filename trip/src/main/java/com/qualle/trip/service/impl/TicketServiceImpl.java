@@ -1,9 +1,11 @@
 package com.qualle.trip.service.impl;
 
 import com.qualle.trip.model.dto.TicketDto;
+import com.qualle.trip.model.entity.Employee;
 import com.qualle.trip.model.entity.Member;
 import com.qualle.trip.model.entity.Ticket;
 import com.qualle.trip.repository.TicketDao;
+import com.qualle.trip.service.EmployeeService;
 import com.qualle.trip.service.TicketService;
 import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class TicketServiceImpl implements TicketService {
 
     @Autowired
     private TicketDao ticketDao;
+
+    @Autowired
+    private EmployeeService employeeService;
 
     @Override
     public List<Ticket> getAll() {
@@ -68,6 +73,7 @@ public class TicketServiceImpl implements TicketService {
     public TicketDto toDto(Ticket ticket) {
         TicketDto dto = new TicketDto(ticket.getFrom(), ticket.getTo(), ticket.getDate(), ticket.getPrice(), ticket.getType());
         dto.setId(ticket.getId());
+        dto.setEmployee(employeeService.toSimpleDto(ticket.getMember().getEmployee()));
         return dto;
     }
 

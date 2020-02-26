@@ -12,6 +12,7 @@ public class TicketDto {
     private Date date;
     private double price;
     private TicketType type;
+    private EmployeeSimpleDto employee;
 
     public TicketDto() {
     }
@@ -72,8 +73,16 @@ public class TicketDto {
         this.type = type;
     }
 
+    public EmployeeSimpleDto getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(EmployeeSimpleDto employee) {
+        this.employee = employee;
+    }
+
     @Override
     public String toString() {
-        return id + " - " + from + " - " + to + ", " + date.toString();
+        return from + " - " + to + ", " + date.toString();
     }
 }
