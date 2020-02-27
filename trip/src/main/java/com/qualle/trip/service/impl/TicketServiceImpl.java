@@ -10,6 +10,7 @@ import com.qualle.trip.service.TicketService;
 import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -55,18 +56,21 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
+    @Transactional
     public void add(Ticket ticket) {
-
+        ticketDao.add(ticket);
     }
 
     @Override
+    @Transactional
     public void update(Ticket ticket) {
-
+        ticketDao.update(ticket);
     }
 
     @Override
+    @Transactional
     public void delete(long id) {
-
+        ticketDao.delete(id);
     }
 
     @Override

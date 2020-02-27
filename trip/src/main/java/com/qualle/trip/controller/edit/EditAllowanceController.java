@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class EditAllowanceController {
 
     private long id;
+
     private AllowanceDto dto;
 
     @Autowired
@@ -27,14 +28,15 @@ public class EditAllowanceController {
     private TextField currency;
 
     public void doApprove(ActionEvent event) {
+
         if (id != 0) {
             AllowanceDto after = dto;
             after.setCountry(country.getText());
             after.setCurrency(currency.getText());
             after.setValue(Double.parseDouble(value.getText()));
-            if (!dto.equals(after)) {
-                allowanceService.update(dto);
-            }
+
+            allowanceService.update(dto);
+
         } else {
             AllowanceDto dto = new AllowanceDto();
             dto.setCountry(country.getText());
@@ -42,6 +44,8 @@ public class EditAllowanceController {
             dto.setValue(Double.parseDouble(value.getText()));
             allowanceService.add(dto);
         }
+        reset();
+
         Button button = (Button) event.getSource();
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();

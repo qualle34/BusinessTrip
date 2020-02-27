@@ -9,6 +9,7 @@ import com.qualle.trip.repository.MemberAllowanceDao;
 import com.qualle.trip.service.AllowanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -54,21 +55,25 @@ public class AllowanceServiceImpl implements AllowanceService {
     }
 
     @Override
+    @Transactional
     public void add(MemberAllowance memberAllowance) {
         memberAllowanceDao.add(memberAllowance);
     }
 
     @Override
+    @Transactional
     public void add(AllowanceDto dto) {
         allowanceDao.add(new Allowance(dto.getValue(), dto.getCountry(), dto.getCurrency()));
     }
 
     @Override
+    @Transactional
     public void update(MemberAllowance memberAllowance) {
         memberAllowanceDao.update(memberAllowance);
     }
 
     @Override
+    @Transactional
     public void update(AllowanceDto dto) {
         Allowance allowance = getById(dto.getId());
         allowance.setCountry(dto.getCountry());
@@ -78,6 +83,7 @@ public class AllowanceServiceImpl implements AllowanceService {
     }
 
     @Override
+    @Transactional
     public void delete(long id) {
         allowanceDao.delete(id);
     }

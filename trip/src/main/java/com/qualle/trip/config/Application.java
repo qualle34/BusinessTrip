@@ -12,11 +12,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication(scanBasePackages = "com.qualle.trip")
 @ComponentScan("com.qualle.trip")
+@EnableJpaRepositories("com.qualle.trip.repository")
 @EntityScan("com.qualle.trip.model.entity")
 public class Application extends AbstractJavaFxSupport {
-
-    @Value("${ui.title}")
-    private String windowTitle;
 
     @Qualifier("mainView")
     @Autowired
@@ -24,7 +22,7 @@ public class Application extends AbstractJavaFxSupport {
 
     @Override
     public void start(Stage stage) throws Exception {
-        stage.setTitle(windowTitle);
+        stage.setTitle("Business Trip");
         stage.setScene(new Scene(mainView.getView()));
         stage.setResizable(false);
         stage.centerOnScreen();

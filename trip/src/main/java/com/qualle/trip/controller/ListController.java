@@ -193,7 +193,7 @@ public class ListController {
     public void getItem(MouseEvent click) {
 
         if (click.getClickCount() == 2) {
-            ListView listView = (ListView) click.getSource();
+            ListView<AllowanceDto> listView = (ListView<AllowanceDto>) click.getSource();
             Stage dialog = new Stage();
             dialog.setResizable(false);
 

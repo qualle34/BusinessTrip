@@ -10,6 +10,7 @@ import com.qualle.trip.service.TicketService;
 import com.qualle.trip.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -73,18 +74,21 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    @Transactional
     public void add(Employee employee) {
-
+        employeeDao.add(employee);
     }
 
     @Override
+    @Transactional
     public void update(Employee employee) {
-
+        employeeDao.update(employee);
     }
 
     @Override
+    @Transactional
     public void delete(long id) {
-
+        employeeDao.delete(id);
     }
 
     @Override

@@ -10,6 +10,7 @@ import com.qualle.trip.repository.MemberDao;
 import com.qualle.trip.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -54,25 +55,28 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    @Transactional
     public void add(Member member) {
-
+        memberDao.add(member);
     }
 
     @Override
+    @Transactional
     public void update(Member member) {
-
+        memberDao.update(member);
     }
 
     @Override
+    @Transactional
     public void delete(long id) {
-
+        memberDao.delete(id);
     }
 
     @Override
     public MemberDto toDto(Member member) {
         double ticketsExpenses = member.getTickets().stream().mapToDouble(Ticket::getPrice).sum();
         double allowancesExpenses = member.getMemberAllowances().stream().map(MemberAllowance::getAllowance).mapToDouble(Allowance::getValue).sum();
-        MemberDto dto =  new MemberDto(allowancesExpenses ,ticketsExpenses, employeeService.toDto(member.getEmployee()), tripService.toDto(member.getTrip()),
+        MemberDto dto = new MemberDto(allowancesExpenses, ticketsExpenses, employeeService.toDto(member.getEmployee()), tripService.toDto(member.getTrip()),
                 allowanceService.toMemberDtoArray(member.getMemberAllowances()), ticketService.toDtoArray(member.getTickets()));
         dto.setId(member.getId());
         return dto;
@@ -80,7 +84,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public MemberSimpleDto toSimpleDto(Member member) {
-        MemberSimpleDto dto =  new MemberSimpleDto(member.getId(), member.getEmployee().getName(), member.getEmployee().getSurname(), member.getRole());
+        MemberSimpleDto dto = new MemberSimpleDto(member.getId(), member.getEmployee().getName(), member.getEmployee().getSurname(), member.getRole());
         dto.setId(member.getId());
         return dto;
     }

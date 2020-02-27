@@ -1,7 +1,6 @@
 package com.qualle.trip.controller;
 
 import com.qualle.trip.config.ControllerConfig;
-import com.qualle.trip.controller.edit.EditTripController;
 import com.qualle.trip.model.dto.EmployeeSimpleDto;
 import com.qualle.trip.model.dto.TripSimpleDto;
 import com.qualle.trip.service.EmployeeService;
@@ -39,9 +38,9 @@ public class MainController {
     @Autowired
     private ControllerConfig.ViewHolder employeeListView;
 
-    @Qualifier("tripEditView")
+    @Qualifier("tripAddView")
     @Autowired
-    private ControllerConfig.ViewHolder tripEditView;
+    private ControllerConfig.ViewHolder tripAddView;
 
     @Autowired
     private TripService tripService;
@@ -89,10 +88,10 @@ public class MainController {
         Button button = (Button) event.getSource();
         Stage dialog = new Stage();
 
-        if (tripEditView.getView().getScene() != null) {
-            dialog.setScene(tripEditView.getView().getScene());
+        if (tripAddView.getView().getScene() != null) {
+            dialog.setScene(tripAddView.getView().getScene());
         } else {
-            dialog.setScene(new Scene(tripEditView.getView()));
+            dialog.setScene(new Scene(tripAddView.getView()));
         }
 
         dialog.initOwner(button.getScene().getWindow());

@@ -10,6 +10,7 @@ import com.qualle.trip.service.TripService;
 import com.qualle.trip.service.util.WordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -69,12 +70,14 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
+    @Transactional
     public void add(TripDto dto) {
         Trip trip = new Trip(dto.getTitle(), dto.getDescription(), dto.getPlace());
         tripDao.add(trip);
     }
 
     @Override
+    @Transactional
     public void update(TripDto dto) {
         Trip trip = tripDao.getById(dto.getId());
         trip.setTitle(dto.getTitle());
@@ -82,6 +85,7 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
+    @Transactional
     public void delete(long id) {
         tripDao.delete(id);
     }

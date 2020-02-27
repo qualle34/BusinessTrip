@@ -25,6 +25,13 @@ public class EmployeeDto {
         this.birthday = birthday;
     }
 
+    public EmployeeDto(EmployeeSimpleDto dto) {
+        this.id = dto.getId();
+        this.name = dto.getName();
+        this.surname = dto.getSurname();
+        this.email = dto.getEmail();
+    }
+
     public Long getId() {
         return id;
     }

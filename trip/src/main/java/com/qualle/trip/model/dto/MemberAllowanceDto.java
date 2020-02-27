@@ -17,6 +17,13 @@ public class MemberAllowanceDto {
         this.days = days;
     }
 
+    public MemberAllowanceDto(AllowanceDto dto, int days) {
+        this.country = dto.getCountry();
+        this.value = dto.getValue();
+        this.currency = dto.getCurrency();
+        this.days = days;
+    }
+
     public double getValue() {
         return value;
     }
@@ -51,6 +58,6 @@ public class MemberAllowanceDto {
 
     @Override
     public String toString() {
-        return country;
+        return country + " - " + days + "д";
     }
 }

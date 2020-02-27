@@ -7,6 +7,7 @@ public class MemberDto {
     private long id;
     private double allowanceExpenses;
     private double ticketsExpenses;
+    private String role;
     private EmployeeDto employee;
     private TripDto trip;
     private List<MemberAllowanceDto> allowances;
@@ -46,6 +47,14 @@ public class MemberDto {
 
     public void setTicketsExpenses(double ticketsExpenses) {
         this.ticketsExpenses = ticketsExpenses;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public EmployeeDto getEmployee() {

@@ -1,14 +1,13 @@
 package com.qualle.trip.controller.edit;
 
-import com.qualle.trip.model.dto.*;
-import com.qualle.trip.model.entity.Member;
+import com.qualle.trip.model.dto.MemberAllowanceDto;
+import com.qualle.trip.model.dto.MemberDto;
+import com.qualle.trip.model.dto.TicketDto;
 import com.qualle.trip.service.MemberService;
-import com.qualle.trip.service.TripService;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import org.springframework.beans.factory.annotation.Autowired;
 

@@ -2,6 +2,7 @@ package com.qualle.trip.config;
 
 import com.qualle.trip.controller.ListController;
 import com.qualle.trip.controller.MainController;
+import com.qualle.trip.controller.add.*;
 import com.qualle.trip.controller.edit.*;
 import com.qualle.trip.service.enums.PageType;
 import javafx.fxml.FXMLLoader;
@@ -99,6 +100,16 @@ public class ControllerConfig {
         return loadView("templates/member_edit.fxml");
     }
 
+    @Bean(name = "memberAddView")
+    public ViewHolder getMemberAddView() throws IOException {
+        return loadView("templates/member_add.fxml");
+    }
+
+    @Bean(name = "tripAddView")
+    public ViewHolder getTripAddView() throws IOException {
+        return loadView("templates/trip_add.fxml");
+    }
+
     @Bean
     public MainController getMainController() throws IOException {
         return (MainController) getMainView().getController();
@@ -155,5 +166,15 @@ public class ControllerConfig {
     @Bean
     public EditMemberController getMemberEditController() throws IOException {
         return (EditMemberController) getMemberEditView().getController();
+    }
+
+    @Bean
+    public AddMemberController getMemberAddController() throws IOException {
+        return (AddMemberController) getMemberAddView().getController();
+    }
+
+    @Bean
+    public AddTripController getTripAddController() throws IOException {
+        return (AddTripController) getTripAddView().getController();
     }
 }

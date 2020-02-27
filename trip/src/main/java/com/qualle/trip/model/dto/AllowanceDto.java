@@ -50,6 +50,6 @@ public class AllowanceDto {
 
     @Override
     public String toString() {
-        return id + " - " + country;
+        return country;
     }
 }

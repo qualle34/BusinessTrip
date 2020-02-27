@@ -50,7 +50,7 @@ public class TripSimpleDto {
 
     @Override
     public String toString() {
-        return id + " - " + title;
+        return title;
     }
 }
 
