@@ -1,5 +1,6 @@
 package com.qualle.trip.controller.edit;
 
+import com.qualle.trip.controller.AbstractController;
 import com.qualle.trip.model.dto.MemberAllowanceDto;
 import com.qualle.trip.model.dto.MemberDto;
 import com.qualle.trip.model.dto.TicketDto;
@@ -7,12 +8,15 @@ import com.qualle.trip.service.MemberService;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class EditMemberController {
+public class EditMemberController implements AbstractController {
 
+    private MemberDto dto;
     private long id;
 
     @Autowired
@@ -36,19 +40,33 @@ public class EditMemberController {
     @FXML
     private ListView<MemberAllowanceDto> allowances;
 
-    public void doApprove(ActionEvent event) {
-    }
-
+    @Override
     public void onShow() {
+
         if (id != 0) {
-            MemberDto dto = memberService.getFullDtoById(id);
+            dto = memberService.getFullDtoById(id);
             employee.setText(dto.getEmployee().toString());
             allowanceExpenses.setText(String.valueOf(dto.getAllowanceExpenses()));
             ticketsExpenses.setText(String.valueOf(dto.getTicketsExpenses()));
             trip.setText(dto.getTrip().getTitle());
             tickets.setItems(FXCollections.observableArrayList(dto.getTickets()));
             allowances.setItems(FXCollections.observableArrayList(dto.getAllowances()));
+
+        } else {
+            dto = null;
+            employee.setText(null);
+            allowanceExpenses.setText(null);
+            ticketsExpenses.setText(null);
+            trip.setText(null);
+            tickets.setItems(null);
+            allowances.setItems(null);
         }
+    }
+
+    @FXML
+    public void doApprove(ActionEvent event) {
+
+        ((Stage) ((Button) event.getSource()).getScene().getWindow()).close();
     }
 
     public void setId(long id) {

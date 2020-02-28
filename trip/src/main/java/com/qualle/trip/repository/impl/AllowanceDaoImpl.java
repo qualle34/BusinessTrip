@@ -23,7 +23,7 @@ public class AllowanceDaoImpl implements AllowanceDao {
 
     @Override
     public List<Allowance> getByCountry(String country) {
-        Query query = entityManager.createQuery("SELECT a FROM Allowance a WHERE lower(a.country) like lower(concat('%', :country,'%'))");
+        Query query = entityManager.createQuery("SELECT a FROM Allowance a WHERE lower(a.country) like lower(concat('%', :country,'%'))", Allowance.class);
         query.setParameter("country", country);
         return query.getResultList();
     }
@@ -46,6 +46,7 @@ public class AllowanceDaoImpl implements AllowanceDao {
     @Override
     public void delete(long id) {
         Query query = entityManager.createQuery("DELETE FROM Allowance a WHERE a.id = :id ");
+        query.setParameter("id", id);
         query.executeUpdate();
     }
 }

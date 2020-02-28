@@ -1,7 +1,6 @@
 package com.qualle.trip.repository.impl;
 
 import com.qualle.trip.model.entity.Employee;
-import com.qualle.trip.model.entity.Ticket;
 import com.qualle.trip.repository.EmployeeDao;
 import org.springframework.stereotype.Repository;
 
@@ -60,16 +59,18 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public void add(Employee employee) {
-
+        entityManager.persist(employee);
     }
 
     @Override
     public void update(Employee employee) {
-
+        entityManager.merge(employee);
     }
 
     @Override
     public void delete(long id) {
-
+        Query query = entityManager.createQuery("DELETE FROM Employee e WHERE e.id = :id");
+        query.setParameter("id", id);
+        query.executeUpdate();
     }
 }

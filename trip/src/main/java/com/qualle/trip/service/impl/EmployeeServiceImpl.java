@@ -75,13 +75,20 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     @Transactional
-    public void add(Employee employee) {
+    public void add(EmployeeDto dto) {
+        Employee employee = new Employee(dto.getName(), dto.getEmail(), dto.getSurname(), dto.getDepartment(), dto.getBirthday());
         employeeDao.add(employee);
     }
 
     @Override
     @Transactional
-    public void update(Employee employee) {
+    public void update(EmployeeDto dto) {
+        Employee employee = getById(dto.getId());
+        employee.setName(dto.getName());
+        employee.setSurname(dto.getSurname());
+        employee.setEmail(dto.getEmail());
+        employee.setDepartment(dto.getDepartment());
+        employee.setBirthday(dto.getBirthday());
         employeeDao.update(employee);
     }
 
@@ -134,10 +141,5 @@ public class EmployeeServiceImpl implements EmployeeService {
             dto.add(toSimpleDto(employee));
         }
         return dto;
-    }
-
-    @Override
-    public Employee fromDto(EmployeeDto dto) {
-        return new Employee();
     }
 }

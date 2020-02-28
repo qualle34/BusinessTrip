@@ -1,6 +1,7 @@
 package com.qualle.trip.controller.add;
 
 import com.qualle.trip.config.ControllerConfig;
+import com.qualle.trip.controller.AbstractController;
 import com.qualle.trip.model.dto.MemberDto;
 import com.qualle.trip.model.dto.TripDto;
 import com.qualle.trip.service.TripService;
@@ -18,11 +19,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 
-public class AddTripController {
+public class AddTripController implements AbstractController  {
 
     private TripDto dto;
 
-    @Qualifier("memberAddView")
+    @Qualifier("memberAdd")
     @Autowired
     private ControllerConfig.ViewHolder memberAddView;
 
@@ -100,5 +101,10 @@ public class AddTripController {
         end.setValue(null);
         additionalExpenses.setText(null);
         members.setItems(null);
+    }
+
+    @Override
+    public void onShow() {
+
     }
 }

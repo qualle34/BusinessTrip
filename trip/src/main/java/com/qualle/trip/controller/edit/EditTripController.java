@@ -1,28 +1,29 @@
 package com.qualle.trip.controller.edit;
 
 import com.qualle.trip.config.ControllerConfig;
-import com.qualle.trip.model.dto.*;
-import com.qualle.trip.service.MemberService;
+import com.qualle.trip.controller.AbstractController;
+import com.qualle.trip.controller.util.ControllerUtil;
+import com.qualle.trip.model.dto.MemberSimpleDto;
+import com.qualle.trip.model.dto.TripDto;
 import com.qualle.trip.service.TripService;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-public class EditTripController {
+public class EditTripController implements AbstractController {
 
+    private TripDto dto;
     private long id;
 
-    @Qualifier("memberEditView")
+    @Qualifier("memberEdit")
     @Autowired
     private ControllerConfig.ViewHolder memberEditView;
 
@@ -53,13 +54,12 @@ public class EditTripController {
     @FXML
     private ListView<MemberSimpleDto> members;
 
-    public void doApprove(ActionEvent event) {
-    }
 
+    @Override
     public void onShow() {
 
         if (id != 0) {
-            TripDto dto = tripService.getFullDtoById(id);
+            dto = tripService.getFullDtoById(id);
             title.setText(dto.getTitle());
             description.setText(dto.getDescription());
             start.setText(dto.getStart().toString());
@@ -68,6 +68,17 @@ public class EditTripController {
             additionalExpenses.setText(String.valueOf(dto.getAdditionalExpenses()));
             expenses.setText(String.valueOf(dto.getExpenses()));
             members.setItems(FXCollections.observableArrayList(dto.getMembers()));
+
+        } else {
+            dto = null;
+            title.setText(null);
+            description.setText(null);
+            start.setText(null);
+            end.setText(null);
+            status.setText(null);
+            additionalExpenses.setText(null);
+            expenses.setText(null);
+            members.setItems(null);
         }
     }
 
@@ -76,28 +87,25 @@ public class EditTripController {
 
         if (click.getClickCount() == 2) {
             ListView listView = (ListView) click.getSource();
-            Stage dialog = new Stage();
-            dialog.setResizable(false);
-
-            EditMemberController editMemberController = (EditMemberController) memberEditView.getController();
-            editMemberController.setId((members.getSelectionModel().getSelectedItem()).getId());
-            dialog.addEventHandler(WindowEvent.WINDOW_SHOWN, window -> editMemberController.onShow());
-
-            setScene(dialog, memberEditView);
-
-            dialog.initOwner(listView.getScene().getWindow());
-            dialog.initModality(Modality.WINDOW_MODAL);
-            dialog.showAndWait();
+            ((EditMemberController) memberEditView.getController()).setId((members.getSelectionModel().getSelectedItem()).getId());
+            ControllerUtil.openWindow(memberEditView, (Stage) listView.getScene().getWindow());
         }
     }
 
-    private void setScene(Stage dialog, ControllerConfig.ViewHolder viewHolder) {
+    @FXML
+    public void doApprove(ActionEvent event) {
 
-        if (viewHolder.getView().getScene() != null) {
-            dialog.setScene(viewHolder.getView().getScene());
-        } else {
-            dialog.setScene(new Scene(viewHolder.getView()));
+        if (id != 0) {
+            dto.setTitle(title.getText());
+            dto.setDescription(description.getText());
+//        dto.setStart(start);
+//        dto.setEnd(end);
+            dto.setAdditionalExpenses(Double.parseDouble(additionalExpenses.getText()));
+//        dto.setMembers(dto.getMembers());
+            tripService.update(dto);
         }
+
+        ((Stage) ((Button) event.getSource()).getScene().getWindow()).close();
     }
 
     public void setId(long id) {

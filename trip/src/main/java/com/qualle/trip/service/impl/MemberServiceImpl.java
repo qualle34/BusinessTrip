@@ -56,13 +56,19 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
-    public void add(Member member) {
+    public void add(MemberDto dto) {
+        Member member = new Member();
+        member.setEmployee(employeeService.getById(dto.getEmployee().getId()));
+        member.setTrip(tripService.getById(dto.getTrip().getId()));
+        member.setRole(dto.getRole());
         memberDao.add(member);
     }
 
     @Override
     @Transactional
-    public void update(Member member) {
+    public void update(MemberDto dto) {
+        Member member = memberDao.getById(dto.getId());
+        member.setRole(dto.getRole());
         memberDao.update(member);
     }
 

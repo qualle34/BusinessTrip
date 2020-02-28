@@ -1,44 +1,33 @@
-package com.qualle.trip.controller;
+package com.qualle.trip.controller.main;
 
 import com.qualle.trip.config.ControllerConfig;
+import com.qualle.trip.controller.AbstractController;
 import com.qualle.trip.model.dto.EmployeeSimpleDto;
 import com.qualle.trip.model.dto.TripSimpleDto;
 import com.qualle.trip.service.EmployeeService;
 import com.qualle.trip.service.TripService;
+import com.qualle.trip.service.enums.PageType;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.annotation.PostConstruct;
 
-public class MainController {
+import static com.qualle.trip.controller.util.ControllerUtil.openWindow;
 
-    @Qualifier("allowanceListView")
+public class MainController implements AbstractController {
+
+    @Qualifier("list")
     @Autowired
-    private ControllerConfig.ViewHolder allowanceListView;
+    private ControllerConfig.ViewHolder listView;
 
-    @Qualifier("ticketListView")
-    @Autowired
-    private ControllerConfig.ViewHolder ticketListView;
-
-    @Qualifier("tripListView")
-    @Autowired
-    private ControllerConfig.ViewHolder tripListView;
-
-    @Qualifier("employeeListView")
-    @Autowired
-    private ControllerConfig.ViewHolder employeeListView;
-
-    @Qualifier("tripAddView")
+    @Qualifier("tripAdd")
     @Autowired
     private ControllerConfig.ViewHolder tripAddView;
 
@@ -86,54 +75,37 @@ public class MainController {
     @FXML
     public void add(ActionEvent event) {
         Button button = (Button) event.getSource();
-        Stage dialog = new Stage();
-
-        if (tripAddView.getView().getScene() != null) {
-            dialog.setScene(tripAddView.getView().getScene());
-        } else {
-            dialog.setScene(new Scene(tripAddView.getView()));
-        }
-
-        dialog.initOwner(button.getScene().getWindow());
-        dialog.initModality(Modality.WINDOW_MODAL);
-        dialog.showAndWait();
+        openWindow(tripAddView, (Stage) button.getScene().getWindow());
     }
 
     @FXML
     public void showAllowance(ActionEvent event) {
-        showList(event, allowanceListView);
+        showList(event, PageType.ALLOWANCE);
     }
 
     @FXML
     public void showTickets(ActionEvent event) {
-        showList(event, ticketListView);
+        showList(event, PageType.TICKET);
     }
 
     @FXML
     public void showTrips(ActionEvent event) {
-        showList(event, tripListView);
+        showList(event, PageType.TRIP);
     }
 
     @FXML
     public void showEmployees(ActionEvent event) {
-        showList(event, employeeListView);
+        showList(event, PageType.EMPLOYEE);
     }
 
-
-    private void showList(ActionEvent event, ControllerConfig.ViewHolder viewHolder) {
+    private void showList(ActionEvent event, PageType type) {
         Button button = (Button) event.getSource();
-        Stage dialog = new Stage();
-        ListController controller = (ListController) viewHolder.getController();
-        dialog.addEventHandler(WindowEvent.WINDOW_SHOWN, window -> controller.onShow());
+        ListController controller = (ListController) listView.getController();
+        controller.setType(type);
+        openWindow(listView, (Stage) button.getScene().getWindow());
+    }
 
-        if (viewHolder.getView().getScene() != null) {
-            dialog.setScene(viewHolder.getView().getScene());
-        } else {
-            dialog.setScene(new Scene(viewHolder.getView()));
-        }
-
-        dialog.initOwner(button.getScene().getWindow());
-        dialog.initModality(Modality.WINDOW_MODAL);
-        dialog.showAndWait();
+    @Override
+    public void onShow() {
     }
 }

@@ -14,7 +14,5 @@ public interface MemberAllowanceDao {
 
     void add(MemberAllowance memberAllowance);
 
-    void update(MemberAllowance memberAllowance);
-
-    void delete(long id);
+    void delete(long allowanceId, long memberId);
 }

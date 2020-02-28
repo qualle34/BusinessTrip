@@ -3,10 +3,12 @@ package com.qualle.trip.service.impl;
 import com.qualle.trip.model.dto.AllowanceDto;
 import com.qualle.trip.model.dto.MemberAllowanceDto;
 import com.qualle.trip.model.entity.Allowance;
+import com.qualle.trip.model.entity.Member;
 import com.qualle.trip.model.entity.MemberAllowance;
 import com.qualle.trip.repository.AllowanceDao;
 import com.qualle.trip.repository.MemberAllowanceDao;
 import com.qualle.trip.service.AllowanceService;
+import com.qualle.trip.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +25,9 @@ public class AllowanceServiceImpl implements AllowanceService {
 
     @Autowired
     private AllowanceDao allowanceDao;
+
+    @Autowired
+    private MemberService memberService;
 
     @Override
     public List<Allowance> getAll() {
@@ -56,7 +61,10 @@ public class AllowanceServiceImpl implements AllowanceService {
 
     @Override
     @Transactional
-    public void add(MemberAllowance memberAllowance) {
+    public void add(MemberAllowanceDto dto) {
+        Allowance allowance = allowanceDao.getById(dto.getAllowance().getId());
+        Member member = memberService.getById(dto.getMember().getId());
+        MemberAllowance memberAllowance = new MemberAllowance(allowance, member, dto.getDays());
         memberAllowanceDao.add(memberAllowance);
     }
 
@@ -68,18 +76,18 @@ public class AllowanceServiceImpl implements AllowanceService {
 
     @Override
     @Transactional
-    public void update(MemberAllowance memberAllowance) {
-        memberAllowanceDao.update(memberAllowance);
-    }
-
-    @Override
-    @Transactional
     public void update(AllowanceDto dto) {
         Allowance allowance = getById(dto.getId());
         allowance.setCountry(dto.getCountry());
         allowance.setCurrency(dto.getCurrency());
         allowance.setValue(dto.getValue());
         allowanceDao.update(allowance);
+    }
+
+    @Override
+    @Transactional
+    public void delete(long allowanceId, long memberId) {
+        memberAllowanceDao.delete(allowanceId, memberId);
     }
 
     @Override
@@ -97,7 +105,7 @@ public class AllowanceServiceImpl implements AllowanceService {
 
     @Override
     public MemberAllowanceDto toMemberDto(MemberAllowance memberAllowance) {
-        return new MemberAllowanceDto(memberAllowance.getAllowance().getCountry(), memberAllowance.getAllowance().getValue(), memberAllowance.getAllowance().getCurrency(), memberAllowance.getDays());
+        return new MemberAllowanceDto(toDto(memberAllowance.getAllowance()), memberAllowance.getDays());
     }
 
     @Override

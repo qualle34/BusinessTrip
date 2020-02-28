@@ -39,11 +39,12 @@ public class Ticket {
     public Ticket() {
     }
 
-    public Ticket(String from, String to, Date date, double price) {
+    public Ticket(String from, String to, Date date, double price, TicketType type) {
         this.from = from;
         this.to = to;
         this.date = date;
         this.price = price;
+        this.type = type;
     }
 
     public Long getId() {

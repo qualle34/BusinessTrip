@@ -1,5 +1,6 @@
 package com.qualle.trip.repository.impl;
 
+import com.qualle.trip.model.entity.Member;
 import com.qualle.trip.model.entity.MemberAllowance;
 import com.qualle.trip.model.entity.Allowance;
 import com.qualle.trip.repository.MemberAllowanceDao;
@@ -35,16 +36,14 @@ public class MemberAllowanceDaoImpl implements MemberAllowanceDao {
 
     @Override
     public void add(MemberAllowance memberAllowance) {
-
+        entityManager.persist(memberAllowance);
     }
 
     @Override
-    public void update(MemberAllowance memberAllowance) {
-
-    }
-
-    @Override
-    public void delete(long id) {
-
+    public void delete(long allowanceId, long memberId) {
+        Query query = entityManager.createQuery("DELETE FROM MemberAllowance ma WHERE ma.allowance.id = :allowanceId AND ma.member.id = :memberId");
+        query.setParameter("allowanceId", allowanceId);
+        query.setParameter("memberId", memberId);
+        query.executeUpdate();
     }
 }

@@ -1,27 +1,27 @@
 package com.qualle.trip.controller.edit;
 
+import com.qualle.trip.controller.AbstractController;
 import com.qualle.trip.model.dto.EmployeeDto;
 import com.qualle.trip.model.dto.TicketDto;
 import com.qualle.trip.model.dto.TripSimpleDto;
 import com.qualle.trip.service.EmployeeService;
-import com.qualle.trip.service.TripService;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class EditEmployeeController {
+public class EditEmployeeController implements AbstractController {
 
+    private EmployeeDto dto;
     private long id;
 
     @Autowired
     private EmployeeService employeeService;
-
-    @Autowired
-    private TripService tripService;
 
     @FXML
     private TextField name;
@@ -44,12 +44,11 @@ public class EditEmployeeController {
     @FXML
     private ListView<TripSimpleDto> trips;
 
-    public void doApprove(ActionEvent event) {
-    }
-
+    @Override
     public void onShow() {
+
         if (id != 0) {
-            EmployeeDto dto = employeeService.getFullDtoById(id);
+            dto = employeeService.getFullDtoById(id);
             name.setText(dto.getName());
             surname.setText(dto.getSurname());
             department.setText(dto.getDepartment());
@@ -57,7 +56,41 @@ public class EditEmployeeController {
             birthday.setValue(dto.getBirthday());
             tickets.setItems(FXCollections.observableArrayList(dto.getTickets()));
             trips.setItems(FXCollections.observableArrayList(dto.getTrips()));
+
+        } else {
+            dto = null;
+            name.setText("");
+            surname.setText("");
+            department.setText("");
+            email.setText("");
+            birthday.setValue(null);
+            tickets.setItems(null);
+            trips.setItems(null);
         }
+    }
+
+    @FXML
+    public void doApprove(ActionEvent event) {
+
+        if (id != 0) {
+            dto.setName(name.getText());
+            dto.setSurname(surname.getText());
+            dto.setDepartment(department.getText());
+            dto.setEmail(email.getText());
+            dto.setBirthday(birthday.getValue());
+            employeeService.update(dto);
+
+        } else {
+            dto = new EmployeeDto();
+            dto.setName(name.getText());
+            dto.setSurname(surname.getText());
+            dto.setDepartment(department.getText());
+            dto.setEmail(email.getText());
+            dto.setBirthday(birthday.getValue());
+            employeeService.add(dto);
+        }
+
+        ((Stage) ((Button) event.getSource()).getScene().getWindow()).close();
     }
 
     public void setId(long id) {

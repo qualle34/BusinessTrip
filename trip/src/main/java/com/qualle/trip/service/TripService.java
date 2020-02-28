@@ -37,7 +37,5 @@ public interface TripService {
 
     TripSimpleDto toSimpleDto(Trip trip);
 
-    List<TripDto> toDtoArray(Collection<Trip> trips);
-
     List<TripSimpleDto> toSimpleDtoArray(Collection<Trip> trips);
 }

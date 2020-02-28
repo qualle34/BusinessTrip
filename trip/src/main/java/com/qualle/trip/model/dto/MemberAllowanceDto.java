@@ -2,50 +2,16 @@ package com.qualle.trip.model.dto;
 
 public class MemberAllowanceDto {
 
-    private String country;
-    private double value;
-    private String currency;
     private int days;
+    private MemberDto member;
+    private AllowanceDto allowance;
 
     public MemberAllowanceDto() {
     }
 
-    public MemberAllowanceDto(String country, double value, String currency, int days) {
-        this.country = country;
-        this.value = value;
-        this.currency = currency;
+    public MemberAllowanceDto(AllowanceDto allowance, int days) {
+        this.allowance = allowance;
         this.days = days;
-    }
-
-    public MemberAllowanceDto(AllowanceDto dto, int days) {
-        this.country = dto.getCountry();
-        this.value = dto.getValue();
-        this.currency = dto.getCurrency();
-        this.days = days;
-    }
-
-    public double getValue() {
-        return value;
-    }
-
-    public void setValue(double value) {
-        this.value = value;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
     }
 
     public int getDays() {
@@ -56,8 +22,24 @@ public class MemberAllowanceDto {
         this.days = days;
     }
 
+    public MemberDto getMember() {
+        return member;
+    }
+
+    public void setMember(MemberDto member) {
+        this.member = member;
+    }
+
+    public AllowanceDto getAllowance() {
+        return allowance;
+    }
+
+    public void setAllowance(AllowanceDto allowance) {
+        this.allowance = allowance;
+    }
+
     @Override
     public String toString() {
-        return country + " - " + days + "д";
+        return allowance.toString() + " - " + days + "д";
     }
 }

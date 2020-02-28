@@ -22,7 +22,7 @@ public class Allowance {
     @Column(name = "currency")
     private String currency;
 
-    @OneToMany(mappedBy = "allowance")
+    @OneToMany(mappedBy = "allowance", cascade = CascadeType.ALL)
     private Set<MemberAllowance> memberAllowances;
 
     public Allowance() {

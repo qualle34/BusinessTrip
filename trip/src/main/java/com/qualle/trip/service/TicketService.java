@@ -20,15 +20,13 @@ public interface TicketService {
 
     List<TicketDto> getDtoByLocation(String location);
 
-    void add(Ticket ticket);
+    void add(TicketDto dto);
 
-    void update(Ticket ticket);
+    void update(TicketDto dto);
 
     void delete(long id);
 
     TicketDto toDto(Ticket ticket);
 
     List<TicketDto> toDtoArray(Collection<Ticket> tickets);
-
-    Ticket fromDto(TicketDto dto);
 }

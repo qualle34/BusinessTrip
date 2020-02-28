@@ -40,10 +40,11 @@ public class Trip {
     public Trip() {
     }
 
-    public Trip(String title, String description, String place) {
+    public Trip(String title, String description, String place, double additionalExpenses) {
         this.title = title;
         this.description = description;
         this.place = place;
+        this.additionalExpenses = additionalExpenses;
     }
 
     public Long getId() {

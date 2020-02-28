@@ -72,7 +72,9 @@ public class TripServiceImpl implements TripService {
     @Override
     @Transactional
     public void add(TripDto dto) {
-        Trip trip = new Trip(dto.getTitle(), dto.getDescription(), dto.getPlace());
+        Trip trip = new Trip(dto.getTitle(), dto.getDescription(), dto.getPlace(), dto.getAdditionalExpenses());
+        trip.setStart(dto.getStart());
+        trip.setEnd(dto.getEnd());
         tripDao.add(trip);
     }
 
@@ -81,6 +83,9 @@ public class TripServiceImpl implements TripService {
     public void update(TripDto dto) {
         Trip trip = tripDao.getById(dto.getId());
         trip.setTitle(dto.getTitle());
+        trip.setDescription(dto.getDescription());
+        trip.setPlace(dto.getPlace());
+        trip.setAdditionalExpenses(dto.getExpenses());
         tripDao.update(trip);
     }
 
@@ -115,15 +120,6 @@ public class TripServiceImpl implements TripService {
     public TripSimpleDto toSimpleDto(Trip trip) {
         TripSimpleDto dto = new TripSimpleDto(trip.getTitle(), trip.getDescription(), trip.getAdditionalExpenses());
         dto.setId(trip.getId());
-        return dto;
-    }
-
-    @Override
-    public List<TripDto> toDtoArray(Collection<Trip> trips) {
-        List<TripDto> dto = new ArrayList<>();
-        for (Trip trip : trips) {
-            dto.add(toDto(trip));
-        }
         return dto;
     }
 

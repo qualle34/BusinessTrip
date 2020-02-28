@@ -27,9 +27,9 @@ public interface EmployeeService {
 
     List<EmployeeSimpleDto> getSimpleDtoByName(String name);
 
-    void add(Employee employee);
+    void add(EmployeeDto dto);
 
-    void update(Employee employee);
+    void update(EmployeeDto dto);
 
     void delete(long id);
 
@@ -40,6 +40,4 @@ public interface EmployeeService {
     List<EmployeeDto> toDtoArray(Collection<Employee> employees);
 
     List<EmployeeSimpleDto> toSimpleDtoArray(Collection<Employee> employees);
-
-    Employee fromDto(EmployeeDto dto);
 }

@@ -1,13 +1,10 @@
 package com.qualle.trip.service.impl;
 
 import com.qualle.trip.model.dto.TicketDto;
-import com.qualle.trip.model.entity.Employee;
-import com.qualle.trip.model.entity.Member;
 import com.qualle.trip.model.entity.Ticket;
 import com.qualle.trip.repository.TicketDao;
 import com.qualle.trip.service.EmployeeService;
 import com.qualle.trip.service.TicketService;
-import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,13 +54,20 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     @Transactional
-    public void add(Ticket ticket) {
+    public void add(TicketDto dto) {
+        Ticket ticket = new Ticket(dto.getFrom(), dto.getTo(), dto.getDate(), dto.getPrice(), dto.getType());
         ticketDao.add(ticket);
     }
 
     @Override
     @Transactional
-    public void update(Ticket ticket) {
+    public void update(TicketDto dto) {
+        Ticket ticket = getById(dto.getId());
+        ticket.setFrom(dto.getFrom());
+        ticket.setTo(dto.getTo());
+        ticket.setDate(dto.getDate());
+        ticket.setPrice(dto.getPrice());
+        ticket.setType(dto.getType());
         ticketDao.update(ticket);
     }
 
@@ -88,10 +92,5 @@ public class TicketServiceImpl implements TicketService {
             dto.add(toDto(ticket));
         }
         return dto;
-    }
-
-    @Override
-    public Ticket fromDto(TicketDto dto) {
-        return new Ticket(dto.getFrom(), dto.getTo(), dto.getDate(), dto.getPrice());
     }
 }

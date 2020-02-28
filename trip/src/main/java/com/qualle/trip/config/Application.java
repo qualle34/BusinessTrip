@@ -16,7 +16,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EntityScan("com.qualle.trip.model.entity")
 public class Application extends AbstractJavaFxSupport {
 
-    @Qualifier("mainView")
+    @Qualifier("main")
     @Autowired
     private ControllerConfig.ViewHolder mainView;
 

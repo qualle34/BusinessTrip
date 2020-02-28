@@ -41,16 +41,18 @@ public class MemberDaoImpl implements MemberDao {
 
     @Override
     public void add(Member member) {
-
+        entityManager.persist(member);
     }
 
     @Override
     public void update(Member member) {
-
+        entityManager.merge(member);
     }
 
     @Override
     public void delete(long id) {
-
+        Query query = entityManager.createQuery("DELETE FROM Member m WHERE m.id = :id");
+        query.setParameter("id", id);
+        query.executeUpdate();
     }
 }

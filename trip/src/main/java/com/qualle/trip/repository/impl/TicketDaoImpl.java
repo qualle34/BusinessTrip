@@ -42,16 +42,18 @@ public class TicketDaoImpl implements TicketDao {
 
     @Override
     public void add(Ticket ticket) {
-
+        entityManager.persist(ticket);
     }
 
     @Override
     public void update(Ticket ticket) {
-
+        entityManager.merge(ticket);
     }
 
     @Override
     public void delete(long id) {
-
+        Query query = entityManager.createQuery("DELETE FROM Ticket t WHERE t.id = :id");
+        query.setParameter("id", id);
+        query.executeUpdate();
     }
 }
