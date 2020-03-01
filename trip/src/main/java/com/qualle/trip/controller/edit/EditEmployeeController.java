@@ -54,15 +54,19 @@ public class EditEmployeeController implements AbstractController {
             department.setText(dto.getDepartment());
             email.setText(dto.getEmail());
             birthday.setValue(dto.getBirthday());
-            tickets.setItems(FXCollections.observableArrayList(dto.getTickets()));
-            trips.setItems(FXCollections.observableArrayList(dto.getTrips()));
+            if (dto.getTickets() != null) {
+                tickets.setItems(FXCollections.observableArrayList(dto.getTickets()));
+            }
+            if (dto.getTrips() != null) {
+                trips.setItems(FXCollections.observableArrayList(dto.getTrips()));
+            }
 
         } else {
             dto = null;
-            name.setText("");
-            surname.setText("");
-            department.setText("");
-            email.setText("");
+            name.setText(null);
+            surname.setText(null);
+            department.setText(null);
+            email.setText(null);
             birthday.setValue(null);
             tickets.setItems(null);
             trips.setItems(null);

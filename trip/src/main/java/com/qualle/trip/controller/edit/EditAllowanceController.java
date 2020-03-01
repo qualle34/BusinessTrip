@@ -38,9 +38,9 @@ public class EditAllowanceController implements AbstractController {
 
         } else {
             dto = null;
-            country.setText("");
-            value.setText("");
-            currency.setText("");
+            country.setText(null);
+            value.setText(null);
+            currency.setText(null);
         }
     }
 

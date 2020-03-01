@@ -18,7 +18,7 @@ public class Application extends AbstractJavaFxSupport {
 
     @Qualifier("main")
     @Autowired
-    private ControllerConfig.ViewHolder mainView;
+    private ViewHolder mainView;
 
     @Override
     public void start(Stage stage) throws Exception {

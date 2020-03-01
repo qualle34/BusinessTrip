@@ -22,7 +22,7 @@ CREATE TABLE "employee" (
 
 CREATE TABLE "ticket" (
     "id" bigserial   NOT NULL,
-    "member_id" int8   NOT NULL,
+    "member_id" int8   NULL REFERENCES member ON DELETE CASCADE,
     "from" varchar   NOT NULL,
     "to" varchar   NOT NULL,
     "date" timestamp   NOT NULL,
@@ -47,8 +47,8 @@ CREATE TABLE "trip" (
 );
 
 CREATE TABLE "member_allowance" (
-    "member_id" int8   NOT NULL,
-    "allowance_id" int8   NOT NULL,
+    "member_id" int8   NOT NULL REFERENCES member ON DELETE CASCADE,
+    "allowance_id" int8   NOT NULL REFERENCES allowance ON DELETE CASCADE,
     "days" int4   NOT NULL,
     CONSTRAINT "pk_member_allowance" PRIMARY KEY (
         "member_id","allowance_id"
@@ -57,8 +57,8 @@ CREATE TABLE "member_allowance" (
 
 CREATE TABLE "member" (
     "id" bigserial   NOT NULL,
-    "employee_id" int8   NOT NULL,
-    "trip_id" int8   NOT NULL,
+    "employee_id" int8   NOT NULL REFERENCES employee ON DELETE CASCADE,
+    "trip_id" int8   NOT NULL REFERENCES trip ON DELETE CASCADE,
     "role" varchar   NOT NULL,
     CONSTRAINT "pk_member" PRIMARY KEY (
         "id"

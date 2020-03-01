@@ -1,6 +1,7 @@
 package com.qualle.trip.controller.edit;
 
 import com.qualle.trip.config.ControllerConfig;
+import com.qualle.trip.config.ViewHolder;
 import com.qualle.trip.controller.AbstractController;
 import com.qualle.trip.controller.util.ControllerUtil;
 import com.qualle.trip.model.dto.MemberSimpleDto;
@@ -25,7 +26,7 @@ public class EditTripController implements AbstractController {
 
     @Qualifier("memberEdit")
     @Autowired
-    private ControllerConfig.ViewHolder memberEditView;
+    private ViewHolder memberEditView;
 
     @Autowired
     private TripService tripService;

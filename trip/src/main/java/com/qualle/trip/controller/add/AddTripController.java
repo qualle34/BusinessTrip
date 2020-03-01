@@ -1,6 +1,6 @@
 package com.qualle.trip.controller.add;
 
-import com.qualle.trip.config.ControllerConfig;
+import com.qualle.trip.config.ViewHolder;
 import com.qualle.trip.controller.AbstractController;
 import com.qualle.trip.model.dto.MemberDto;
 import com.qualle.trip.model.dto.TripDto;
@@ -25,7 +25,7 @@ public class AddTripController implements AbstractController  {
 
     @Qualifier("memberAdd")
     @Autowired
-    private ControllerConfig.ViewHolder memberAddView;
+    private ViewHolder memberAddView;
 
     @Autowired
     private TripService tripService;

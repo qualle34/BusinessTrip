@@ -15,10 +15,10 @@ public class Ticket {
     @SequenceGenerator(name = "ticket_seq", sequenceName = "ticket_id_seq", allocationSize = 1)
     private Long id;
 
-    @Column(name = "from")
+    @Column(name = "\"from\"")
     private String from;
 
-    @Column(name = "to")
+    @Column(name = "\"to\"")
     private String to;
 
     @Column(name = "date")

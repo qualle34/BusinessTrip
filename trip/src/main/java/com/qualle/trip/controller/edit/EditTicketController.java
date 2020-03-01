@@ -15,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.PostConstruct;
 import java.util.Arrays;
 
 public class EditTicketController implements AbstractController {
@@ -46,6 +47,12 @@ public class EditTicketController implements AbstractController {
     @FXML
     private ChoiceBox<EmployeeSimpleDto> employee;
 
+    @PostConstruct
+    public void init(){
+        type.setItems(FXCollections.observableArrayList(Arrays.asList(TicketType.values())));
+        employee.setItems(FXCollections.observableArrayList(employeeService.getAllSimpleDto()));
+    }
+
     @Override
     public void onShow() {
 
@@ -55,9 +62,7 @@ public class EditTicketController implements AbstractController {
             to.setText(dto.getTo());
             date.setText(dto.getDate().toString());
             price.setText(String.valueOf(dto.getPrice()));
-            type.setItems(FXCollections.observableArrayList(Arrays.asList(TicketType.values())));
             type.setValue(dto.getType());
-            employee.setItems(FXCollections.observableArrayList(employeeService.getAllSimpleDto()));
             employee.setValue(dto.getEmployee());
 
         } else {
@@ -66,9 +71,7 @@ public class EditTicketController implements AbstractController {
             to.setText(null);
             date.setText(null);
             price.setText(null);
-            type.setItems(null);
             type.setValue(null);
-            employee.setItems(null);
             employee.setValue(null);
         }
     }
@@ -93,7 +96,6 @@ public class EditTicketController implements AbstractController {
             dto.setPrice(Double.parseDouble(price.getText()));
             dto.setType(type.getValue());
 //        dto.setEmployee();
-            ticketService.update(dto);
             ticketService.add(dto);
         }
 

@@ -63,6 +63,7 @@ public class TripServiceImpl implements TripService {
     public TripDto getFullDtoById(long id) {
         Trip trip = tripDao.getFullById(id);
         TripDto dto = new TripDto(trip.getTitle(), trip.getDescription(), trip.getPlace(), trip.getStart(), trip.getEnd(), trip.getAdditionalExpenses());
+        dto.setId(trip.getId());
         dto.setStatus(getStatus(trip.getStart(), trip.getEnd()).toString());
         dto.setExpenses(calculateExpenses(trip.getMembers(), trip.getAdditionalExpenses()));
         dto.setMembers(memberService.toSimpleDtoArray(trip.getMembers()));

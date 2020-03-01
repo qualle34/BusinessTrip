@@ -1,6 +1,6 @@
 package com.qualle.trip.controller.main;
 
-import com.qualle.trip.config.ControllerConfig;
+import com.qualle.trip.config.ViewHolder;
 import com.qualle.trip.controller.AbstractController;
 import com.qualle.trip.controller.edit.EditAllowanceController;
 import com.qualle.trip.controller.edit.EditEmployeeController;
@@ -43,19 +43,19 @@ public class ListController implements AbstractController {
 
     @Autowired
     @Qualifier("allowanceEdit")
-    private ControllerConfig.ViewHolder allowanceEditView;
+    private ViewHolder allowanceEditView;
 
     @Autowired
     @Qualifier("ticketEdit")
-    private ControllerConfig.ViewHolder ticketEditView;
+    private ViewHolder ticketEditView;
 
     @Autowired
     @Qualifier("tripEdit")
-    private ControllerConfig.ViewHolder tripEditView;
+    private ViewHolder tripEditView;
 
     @Autowired
     @Qualifier("employeeEdit")
-    private ControllerConfig.ViewHolder employeeEditView;
+    private ViewHolder employeeEditView;
 
     @Autowired
     private AllowanceService allowanceService;
@@ -106,22 +106,22 @@ public class ListController implements AbstractController {
 
         switch (type) {
             case ALLOWANCE:
-                list.setItems(FXCollections.observableArrayList(search.getText().isEmpty()
+                list.setItems(FXCollections.observableArrayList(search.getText() == null
                         ? allowanceService.getAllDto()
                         : allowanceService.getDtoByCountry(search.getText().trim())));
                 break;
             case TICKET:
-                list.setItems(FXCollections.observableArrayList(search.getText().isEmpty()
+                list.setItems(FXCollections.observableArrayList(search.getText() == null
                         ? ticketService.getAllDto()
                         : ticketService.getDtoByLocation(search.getText().trim())));
                 break;
             case TRIP:
-                list.setItems(FXCollections.observableArrayList(search.getText().isEmpty()
+                list.setItems(FXCollections.observableArrayList(search.getText() == null
                         ? tripService.getAllSimpleDto()
                         : tripService.getSimpleDtoByTitle(search.getText().trim())));
                 break;
             case EMPLOYEE:
-                list.setItems(FXCollections.observableArrayList(search.getText().isEmpty()
+                list.setItems(FXCollections.observableArrayList(search.getText() == null
                         ? employeeService.getAllDto()
                         : employeeService.getSimpleDtoByName(search.getText().trim())));
                 break;
@@ -178,6 +178,7 @@ public class ListController implements AbstractController {
 
                 case EMPLOYEE:
                     EditEmployeeController employeeController = (EditEmployeeController) employeeEditView.getController();
+                    System.out.println(((EmployeeSimpleDto) list.getSelectionModel().getSelectedItem()).getId());
                     employeeController.setId(((EmployeeSimpleDto) list.getSelectionModel().getSelectedItem()).getId());
 
                     openWindow(employeeEditView, (Stage) listView.getScene().getWindow());

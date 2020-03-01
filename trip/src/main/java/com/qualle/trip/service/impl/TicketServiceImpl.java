@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -55,7 +56,7 @@ public class TicketServiceImpl implements TicketService {
     @Override
     @Transactional
     public void add(TicketDto dto) {
-        Ticket ticket = new Ticket(dto.getFrom(), dto.getTo(), dto.getDate(), dto.getPrice(), dto.getType());
+        Ticket ticket = new Ticket(dto.getFrom(), dto.getTo(), new Date(), dto.getPrice(), dto.getType());
         ticketDao.add(ticket);
     }
 
@@ -81,7 +82,9 @@ public class TicketServiceImpl implements TicketService {
     public TicketDto toDto(Ticket ticket) {
         TicketDto dto = new TicketDto(ticket.getFrom(), ticket.getTo(), ticket.getDate(), ticket.getPrice(), ticket.getType());
         dto.setId(ticket.getId());
-        dto.setEmployee(employeeService.toSimpleDto(ticket.getMember().getEmployee()));
+        if (ticket.getMember() != null && ticket.getMember().getEmployee() != null) {
+            dto.setEmployee(employeeService.toSimpleDto(ticket.getMember().getEmployee()));
+        }
         return dto;
     }
 

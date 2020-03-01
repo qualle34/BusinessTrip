@@ -1,6 +1,6 @@
 package com.qualle.trip.controller.util;
 
-import com.qualle.trip.config.ControllerConfig;
+import com.qualle.trip.config.ViewHolder;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -8,7 +8,7 @@ import javafx.stage.WindowEvent;
 
 public class ControllerUtil {
 
-    public static void openWindow(ControllerConfig.ViewHolder viewHolder, Stage owner) {
+    public static void openWindow(ViewHolder viewHolder, Stage owner) {
         Stage stage = new Stage();
         stage.setResizable(false);
         stage.addEventHandler(WindowEvent.WINDOW_SHOWN, window -> viewHolder.getController().onShow());
@@ -20,7 +20,7 @@ public class ControllerUtil {
         stage.showAndWait();
     }
 
-    public static void setScene(Stage stage, ControllerConfig.ViewHolder viewHolder) {
+    public static void setScene(Stage stage, ViewHolder viewHolder) {
         if (viewHolder.getView().getScene() != null) {
             stage.setScene(viewHolder.getView().getScene());
         } else {

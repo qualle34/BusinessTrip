@@ -1,7 +1,8 @@
 package com.qualle.trip.controller.add;
 
-import com.qualle.trip.config.ControllerConfig;
+import com.qualle.trip.config.ViewHolder;
 import com.qualle.trip.controller.AbstractController;
+import com.qualle.trip.controller.util.ControllerUtil;
 import com.qualle.trip.model.dto.*;
 import com.qualle.trip.service.AllowanceService;
 import com.qualle.trip.service.EmployeeService;
@@ -35,11 +36,11 @@ public class AddMemberController implements AbstractController {
 
     @Qualifier("tripAdd")
     @Autowired
-    private ControllerConfig.ViewHolder tripAddView;
+    private ViewHolder tripAddView;
 
     @Qualifier("ticketEdit")
     @Autowired
-    private ControllerConfig.ViewHolder ticketEditView;
+    private ViewHolder ticketEditView;
 
     @Autowired
     private TicketService ticketService;
@@ -86,18 +87,7 @@ public class AddMemberController implements AbstractController {
 
     @FXML
     public void createTicket(ActionEvent event) {
-        Button button = (Button) event.getSource();
-        Stage dialog = new Stage();
-
-        if (ticketEditView.getView().getScene() != null) {
-            dialog.setScene(ticketEditView.getView().getScene());
-        } else {
-            dialog.setScene(new Scene(ticketEditView.getView()));
-        }
-
-        dialog.initOwner(button.getScene().getWindow());
-        dialog.initModality(Modality.WINDOW_MODAL);
-        dialog.showAndWait();
+        ControllerUtil.openWindow(ticketEditView, (Stage) ((Button) event.getSource()).getScene().getWindow());
     }
 
     @FXML

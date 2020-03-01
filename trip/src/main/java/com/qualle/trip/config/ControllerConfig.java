@@ -1,12 +1,11 @@
 package com.qualle.trip.config;
 
-import com.qualle.trip.controller.AbstractController;
+import com.qualle.trip.controller.add.AddMemberController;
+import com.qualle.trip.controller.add.AddTripController;
+import com.qualle.trip.controller.edit.*;
 import com.qualle.trip.controller.main.ListController;
 import com.qualle.trip.controller.main.MainController;
-import com.qualle.trip.controller.add.*;
-import com.qualle.trip.controller.edit.*;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,40 +14,6 @@ import java.io.InputStream;
 
 @Configuration
 public class ControllerConfig {
-
-    protected ViewHolder loadView(String path) throws IOException {
-        try (InputStream fxmlStream = getClass().getClassLoader().getResourceAsStream(path)) {
-            FXMLLoader loader = new FXMLLoader();
-            loader.load(fxmlStream);
-            return new ViewHolder(loader.getRoot(), loader.getController());
-        }
-    }
-
-    public class ViewHolder {
-        private Parent view;
-        private AbstractController controller;
-
-        public ViewHolder(Parent view, AbstractController controller) {
-            this.view = view;
-            this.controller = controller;
-        }
-
-        public Parent getView() {
-            return view;
-        }
-
-        public void setView(Parent view) {
-            this.view = view;
-        }
-
-        public AbstractController getController() {
-            return controller;
-        }
-
-        public void setController(AbstractController controller) {
-            this.controller = controller;
-        }
-    }
 
     @Bean(name = "main")
     public ViewHolder getMainView() throws IOException {
@@ -138,5 +103,13 @@ public class ControllerConfig {
     @Bean
     public AddTripController getTripAddController() throws IOException {
         return (AddTripController) getTripAddView().getController();
+    }
+
+    private ViewHolder loadView(String path) throws IOException {
+        try (InputStream fxmlStream = getClass().getClassLoader().getResourceAsStream(path)) {
+            FXMLLoader loader = new FXMLLoader();
+            loader.load(fxmlStream);
+            return new ViewHolder(loader.getRoot(), loader.getController());
+        }
     }
 }

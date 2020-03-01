@@ -49,7 +49,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     @Override
     public Employee getFullById(long id) {
         Query query = entityManager.createQuery("SELECT e FROM Employee e " +
-                "INNER JOIN FETCH e.members m " +
+                "LEFT JOIN FETCH e.members m " +
                 "LEFT JOIN FETCH m.tickets " +
                 "LEFT JOIN FETCH m.trip " +
                 "WHERE e.id = :id", Employee.class);
