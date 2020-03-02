@@ -60,17 +60,26 @@ public class EditEmployeeController implements AbstractController {
             if (dto.getTrips() != null) {
                 trips.setItems(FXCollections.observableArrayList(dto.getTrips()));
             }
+            tickets.setDisable(false);
+            trips.setDisable(false);
 
         } else {
-            dto = null;
-            name.setText(null);
-            surname.setText(null);
-            department.setText(null);
-            email.setText(null);
-            birthday.setValue(null);
-            tickets.setItems(null);
-            trips.setItems(null);
+            tickets.setDisable(true);
+            trips.setDisable(true);
         }
+    }
+
+    @Override
+    public void onClose() {
+        id = 0;
+        dto = null;
+        name.setText(null);
+        surname.setText(null);
+        department.setText(null);
+        email.setText(null);
+        birthday.setValue(null);
+        tickets.setItems(null);
+        trips.setItems(null);
     }
 
     @FXML

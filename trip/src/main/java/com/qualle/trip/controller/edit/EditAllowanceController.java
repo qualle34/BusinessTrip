@@ -6,9 +6,12 @@ import com.qualle.trip.service.AllowanceService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import static com.qualle.trip.controller.util.ControllerUtil.getSpinnerFactory;
 
 public class EditAllowanceController implements AbstractController {
 
@@ -22,7 +25,7 @@ public class EditAllowanceController implements AbstractController {
     private TextField country;
 
     @FXML
-    private TextField value;
+    private Spinner<Double> value;
 
     @FXML
     private TextField currency;
@@ -33,15 +36,18 @@ public class EditAllowanceController implements AbstractController {
         if (id != 0) {
             dto = allowanceService.getDtoById(id);
             country.setText(dto.getCountry());
-            value.setText(String.valueOf(dto.getValue()));
+            value.setValueFactory(getSpinnerFactory(dto.getValue()));
             currency.setText(dto.getCurrency());
-
-        } else {
-            dto = null;
-            country.setText(null);
-            value.setText(null);
-            currency.setText(null);
         }
+    }
+
+    @Override
+    public void onClose() {
+        id = 0;
+        dto = null;
+        country.setText(null);
+        value.setValueFactory(getSpinnerFactory(0.0));
+        currency.setText(null);
     }
 
     @FXML
@@ -50,14 +56,14 @@ public class EditAllowanceController implements AbstractController {
         if (id != 0) {
             dto.setCountry(country.getText());
             dto.setCurrency(currency.getText());
-            dto.setValue(Double.parseDouble(value.getText()));
+            dto.setValue(value.getValue());
             allowanceService.update(dto);
 
         } else {
             AllowanceDto dto = new AllowanceDto();
             dto.setCountry(country.getText());
             dto.setCurrency(currency.getText());
-            dto.setValue(Double.parseDouble(value.getText()));
+            dto.setValue(value.getValue());
             allowanceService.add(dto);
         }
 

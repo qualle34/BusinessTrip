@@ -108,4 +108,8 @@ public class MainController implements AbstractController {
     @Override
     public void onShow() {
     }
+
+    @Override
+    public void onClose() {
+    }
 }

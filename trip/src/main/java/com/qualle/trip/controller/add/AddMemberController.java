@@ -2,7 +2,6 @@ package com.qualle.trip.controller.add;
 
 import com.qualle.trip.config.ViewHolder;
 import com.qualle.trip.controller.AbstractController;
-import com.qualle.trip.controller.util.ControllerUtil;
 import com.qualle.trip.model.dto.*;
 import com.qualle.trip.service.AllowanceService;
 import com.qualle.trip.service.EmployeeService;
@@ -22,13 +21,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
+
+import static com.qualle.trip.controller.util.ControllerUtil.openWindow;
 
 public class AddMemberController implements AbstractController {
 
@@ -52,46 +52,70 @@ public class AddMemberController implements AbstractController {
     private AllowanceService allowanceService;
 
     @FXML
-    public ComboBox<EmployeeSimpleDto> employee;
+    private ComboBox<EmployeeSimpleDto> employee;
 
     @FXML
-    public TextField role;
+    private TextField role;
 
     @FXML
-    public ListView<TicketDto> tickets;
+    private ListView<TicketDto> tickets;
 
     @FXML
-    public ComboBox<TicketDto> ticket;
+    private ComboBox<TicketDto> ticket;
 
     @FXML
-    public ListView<MemberAllowanceDto> allowances;
+    private ListView<MemberAllowanceDto> allowances;
 
     @FXML
-    public ComboBox<AllowanceDto> allowance;
+    private ComboBox<AllowanceDto> allowance;
 
     @PostConstruct
     public void init() {
         employee.setItems(FXCollections.observableArrayList(employeeService.getAllSimpleDto()));
         ticket.setItems(FXCollections.observableArrayList(ticketService.getAllDto()));
         allowance.setItems(FXCollections.observableArrayList(allowanceService.getAllDto()));
-        newDto();
+    }
+
+    @Override
+    public void onShow() {
+        dto = new MemberDto();
+        dto.setTickets(new ArrayList<>());
+        dto.setAllowances(new ArrayList<>());
+
+        employee.setValue(null);
+        role.setText(null);
+        tickets.setItems(FXCollections.observableArrayList(new ArrayList<>()));
+        ticket.setValue(null);
+        allowances.setItems(FXCollections.observableArrayList(new ArrayList<>()));
+        allowance.setValue(null);
+    }
+
+    @Override
+    public void onClose() {
     }
 
     @FXML
     public void addTicket(ActionEvent event) {
+
         if (ticket.getValue() != null) {
             dto.getTickets().add(ticket.getValue());
         }
-        refresh();
+        tickets.setItems(FXCollections.observableArrayList(dto.getTickets()));
+        allowances.setItems(FXCollections.observableArrayList(dto.getAllowances()));
     }
 
     @FXML
     public void createTicket(ActionEvent event) {
-        ControllerUtil.openWindow(ticketEditView, (Stage) ((Button) event.getSource()).getScene().getWindow());
+        openWindow(ticketEditView, (Stage) ((Button) event.getSource()).getScene().getWindow());
+    }
+
+    @FXML
+    public void getTicket(MouseEvent event) {
     }
 
     @FXML
     public void addAllowance(ActionEvent event) {
+
         if (allowance.getValue() == null) {
             return;
         }
@@ -120,7 +144,8 @@ public class AddMemberController implements AbstractController {
 
             public void handle(ActionEvent event) {
                 dto.getAllowances().add(new MemberAllowanceDto(allowance.getValue(), Integer.parseInt(days.getText())));
-                refresh();
+                tickets.setItems(FXCollections.observableArrayList(dto.getTickets()));
+                allowances.setItems(FXCollections.observableArrayList(dto.getAllowances()));
                 stage.close();
             }
         });
@@ -136,45 +161,12 @@ public class AddMemberController implements AbstractController {
     }
 
     @FXML
-    public void getTicket(MouseEvent event) {
-    }
-
-    @FXML
     public void doApprove(ActionEvent event) {
         dto.setEmployee(new EmployeeDto(employee.getValue()));
         dto.setRole(role.getText());
         AddTripController controller = (AddTripController) tripAddView.getController();
         controller.addMember(dto);
-        reset();
 
-        Button button = (Button) event.getSource();
-        Stage stage = (Stage) button.getScene().getWindow();
-        stage.close();
-    }
-
-    private void refresh() {
-        tickets.setItems(FXCollections.observableArrayList(dto.getTickets()));
-        allowances.setItems(FXCollections.observableArrayList(dto.getAllowances()));
-    }
-
-    private void reset() {
-        newDto();
-        employee.setValue(null);
-        role.setText(null);
-        tickets.setItems(FXCollections.observableArrayList(new ArrayList<>()));
-        ticket.setValue(null);
-        allowances.setItems(FXCollections.observableArrayList(new ArrayList<>()));
-        allowance.setValue(null);
-    }
-
-    private void newDto() {
-        dto = new MemberDto();
-        dto.setTickets(new ArrayList<>());
-        dto.setAllowances(new ArrayList<>());
-    }
-
-    @Override
-    public void onShow() {
-
+        ((Stage) ((Button) event.getSource()).getScene().getWindow()).close();
     }
 }

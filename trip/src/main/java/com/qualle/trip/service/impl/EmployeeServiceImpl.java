@@ -65,7 +65,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto getFullDtoById(long id) {
-        return toDto(employeeDao.getFullById(id));
+        Employee employee = employeeDao.getFullById(id);
+        EmployeeDto dto = toDto(employee);
+        for (Member member : employee.getMembers()) {
+            if (dto.getTickets() == null && dto.getTrips() == null) {
+                dto.setTickets(new ArrayList<>());
+                dto.setTrips(new ArrayList<>());
+            }
+            dto.getTickets().addAll(ticketService.toDtoArray(member.getTickets()));
+            dto.getTrips().add(tripService.toSimpleDto(member.getTrip()));
+        }
+        return dto;
     }
 
     @Override
@@ -102,19 +112,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeDto toDto(Employee employee) {
         EmployeeDto dto = new EmployeeDto(employee.getName(), employee.getSurname(), employee.getEmail(), employee.getDepartment(), employee.getBirthday());
         dto.setId(employee.getId());
-
-        if (employee.getMembers() == null) {
-            return dto;
-        }
-
-        for (Member member : employee.getMembers()) {
-            if (dto.getTickets() == null && dto.getTrips() == null) {
-                dto.setTickets(new ArrayList<>());
-                dto.setTrips(new ArrayList<>());
-            }
-            dto.getTickets().addAll(ticketService.toDtoArray(member.getTickets()));
-            dto.getTrips().add(tripService.toSimpleDto(member.getTrip()));
-        }
         return dto;
     }
 

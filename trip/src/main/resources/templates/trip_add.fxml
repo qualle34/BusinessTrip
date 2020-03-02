@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -13,173 +14,178 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="816.0"
-            prefWidth="589.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qualle.trip.controller.add.AddTripController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="816.0" prefWidth="589.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qualle.trip.controller.add.AddTripController">
     <padding>
-        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/>
+        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
     </padding>
     <children>
-        <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <Label alignment="CENTER" contentDisplay="CENTER" text="Информация о командировке" textFill="#333333">
                     <font>
-                        <Font size="15.0"/>
+                        <Font size="15.0" />
                     </font>
                     <VBox.margin>
-                        <Insets bottom="30.0"/>
+                        <Insets bottom="30.0" />
                     </VBox.margin>
                 </Label>
                 <HBox>
                     <children>
                         <Label prefHeight="30.0" prefWidth="160.0" text="Название:" textFill="#333333">
                             <font>
-                                <Font size="14.0"/>
+                                <Font size="14.0" />
                             </font>
                             <HBox.margin>
-                                <Insets right="20.0"/>
+                                <Insets right="20.0" />
                             </HBox.margin>
                         </Label>
                         <TextField fx:id="title" prefHeight="30.0" prefWidth="300.0">
                             <HBox.margin>
-                                <Insets/>
+                                <Insets />
                             </HBox.margin>
                         </TextField>
                     </children>
                     <padding>
-                        <Insets bottom="10.0" left="25.0" right="25.0" top="10.0"/>
+                        <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />
                     </padding>
                 </HBox>
                 <HBox>
                     <children>
                         <Label prefHeight="30.0" prefWidth="160.0" text="Описание:" textFill="#333333">
                             <font>
-                                <Font size="14.0"/>
+                                <Font size="14.0" />
                             </font>
                             <HBox.margin>
-                                <Insets right="20.0"/>
+                                <Insets right="20.0" />
                             </HBox.margin>
                         </Label>
-                        <TextArea fx:id="description" prefHeight="150.0" prefWidth="300.0"/>
+                        <TextArea fx:id="description" prefHeight="150.0" prefWidth="300.0" />
                     </children>
                     <padding>
-                        <Insets bottom="10.0" left="25.0" right="25.0" top="10.0"/>
+                        <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />
                     </padding>
                 </HBox>
                 <HBox>
                     <children>
                         <Label prefHeight="30.0" prefWidth="160.0" text="Мероприятие/Место:" textFill="#333333">
                             <font>
-                                <Font size="14.0"/>
+                                <Font size="14.0" />
                             </font>
                             <HBox.margin>
-                                <Insets right="20.0"/>
+                                <Insets right="20.0" />
                             </HBox.margin>
                         </Label>
                         <TextField fx:id="place" prefHeight="30.0" prefWidth="300.0">
                             <HBox.margin>
-                                <Insets/>
+                                <Insets />
                             </HBox.margin>
                         </TextField>
                     </children>
                     <padding>
-                        <Insets bottom="10.0" left="25.0" right="25.0" top="10.0"/>
+                        <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />
                     </padding>
                 </HBox>
                 <HBox>
                     <children>
-                        <Label prefHeight="30.0" prefWidth="160.0" text="Дата начала:" textFill="#333333">
+                        <Label prefHeight="30.0" prefWidth="160.0" text="Дата/Время начала:" textFill="#333333">
                             <font>
-                                <Font size="14.0"/>
+                                <Font size="14.0" />
                             </font>
                             <HBox.margin>
-                                <Insets right="20.0"/>
+                                <Insets right="20.0" />
                             </HBox.margin>
                         </Label>
-                        <DatePicker fx:id="start" prefHeight="30.0" prefWidth="300.0"/>
+                        <DatePicker fx:id="dateStart" prefHeight="30.0" prefWidth="140.0" />
+                  <TextField fx:id="timeStart" prefHeight="30.0" prefWidth="140.0" promptText="Пример 10:30">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </TextField>
                     </children>
                     <padding>
-                        <Insets bottom="10.0" left="25.0" right="25.0" top="10.0"/>
+                        <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />
                     </padding>
                 </HBox>
                 <HBox>
                     <children>
-                        <Label prefHeight="30.0" prefWidth="160.0" text="Дата завершения:" textFill="#333333">
+                        <Label prefHeight="30.0" prefWidth="160.0" text="Дата/Время завершения:" textFill="#333333">
                             <font>
-                                <Font size="14.0"/>
+                                <Font size="14.0" />
                             </font>
                             <HBox.margin>
-                                <Insets right="20.0"/>
+                                <Insets right="20.0" />
                             </HBox.margin>
                         </Label>
-                        <DatePicker fx:id="end" prefHeight="30.0" prefWidth="300.0"/>
+                        <DatePicker fx:id="dateEnd" prefHeight="30.0" prefWidth="140.0" />
+                  <TextField fx:id="timeEnd" prefHeight="30.0" prefWidth="140.0" promptText="Пример 10:30">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </TextField>
                     </children>
                     <padding>
-                        <Insets bottom="10.0" left="25.0" right="25.0" top="10.0"/>
+                        <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />
                     </padding>
                 </HBox>
                 <HBox>
                     <children>
                         <Label prefHeight="30.0" prefWidth="160.0" text="Доп. расходы:" textFill="#333333">
                             <font>
-                                <Font size="14.0"/>
+                                <Font size="14.0" />
                             </font>
                             <HBox.margin>
-                                <Insets right="20.0"/>
+                                <Insets right="20.0" />
                             </HBox.margin>
                         </Label>
-                        <TextField fx:id="additionalExpenses" prefHeight="30.0" prefWidth="300.0"/>
+                  <Spinner fx:id="additionalExpenses" editable="true" prefHeight="30.0" prefWidth="300.0" />
                     </children>
                     <padding>
-                        <Insets bottom="10.0" left="25.0" right="25.0" top="10.0"/>
+                        <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />
                     </padding>
                 </HBox>
                 <HBox>
                     <children>
                         <Label prefHeight="30.0" prefWidth="160.0" text="Участники:" textFill="#333333">
                             <font>
-                                <Font size="14.0"/>
+                                <Font size="14.0" />
                             </font>
                             <HBox.margin>
-                                <Insets right="20.0"/>
+                                <Insets right="20.0" />
                             </HBox.margin>
                         </Label>
                         <ScrollPane hbarPolicy="NEVER" prefHeight="150.0" prefWidth="300.0" vbarPolicy="ALWAYS">
                             <content>
-                                <ListView fx:id="members" onMouseClicked="#getItem" prefHeight="181.0"
-                                          prefWidth="300.0"/>
+                                <ListView fx:id="members" onMouseClicked="#getItem" prefHeight="181.0" prefWidth="300.0" />
                             </content>
                         </ScrollPane>
                     </children>
                     <padding>
-                        <Insets bottom="10.0" left="25.0" right="25.0" top="10.0"/>
+                        <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />
                     </padding>
                 </HBox>
                 <HBox alignment="CENTER">
                     <children>
                         <Label prefHeight="30.0" prefWidth="136.0" textFill="#333333">
                             <font>
-                                <Font size="14.0"/>
+                                <Font size="14.0" />
                             </font>
                             <HBox.margin>
-                                <Insets right="20.0"/>
+                                <Insets right="20.0" />
                             </HBox.margin>
                         </Label>
                         <Button mnemonicParsing="false" onAction="#addMember" text="Добавить">
                             <font>
-                                <Font size="12.0"/>
+                                <Font size="12.0" />
                             </font>
                         </Button>
                     </children>
                     <padding>
-                        <Insets bottom="10.0" left="25.0" right="25.0" top="10.0"/>
+                        <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />
                     </padding>
                 </HBox>
-                <Button mnemonicParsing="false" onAction="#doApprove" prefHeight="30.0" prefWidth="100.0" text="ОК"
-                        textFill="#333333">
+                <Button mnemonicParsing="false" onAction="#doApprove" prefHeight="30.0" prefWidth="100.0" text="ОК" textFill="#333333">
                     <VBox.margin>
-                        <Insets top="30.0"/>
+                        <Insets top="30.0" />
                     </VBox.margin>
                 </Button>
             </children>

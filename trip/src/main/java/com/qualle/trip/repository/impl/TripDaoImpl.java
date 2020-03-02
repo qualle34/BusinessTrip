@@ -45,9 +45,9 @@ public class TripDaoImpl implements TripDao {
         Query query = entityManager.createQuery(
                 "SELECT t FROM Trip t " +
                         "LEFT JOIN FETCH t.members m " +
-                        "INNER JOIN FETCH m.employee " +
-                        "INNER JOIN FETCH m.memberAllowances a " +
-                        "INNER JOIN FETCH a.allowance " +
+                        "LEFT JOIN FETCH m.employee " +
+                        "LEFT JOIN FETCH m.memberAllowances a " +
+                        "LEFT JOIN FETCH a.allowance " +
                         "LEFT JOIN FETCH m.tickets " +
                         "WHERE t.id = :id", Trip.class);
         query.setParameter("id", id);

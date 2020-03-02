@@ -2,24 +2,25 @@ package com.qualle.trip.controller.add;
 
 import com.qualle.trip.config.ViewHolder;
 import com.qualle.trip.controller.AbstractController;
+import com.qualle.trip.controller.util.ControllerUtil;
 import com.qualle.trip.model.dto.MemberDto;
 import com.qualle.trip.model.dto.TripDto;
 import com.qualle.trip.service.TripService;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
+import java.util.Date;
 
-public class AddTripController implements AbstractController  {
+import static com.qualle.trip.controller.util.ControllerUtil.*;
+
+public class AddTripController implements AbstractController {
 
     private TripDto dto;
 
@@ -31,80 +32,73 @@ public class AddTripController implements AbstractController  {
     private TripService tripService;
 
     @FXML
-    public TextField title;
+    private TextField title;
 
     @FXML
-    public TextArea description;
+    private TextArea description;
 
     @FXML
-    public TextField place;
+    private TextField place;
 
     @FXML
-    public DatePicker start;
+    private DatePicker dateStart;
 
     @FXML
-    public DatePicker end;
+    private TextField timeStart;
 
     @FXML
-    public TextField additionalExpenses;
+    private DatePicker dateEnd;
 
     @FXML
-    public ListView<MemberDto> members;
+    private TextField timeEnd;
 
-    @PostConstruct
-    public void init() {
+    @FXML
+    private Spinner<Double> additionalExpenses;
+
+    @FXML
+    private ListView<MemberDto> members;
+
+    @Override
+    public void onShow() {
         dto = new TripDto();
         dto.setFullMembers(new ArrayList<>());
-    }
-
-    public void getItem(MouseEvent event) {
-    }
-
-    public void doApprove(ActionEvent event) {
-        tripService.add(dto);
-        reset();
-        Button button = (Button) event.getSource();
-        Stage stage = (Stage) button.getScene().getWindow();
-        stage.close();
-    }
-
-    public void addMember(ActionEvent event) {
-        Button button = (Button) event.getSource();
-        Stage dialog = new Stage();
-
-        if (memberAddView.getView().getScene() != null) {
-            dialog.setScene(memberAddView.getView().getScene());
-        } else {
-            dialog.setScene(new Scene(memberAddView.getView()));
-        }
-
-        dialog.initOwner(button.getScene().getWindow());
-        dialog.initModality(Modality.WINDOW_MODAL);
-        dialog.showAndWait();
-    }
-
-    public void addMember(MemberDto member) {
-        dto.getFullMembers().add(member);
-        refresh();
-    }
-
-    private void refresh() {
-        members.setItems(FXCollections.observableArrayList(dto.getFullMembers()));
-    }
-
-    private void reset() {
-        dto = null;
         title.setText(null);
         description.setText(null);
-        place.setText(null);
-        start.setValue(null);
-        end.setValue(null);
-        additionalExpenses.setText(null);
+        dateStart.setValue(getDate(new Date()));
+        timeStart.setText(getTime(new Date()));
+        dateEnd.setValue(getDate(new Date()));
+        timeEnd.setText(getTime(new Date()));
+        additionalExpenses.setValueFactory(getSpinnerFactory(0.0));
         members.setItems(null);
     }
 
     @Override
-    public void onShow() {
+    public void onClose() {
+    }
 
+    public void addMember(ActionEvent event) {
+        ControllerUtil.openWindow(memberAddView, (Stage) ((Button) event.getSource()).getScene().getWindow());
+    }
+
+    public void addMember(MemberDto member) {
+        dto.getFullMembers().add(member);
+        members.setItems(FXCollections.observableArrayList(dto.getFullMembers()));
+    }
+
+    public void getItem(MouseEvent event) {
+        members.getSelectionModel().getSelectedItems();
+    }
+
+    public void doApprove(ActionEvent event) {
+        dto = new TripDto();
+        dto.setTitle(title.getText());
+        dto.setDescription(description.getText());
+        dto.setPlace(place.getText());
+        dto.setStart(toDate(dateStart.getValue(), timeStart.getText()));
+        dto.setEnd(toDate(dateEnd.getValue(), timeEnd.getText()));
+        dto.setAdditionalExpenses(additionalExpenses.getValue());
+        tripService.add(dto);
+
+        ((Stage) ((Button) event.getSource()).getScene().getWindow()).close();
     }
 }

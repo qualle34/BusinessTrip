@@ -82,6 +82,9 @@ public class ListController implements AbstractController {
     private Button report;
 
     @FXML
+    private Button add;
+
+    @FXML
     public void add(ActionEvent event) {
         Button button = (Button) event.getSource();
 
@@ -89,12 +92,15 @@ public class ListController implements AbstractController {
             case ALLOWANCE:
                 openWindow(allowanceEditView, (Stage) button.getScene().getWindow());
                 break;
+
             case TICKET:
                 openWindow(ticketEditView, (Stage) button.getScene().getWindow());
                 break;
+
             case TRIP:
                 openWindow(tripEditView, (Stage) button.getScene().getWindow());
                 break;
+
             case EMPLOYEE:
                 openWindow(employeeEditView, (Stage) button.getScene().getWindow());
                 break;
@@ -110,16 +116,19 @@ public class ListController implements AbstractController {
                         ? allowanceService.getAllDto()
                         : allowanceService.getDtoByCountry(search.getText().trim())));
                 break;
+
             case TICKET:
                 list.setItems(FXCollections.observableArrayList(search.getText() == null
                         ? ticketService.getAllDto()
                         : ticketService.getDtoByLocation(search.getText().trim())));
                 break;
+
             case TRIP:
                 list.setItems(FXCollections.observableArrayList(search.getText() == null
                         ? tripService.getAllSimpleDto()
                         : tripService.getSimpleDtoByTitle(search.getText().trim())));
                 break;
+
             case EMPLOYEE:
                 list.setItems(FXCollections.observableArrayList(search.getText() == null
                         ? employeeService.getAllDto()
@@ -135,12 +144,15 @@ public class ListController implements AbstractController {
             case ALLOWANCE:
                 allowanceService.delete(((AllowanceDto) list.getSelectionModel().getSelectedItem()).getId());
                 break;
+
             case TICKET:
                 ticketService.delete(((TicketDto) list.getSelectionModel().getSelectedItem()).getId());
                 break;
+
             case TRIP:
                 tripService.delete(((TripSimpleDto) list.getSelectionModel().getSelectedItem()).getId());
                 break;
+
             case EMPLOYEE:
                 employeeService.delete(((EmployeeSimpleDto) list.getSelectionModel().getSelectedItem()).getId());
                 break;
@@ -151,28 +163,24 @@ public class ListController implements AbstractController {
     public void getItem(MouseEvent click) {
 
         if (click.getClickCount() == 2) {
-            ListView<AllowanceDto> listView = (ListView<AllowanceDto>) click.getSource();
-
+            ListView listView = (ListView) click.getSource();
 
             switch (type) {
                 case ALLOWANCE:
                     EditAllowanceController allowanceController = (EditAllowanceController) allowanceEditView.getController();
                     allowanceController.setId(((AllowanceDto) list.getSelectionModel().getSelectedItem()).getId());
-
                     openWindow(allowanceEditView, (Stage) listView.getScene().getWindow());
                     break;
 
                 case TICKET:
                     EditTicketController ticketController = (EditTicketController) ticketEditView.getController();
                     ticketController.setId(((TicketDto) list.getSelectionModel().getSelectedItem()).getId());
-
                     openWindow(ticketEditView, (Stage) listView.getScene().getWindow());
                     break;
 
                 case TRIP:
                     EditTripController tripController = (EditTripController) tripEditView.getController();
                     tripController.setId(((TripSimpleDto) list.getSelectionModel().getSelectedItem()).getId());
-
                     openWindow(tripEditView, (Stage) listView.getScene().getWindow());
                     break;
 
@@ -180,7 +188,6 @@ public class ListController implements AbstractController {
                     EditEmployeeController employeeController = (EditEmployeeController) employeeEditView.getController();
                     System.out.println(((EmployeeSimpleDto) list.getSelectionModel().getSelectedItem()).getId());
                     employeeController.setId(((EmployeeSimpleDto) list.getSelectionModel().getSelectedItem()).getId());
-
                     openWindow(employeeEditView, (Stage) listView.getScene().getWindow());
                     break;
             }
@@ -188,29 +195,40 @@ public class ListController implements AbstractController {
         }
     }
 
+    @Override
     public void onShow() {
 
-        report.setVisible(false);
+        report.setDisable(true);
+        add.setDisable(false);
 
         switch (type) {
             case ALLOWANCE:
-                title.setText("Размеры возмещения расходов при командировках");
+                title.setText("Размеры возмещения расходов");
                 list.setItems(FXCollections.observableArrayList(allowanceService.getAllDto()));
                 break;
+
             case TICKET:
                 title.setText("Список всех билетов");
                 list.setItems(FXCollections.observableArrayList(ticketService.getAllDto()));
                 break;
+
             case TRIP:
                 title.setText("Список всех командировок");
-                report.setVisible(true);
+                report.setDisable(false);
+                add.setDisable(true);
                 list.setItems(FXCollections.observableArrayList(tripService.getAllSimpleDto()));
                 break;
+
             case EMPLOYEE:
                 title.setText("Список всех сотрудников");
                 list.setItems(FXCollections.observableArrayList(employeeService.getAllSimpleDto()));
                 break;
         }
+    }
+
+    @Override
+    public void onClose() {
+        System.out.println("cl");
     }
 
     public void doReport(ActionEvent event) {

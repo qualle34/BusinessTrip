@@ -49,6 +49,14 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
+    public TicketDto getFullDtoById(long id) {
+        Ticket ticket = ticketDao.getFullById(id);
+        TicketDto dto = toDto(ticket);
+        dto.setEmployee(employeeService.toSimpleDto(ticket.getMember().getEmployee()));
+        return dto;
+    }
+
+    @Override
     public List<TicketDto> getDtoByLocation(String location) {
         return toDtoArray(ticketDao.getByLocation(location));
     }
@@ -82,9 +90,6 @@ public class TicketServiceImpl implements TicketService {
     public TicketDto toDto(Ticket ticket) {
         TicketDto dto = new TicketDto(ticket.getFrom(), ticket.getTo(), ticket.getDate(), ticket.getPrice(), ticket.getType());
         dto.setId(ticket.getId());
-        if (ticket.getMember() != null && ticket.getMember().getEmployee() != null) {
-            dto.setEmployee(employeeService.toSimpleDto(ticket.getMember().getEmployee()));
-        }
         return dto;
     }
 

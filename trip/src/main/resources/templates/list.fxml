@@ -29,12 +29,12 @@
             </ScrollPane>
             <HBox alignment="CENTER">
                <children>
-                  <Button fx:id="report" layoutX="136.0" layoutY="30.0" mnemonicParsing="false" onAction="#doReport" text="Отчёт" textFill="#333333" visible="false">
+                  <Button fx:id="report" layoutX="136.0" layoutY="30.0" mnemonicParsing="false" onAction="#doReport" text="Отчёт" textFill="#333333">
                      <HBox.margin>
                         <Insets right="15.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#add" text="Добавить" textFill="#333333">
+                  <Button fx:id="add" mnemonicParsing="false" onAction="#add" text="Добавить" textFill="#333333">
                      <HBox.margin>
                         <Insets left="15.0" right="15.0" />
                      </HBox.margin></Button>

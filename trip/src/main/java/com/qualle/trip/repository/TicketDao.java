@@ -14,6 +14,8 @@ public interface TicketDao {
 
     Ticket getById(long id);
 
+    Ticket getFullById(long id);
+
     void add(Ticket ticket);
 
     void update(Ticket ticket);

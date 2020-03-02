@@ -41,6 +41,13 @@ public class TicketDaoImpl implements TicketDao {
     }
 
     @Override
+    public Ticket getFullById(long id) {
+        Query query = entityManager.createQuery("SELECT t FROM Ticket t LEFT JOIN FETCH t.member m LEFT JOIN FETCH m.employee WHERE t.id = :id ", Ticket.class);
+        query.setParameter("id", id);
+        return (Ticket) query.getSingleResult();
+    }
+
+    @Override
     public void add(Ticket ticket) {
         entityManager.persist(ticket);
     }

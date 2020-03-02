@@ -51,20 +51,29 @@ public class EditMemberController implements AbstractController {
             trip.setText(dto.getTrip().getTitle());
             tickets.setItems(FXCollections.observableArrayList(dto.getTickets()));
             allowances.setItems(FXCollections.observableArrayList(dto.getAllowances()));
-
-        } else {
-            dto = null;
-            employee.setText(null);
-            allowanceExpenses.setText(null);
-            ticketsExpenses.setText(null);
-            trip.setText(null);
-            tickets.setItems(null);
-            allowances.setItems(null);
         }
+    }
+
+    @Override
+    public void onClose() {
+        id = 0;
+        dto = null;
+        employee.setText(null);
+        allowanceExpenses.setText(null);
+        ticketsExpenses.setText(null);
+        trip.setText(null);
+        tickets.setItems(null);
+        allowances.setItems(null);
     }
 
     @FXML
     public void doApprove(ActionEvent event) {
+
+        if (id != 0) {
+            dto.setTickets(tickets.getItems());
+            dto.setAllowances(allowances.getItems());
+            memberService.update(dto);
+        }
 
         ((Stage) ((Button) event.getSource()).getScene().getWindow()).close();
     }

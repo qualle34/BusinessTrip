@@ -18,6 +18,8 @@ public interface TicketService {
 
     TicketDto getDtoById(long id);
 
+    TicketDto getFullDtoById(long id);
+
     List<TicketDto> getDtoByLocation(String location);
 
     void add(TicketDto dto);
