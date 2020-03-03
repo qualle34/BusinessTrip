@@ -34,7 +34,7 @@ public class Trip {
     @Column(name = "additional_expenses")
     private double additionalExpenses;
 
-    @OneToMany(mappedBy = "trip", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Member> members;
 
     public Trip() {

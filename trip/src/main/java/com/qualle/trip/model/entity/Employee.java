@@ -29,7 +29,7 @@ public class Employee {
     @Column(name = "birthday")
     private LocalDate birthday;
 
-    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Member> members;
 
     public Employee() {

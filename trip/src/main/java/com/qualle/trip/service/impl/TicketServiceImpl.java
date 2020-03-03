@@ -34,8 +34,13 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public List<TicketDto> getAllDtoByMember(long memberId) {
+    public List<TicketDto> getDtoByMember(long memberId) {
         return toDtoArray(ticketDao.getByMember(memberId));
+    }
+
+    @Override
+    public List<TicketDto> getDtoByMemberAndTrip(long memberId, long tripId) {
+        return toDtoArray(ticketDao.getByMemberAndTrip(memberId, tripId));
     }
 
     @Override

@@ -36,6 +36,9 @@ public class EditTripController implements AbstractController {
     private TextArea description;
 
     @FXML
+    public TextField place;
+
+    @FXML
     private DatePicker dateStart;
 
     @FXML
@@ -66,12 +69,14 @@ public class EditTripController implements AbstractController {
             dto = tripService.getFullDtoById(id);
             title.setText(dto.getTitle());
             description.setText(dto.getDescription());
+            place.setText(dto.getPlace());
             dateStart.setValue(getDate(dto.getStart()));
             timeStart.setText(getTime(dto.getStart()));
             dateEnd.setValue(getDate(dto.getEnd()));
             timeEnd.setText(getTime(dto.getEnd()));
             status.setText(dto.getStatus());
             additionalExpenses.setValueFactory(getSpinnerFactory(dto.getAdditionalExpenses()));
+            System.out.println(dto.getAdditionalExpenses() + " " + additionalExpenses.getValue());
             expenses.setText(String.valueOf(dto.getExpenses()));
             members.setItems(FXCollections.observableArrayList(dto.getMembers()));
         }
@@ -83,6 +88,7 @@ public class EditTripController implements AbstractController {
         dto = null;
         title.setText(null);
         description.setText(null);
+        place.setText(null);
         dateStart.setValue(null);
         timeStart.setText(null);
         dateEnd.setValue(null);
@@ -111,7 +117,7 @@ public class EditTripController implements AbstractController {
             dto.setStart(toDate(dateStart.getValue(), timeStart.getText()));
             dto.setEnd(toDate(dateEnd.getValue(), timeEnd.getText()));
             dto.setAdditionalExpenses(additionalExpenses.getValue());
-//        dto.setMembers(dto.getMembers());
+            dto.setMembers(dto.getMembers());
             tripService.update(dto);
         }
 

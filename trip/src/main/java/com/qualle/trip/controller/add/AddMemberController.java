@@ -69,29 +69,25 @@ public class AddMemberController implements AbstractController {
     @FXML
     private ComboBox<AllowanceDto> allowance;
 
-    @PostConstruct
-    public void init() {
+    @Override
+    public void onShow() {
         employee.setItems(FXCollections.observableArrayList(employeeService.getAllSimpleDto()));
         ticket.setItems(FXCollections.observableArrayList(ticketService.getAllDto()));
         allowance.setItems(FXCollections.observableArrayList(allowanceService.getAllDto()));
-    }
 
-    @Override
-    public void onShow() {
         dto = new MemberDto();
         dto.setTickets(new ArrayList<>());
         dto.setAllowances(new ArrayList<>());
+    }
 
+    @Override
+    public void onClose() {
         employee.setValue(null);
         role.setText(null);
         tickets.setItems(FXCollections.observableArrayList(new ArrayList<>()));
         ticket.setValue(null);
         allowances.setItems(FXCollections.observableArrayList(new ArrayList<>()));
         allowance.setValue(null);
-    }
-
-    @Override
-    public void onClose() {
     }
 
     @FXML
@@ -107,6 +103,7 @@ public class AddMemberController implements AbstractController {
     @FXML
     public void createTicket(ActionEvent event) {
         openWindow(ticketEditView, (Stage) ((Button) event.getSource()).getScene().getWindow());
+        ticket.setItems(FXCollections.observableArrayList(ticketService.getAllDto()));
     }
 
     @FXML

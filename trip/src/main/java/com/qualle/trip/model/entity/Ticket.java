@@ -47,6 +47,15 @@ public class Ticket {
         this.type = type;
     }
 
+    public Ticket(String from, String to, Date date, double price, TicketType type, Member member) {
+        this.from = from;
+        this.to = to;
+        this.date = date;
+        this.price = price;
+        this.type = type;
+        this.member = member;
+    }
+
     public Long getId() {
         return id;
     }

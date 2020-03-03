@@ -12,7 +12,9 @@ public interface TicketService {
 
     List<TicketDto> getAllDto();
 
-    List<TicketDto> getAllDtoByMember(long memberId);
+    List<TicketDto> getDtoByMember(long memberId);
+
+    List<TicketDto> getDtoByMemberAndTrip(long memberId, long tripId);
 
     Ticket getById(long id);
 

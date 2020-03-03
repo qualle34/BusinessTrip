@@ -1,12 +1,12 @@
 package com.qualle.trip.service.impl;
 
+import com.qualle.trip.model.dto.MemberDto;
 import com.qualle.trip.model.dto.TripDto;
 import com.qualle.trip.model.dto.TripSimpleDto;
 import com.qualle.trip.model.entity.*;
 import com.qualle.trip.model.enums.TripStatus;
 import com.qualle.trip.repository.TripDao;
-import com.qualle.trip.service.MemberService;
-import com.qualle.trip.service.TripService;
+import com.qualle.trip.service.*;
 import com.qualle.trip.service.util.WordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +23,12 @@ public class TripServiceImpl implements TripService {
 
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private EmployeeService employeeService;
+
+    @Autowired
+    private AllowanceService allowanceService;
 
     @Override
     public List<Trip> getAll() {
@@ -64,7 +70,7 @@ public class TripServiceImpl implements TripService {
         Trip trip = tripDao.getFullById(id);
         TripDto dto = toDto(trip);
         dto.setStatus(getStatus(trip.getStart(), trip.getEnd()).toString());
-        dto.setExpenses(calculateExpenses(trip.getMembers(), trip.getAdditionalExpenses()));
+        calculateExpenses(dto, trip.getMembers(), trip.getAdditionalExpenses());
         dto.setMembers(memberService.toSimpleDtoArray(trip.getMembers()));
         return dto;
     }
@@ -75,6 +81,17 @@ public class TripServiceImpl implements TripService {
         Trip trip = new Trip(dto.getTitle(), dto.getDescription(), dto.getPlace(), dto.getAdditionalExpenses());
         trip.setStart(dto.getStart());
         trip.setEnd(dto.getEnd());
+        trip.setMembers(new HashSet<>());
+
+        for (MemberDto memberDto : dto.getFullMembers()) {
+            Member member = new Member();
+            member.setTrip(trip);
+            member.setRole(memberDto.getRole());
+            member.setEmployee(employeeService.getById(memberDto.getEmployee().getId()));
+            member.setTickets(memberDto.getTickets().stream().map(t -> new Ticket(t.getFrom(), t.getTo(), t.getDate(), t.getPrice(), t.getType(), member)).collect(Collectors.toSet()));
+            member.setMemberAllowances(memberDto.getAllowances().stream().map(a -> new MemberAllowance(allowanceService.getById(a.getAllowance().getId()), member, a.getDays())).collect(Collectors.toSet()));
+            trip.getMembers().add(member);
+        }
         tripDao.add(trip);
     }
 
@@ -85,7 +102,7 @@ public class TripServiceImpl implements TripService {
         trip.setTitle(dto.getTitle());
         trip.setDescription(dto.getDescription());
         trip.setPlace(dto.getPlace());
-        trip.setAdditionalExpenses(dto.getExpenses());
+        trip.setAdditionalExpenses(dto.getAdditionalExpenses());
         tripDao.update(trip);
     }
 
@@ -98,14 +115,19 @@ public class TripServiceImpl implements TripService {
     @Override
     public void report(long id, String path) {
         Map<String, String> data = new HashMap<>();
-        Trip trip = tripDao.getFullById(id);
+        TripDto dto = getFullDtoById(id);
 
-        data.put("title", trip.getTitle());
-        data.put("description", trip.getDescription());
-        data.put("members", "test, test");
-        data.put("expenses", String.valueOf(trip.getAdditionalExpenses()));
-        data.put("date_start", trip.getEnd().toString());
-        data.put("date_end", trip.getStart().toString());
+        data.put("title", dto.getTitle());
+        data.put("description", dto.getDescription());
+        data.put("place", dto.getPlace());
+        data.put("date_start", dto.getEnd().toString());
+        data.put("date_end", dto.getStart().toString());
+        data.put("ticketExpenses", String.valueOf(dto.getTicketExpenses()));
+        data.put("allowanceExpenses", String.valueOf(dto.getAllowanceExpenses()));
+        data.put("additionalExpenses", String.valueOf(dto.getAdditionalExpenses()));
+        data.put("expenses", String.valueOf(dto.getExpenses()));
+        data.put("members", "test");
+
         WordUtil.createReport(path, data);
     }
 
@@ -132,7 +154,7 @@ public class TripServiceImpl implements TripService {
         return dto;
     }
 
-    private double calculateExpenses(Collection<Member> members, double additionalExpenses) {
+    private void calculateExpenses(TripDto dto, Collection<Member> members, double additionalExpenses) {
         List<Ticket> tickets = new ArrayList<>();
         List<Allowance> allowances = new ArrayList<>();
 
@@ -143,7 +165,10 @@ public class TripServiceImpl implements TripService {
 
         double ticketExpenses = tickets.stream().mapToDouble(Ticket::getPrice).sum();
         double allowanceExpenses = allowances.stream().mapToDouble(Allowance::getValue).sum();
-        return ticketExpenses + allowanceExpenses + additionalExpenses;
+
+        dto.setTicketExpenses(ticketExpenses);
+        dto.setAllowanceExpenses(allowanceExpenses);
+        dto.setExpenses(ticketExpenses + allowanceExpenses + additionalExpenses);
     }
 
     private TripStatus getStatus(Date start, Date end) {

@@ -68,6 +68,11 @@ public class EditTicketController implements AbstractController {
             price.setValueFactory(getSpinnerFactory(dto.getPrice()));
             type.setValue(dto.getType());
             employee.setValue(dto.getEmployee());
+            employee.setDisable(false);
+
+        } else {
+            price.setValueFactory(getSpinnerFactory(0.0));
+            employee.setDisable(true);
         }
     }
 
@@ -78,7 +83,6 @@ public class EditTicketController implements AbstractController {
         from.setText(null);
         to.setText(null);
         date.setValue(null);
-        price.setValueFactory(getSpinnerFactory(0.0));
         type.setValue(null);
         employee.setValue(null);
     }
@@ -92,7 +96,7 @@ public class EditTicketController implements AbstractController {
             dto.setDate(toDate(date.getValue(), time.getText()));
             dto.setPrice(price.getValue());
             dto.setType(type.getValue());
-//        dto.setEmployee();
+            dto.setEmployee(employee.getValue());
             ticketService.update(dto);
 
         } else {
@@ -102,7 +106,6 @@ public class EditTicketController implements AbstractController {
             dto.setDate(toDate(date.getValue(), time.getText()));
             dto.setPrice(price.getValue());
             dto.setType(type.getValue());
-//        dto.setEmployee();
             ticketService.add(dto);
         }
 

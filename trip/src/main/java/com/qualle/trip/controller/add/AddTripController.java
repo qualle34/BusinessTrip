@@ -90,7 +90,6 @@ public class AddTripController implements AbstractController {
     }
 
     public void doApprove(ActionEvent event) {
-        dto = new TripDto();
         dto.setTitle(title.getText());
         dto.setDescription(description.getText());
         dto.setPlace(place.getText());

@@ -5,13 +5,12 @@ import com.qualle.trip.model.dto.EmployeeDto;
 import com.qualle.trip.model.dto.TicketDto;
 import com.qualle.trip.model.dto.TripSimpleDto;
 import com.qualle.trip.service.EmployeeService;
+import com.qualle.trip.service.TicketService;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -22,6 +21,9 @@ public class EditEmployeeController implements AbstractController {
 
     @Autowired
     private EmployeeService employeeService;
+
+    @Autowired
+    private TicketService ticketService;
 
     @FXML
     private TextField name;
@@ -39,7 +41,13 @@ public class EditEmployeeController implements AbstractController {
     private DatePicker birthday;
 
     @FXML
+    private ScrollPane ticketScroll;
+
+    @FXML
     private ListView<TicketDto> tickets;
+
+    @FXML
+    private ScrollPane tripScroll;
 
     @FXML
     private ListView<TripSimpleDto> trips;
@@ -60,12 +68,12 @@ public class EditEmployeeController implements AbstractController {
             if (dto.getTrips() != null) {
                 trips.setItems(FXCollections.observableArrayList(dto.getTrips()));
             }
-            tickets.setDisable(false);
-            trips.setDisable(false);
+            ticketScroll.setDisable(false);
+            tripScroll.setDisable(false);
 
         } else {
-            tickets.setDisable(true);
-            trips.setDisable(true);
+            ticketScroll.setDisable(true);
+            tripScroll.setDisable(true);
         }
     }
 
@@ -80,6 +88,15 @@ public class EditEmployeeController implements AbstractController {
         birthday.setValue(null);
         tickets.setItems(null);
         trips.setItems(null);
+    }
+
+    @FXML
+    public void getTrip(MouseEvent event) {
+        try {
+            long id = trips.getSelectionModel().getSelectedItem().getId();
+            tickets.setItems(FXCollections.observableArrayList(ticketService.getDtoByMemberAndTrip(dto.getId(), id)));
+        } catch (NullPointerException ignore) {
+        }
     }
 
     @FXML

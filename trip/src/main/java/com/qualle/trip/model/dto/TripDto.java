@@ -11,6 +11,8 @@ public class TripDto {
     private String place;
     private Date start;
     private Date end;
+    private double ticketExpenses;
+    private double allowanceExpenses;
     private double additionalExpenses;
     private double expenses;
     private String status;
@@ -75,6 +77,22 @@ public class TripDto {
 
     public void setEnd(Date end) {
         this.end = end;
+    }
+
+    public double getTicketExpenses() {
+        return ticketExpenses;
+    }
+
+    public void setTicketExpenses(double ticketExpenses) {
+        this.ticketExpenses = ticketExpenses;
+    }
+
+    public double getAllowanceExpenses() {
+        return allowanceExpenses;
+    }
+
+    public void setAllowanceExpenses(double allowanceExpenses) {
+        this.allowanceExpenses = allowanceExpenses;
     }
 
     public double getAdditionalExpenses() {

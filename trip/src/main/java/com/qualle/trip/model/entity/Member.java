@@ -21,10 +21,10 @@ public class Member {
     @JoinColumn(name = "trip_id")
     private Trip trip;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private Set<MemberAllowance> memberAllowances;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private Set<Ticket> tickets;
 
     @Column(name="role")

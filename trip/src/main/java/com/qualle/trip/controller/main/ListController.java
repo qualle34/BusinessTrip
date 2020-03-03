@@ -186,7 +186,6 @@ public class ListController implements AbstractController {
 
                 case EMPLOYEE:
                     EditEmployeeController employeeController = (EditEmployeeController) employeeEditView.getController();
-                    System.out.println(((EmployeeSimpleDto) list.getSelectionModel().getSelectedItem()).getId());
                     employeeController.setId(((EmployeeSimpleDto) list.getSelectionModel().getSelectedItem()).getId());
                     openWindow(employeeEditView, (Stage) listView.getScene().getWindow());
                     break;
@@ -228,7 +227,6 @@ public class ListController implements AbstractController {
 
     @Override
     public void onClose() {
-        System.out.println("cl");
     }
 
     public void doReport(ActionEvent event) {
