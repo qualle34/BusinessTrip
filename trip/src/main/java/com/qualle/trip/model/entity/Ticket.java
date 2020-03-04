@@ -32,7 +32,7 @@ public class Ticket {
     @Enumerated(EnumType.STRING)
     private TicketType type;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 

@@ -39,9 +39,16 @@ public class ControllerUtil {
     }
 
     public static Date toDate(LocalDate date, String time) {
+
+        if (!time.matches("\\d{1,2}[:]\\d{1,2}")) {
+            throw new IllegalArgumentException();
+        }
+
         int[] timeArray = Stream.of(time.split(":")).mapToInt(Integer::parseInt).toArray();
         Calendar calendar = Calendar.getInstance();
-        calendar.set(date.getYear(), date.getMonthValue() - 1, date.getDayOfMonth(), timeArray[0], timeArray[1], 0);
+        calendar.set(date.getYear(), date.getMonthValue() - 1, date.getDayOfMonth(), timeArray[0], timeArray[1]);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
         return calendar.getTime();
     }
 
@@ -54,7 +61,7 @@ public class ControllerUtil {
     }
 
     public static SpinnerValueFactory.DoubleSpinnerValueFactory getSpinnerFactory(double initialValue) {
-       return new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 10000, initialValue);
+        return new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 10000, initialValue);
     }
 
     public static SpinnerValueFactory.IntegerSpinnerValueFactory getSpinnerFactory(int initialValue) {

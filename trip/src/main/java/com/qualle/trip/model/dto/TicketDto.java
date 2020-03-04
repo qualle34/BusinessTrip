@@ -2,6 +2,7 @@ package com.qualle.trip.model.dto;
 
 import com.qualle.trip.model.enums.TicketType;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class TicketDto {
@@ -12,6 +13,7 @@ public class TicketDto {
     private Date date;
     private double price;
     private TicketType type;
+    private MemberSimpleDto member;
     private EmployeeSimpleDto employee;
 
     public TicketDto() {
@@ -73,6 +75,14 @@ public class TicketDto {
         this.type = type;
     }
 
+    public MemberSimpleDto getMember() {
+        return member;
+    }
+
+    public void setMember(MemberSimpleDto member) {
+        this.member = member;
+    }
+
     public EmployeeSimpleDto getEmployee() {
         return employee;
     }
@@ -83,6 +93,13 @@ public class TicketDto {
 
     @Override
     public String toString() {
-        return from + " - " + to + ", " + date.toString();
+
+        if (date != null) {
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm");
+            String simpleDate = formatter.format(date);
+            return simpleDate + ", " + from + " - " + to;
+        }
+
+        return from + " - " + to;
     }
 }

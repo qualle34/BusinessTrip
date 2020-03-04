@@ -15,7 +15,10 @@ import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import java.util.Date;
+
 import static com.qualle.trip.controller.util.ControllerUtil.*;
+import static com.qualle.trip.controller.util.ControllerUtil.getSpinnerFactory;
 
 public class EditTripController implements AbstractController {
 
@@ -76,7 +79,6 @@ public class EditTripController implements AbstractController {
             timeEnd.setText(getTime(dto.getEnd()));
             status.setText(dto.getStatus());
             additionalExpenses.setValueFactory(getSpinnerFactory(dto.getAdditionalExpenses()));
-            System.out.println(dto.getAdditionalExpenses() + " " + additionalExpenses.getValue());
             expenses.setText(String.valueOf(dto.getExpenses()));
             members.setItems(FXCollections.observableArrayList(dto.getMembers()));
         }
@@ -89,12 +91,12 @@ public class EditTripController implements AbstractController {
         title.setText(null);
         description.setText(null);
         place.setText(null);
-        dateStart.setValue(null);
-        timeStart.setText(null);
-        dateEnd.setValue(null);
-        timeEnd.setText(null);
+        dateStart.setValue(getDate(new Date()));
+        timeStart.setText(getTime(new Date()));
+        dateEnd.setValue(getDate(new Date()));
+        timeEnd.setText(getTime(new Date()));
         status.setText(null);
-        additionalExpenses.setValueFactory(null);
+        additionalExpenses.setValueFactory(getSpinnerFactory(0.0));
         expenses.setText(null);
         members.setItems(null);
     }
@@ -121,6 +123,7 @@ public class EditTripController implements AbstractController {
             tripService.update(dto);
         }
 
+        onClose();
         ((Stage) ((Button) event.getSource()).getScene().getWindow()).close();
     }
 

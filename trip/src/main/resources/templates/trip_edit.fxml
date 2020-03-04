@@ -87,7 +87,7 @@
                             </HBox.margin>
                         </Label>
                   <DatePicker fx:id="dateStart" prefHeight="30.0" prefWidth="140.0" />
-                  <TextField fx:id="timeStart" prefHeight="30.0" prefWidth="140.0" promptText="Пример 10:30">
+                  <TextField fx:id="timeStart" prefHeight="30.0" prefWidth="140.0" promptText="Пример 10:30" text="0:00">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
@@ -108,7 +108,7 @@
                             </HBox.margin>
                         </Label>
                   <DatePicker fx:id="dateEnd" prefHeight="30.0" prefWidth="140.0" />
-                  <TextField fx:id="timeEnd" prefHeight="30.0" prefWidth="140.0" promptText="Пример 10:30">
+                  <TextField fx:id="timeEnd" prefHeight="30.0" prefWidth="140.0" promptText="Пример 10:30" text="0:00">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
@@ -176,11 +176,7 @@
                                 <Insets right="20.0" />
                             </HBox.margin>
                         </Label>
-                        <ScrollPane hbarPolicy="NEVER" prefHeight="150.0" prefWidth="300.0" vbarPolicy="ALWAYS">
-                            <content>
-                                <ListView fx:id="members" onMouseClicked="#getItem" prefWidth="300.0" />
-                            </content>
-                        </ScrollPane>
+                          <ListView fx:id="members" onMouseClicked="#getItem" prefHeight="200.0" prefWidth="300.0" />
                     </children>
                     <padding>
                         <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />

@@ -4,6 +4,7 @@ import com.qualle.trip.model.dto.TicketDto;
 import com.qualle.trip.model.entity.Ticket;
 import com.qualle.trip.repository.TicketDao;
 import com.qualle.trip.service.EmployeeService;
+import com.qualle.trip.service.MemberService;
 import com.qualle.trip.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,7 +58,9 @@ public class TicketServiceImpl implements TicketService {
     public TicketDto getFullDtoById(long id) {
         Ticket ticket = ticketDao.getFullById(id);
         TicketDto dto = toDto(ticket);
-        dto.setEmployee(employeeService.toSimpleDto(ticket.getMember().getEmployee()));
+        if (ticket.getMember() != null) {
+            dto.setEmployee(employeeService.toSimpleDto(ticket.getMember().getEmployee()));
+        }
         return dto;
     }
 

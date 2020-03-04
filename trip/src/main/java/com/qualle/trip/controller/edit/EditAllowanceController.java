@@ -38,6 +38,9 @@ public class EditAllowanceController implements AbstractController {
             country.setText(dto.getCountry());
             value.setValueFactory(getSpinnerFactory(dto.getValue()));
             currency.setText(dto.getCurrency());
+
+        } else {
+            value.setValueFactory(getSpinnerFactory(0.0));
         }
     }
 
@@ -67,6 +70,7 @@ public class EditAllowanceController implements AbstractController {
             allowanceService.add(dto);
         }
 
+        onClose();
         ((Stage) ((Button) event.getSource()).getScene().getWindow()).close();
     }
 

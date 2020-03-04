@@ -75,6 +75,7 @@ public class EditMemberController implements AbstractController {
             memberService.update(dto);
         }
 
+        onClose();
         ((Stage) ((Button) event.getSource()).getScene().getWindow()).close();
     }
 

@@ -18,12 +18,14 @@ INSERT INTO trip(id, title, description, place, date_start, date_end, additional
 INSERT INTO trip(id, title, description, place, date_start, date_end, additional_expenses) values(NEXTVAL('trip_id_seq'), 'Заключение договора', 'Текст...', 'Офис Black Red White', '2020-01-11 10:10:10-10', '2020-01-23 10:10:10-10', 0);
 INSERT INTO trip(id, title, description, place, date_start, date_end, additional_expenses) values(NEXTVAL('trip_id_seq'), 'Проверка производства', 'Текст...', 'Швеция', '2020-02-12 10:10:10-10', '2020-02-23 10:10:10-10', 10);
 INSERT INTO trip(id, title, description, place, date_start, date_end, additional_expenses) values(NEXTVAL('trip_id_seq'), 'Сертификат качества', 'Текст...', 'Китай', '2020-02-22 10:10:10-10', '2020-02-26 10:10:10-10', 23);
+INSERT INTO trip(id, title, description, place, date_start, date_end, additional_expenses) values(NEXTVAL('trip_id_seq'), 'Поездка на митап', 'Класная поездка всем рекомендую, Расходы в рублях.', 'Минск, ТРЦ Толялео', '2020-01-11 10:10:10-10', '2020-01-14 10:10:10-10', 120);
 
 INSERT INTO member(id, employee_id, trip_id, role) values(NEXTVAL('member_id_seq'), 5, 1, 'роль');
 INSERT INTO member(id, employee_id, trip_id, role) values(NEXTVAL('member_id_seq'), 2, 2, 'роль');
 INSERT INTO member(id, employee_id, trip_id, role) values(NEXTVAL('member_id_seq'), 1, 3, 'роль');
 INSERT INTO member(id, employee_id, trip_id, role) values(NEXTVAL('member_id_seq'), 3, 4, 'роль');
 INSERT INTO member(id, employee_id, trip_id, role) values(NEXTVAL('member_id_seq'), 4, 4, 'роль');
+INSERT INTO member(id, employee_id, trip_id, role) values(NEXTVAL('member_id_seq'), 2, 5, 'роль');
 
 INSERT INTO member_allowance(member_id, allowance_id, days) values(1, 2, 7);
 INSERT INTO member_allowance(member_id, allowance_id, days) values(2, 3, 13);

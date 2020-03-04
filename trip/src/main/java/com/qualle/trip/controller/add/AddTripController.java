@@ -76,8 +76,16 @@ public class AddTripController implements AbstractController {
     public void onClose() {
     }
 
+    @FXML
     public void addMember(ActionEvent event) {
         ControllerUtil.openWindow(memberAddView, (Stage) ((Button) event.getSource()).getScene().getWindow());
+    }
+
+    @FXML
+    public void deleteMember(ActionEvent event) {
+        long id = members.getSelectionModel().getSelectedItem().getId();
+        dto.getFullMembers().removeIf(m -> m.getId() == id);
+        members.setItems(FXCollections.observableArrayList(dto.getFullMembers()));
     }
 
     public void addMember(MemberDto member) {
@@ -98,6 +106,7 @@ public class AddTripController implements AbstractController {
         dto.setAdditionalExpenses(additionalExpenses.getValue());
         tripService.add(dto);
 
+        onClose();
         ((Stage) ((Button) event.getSource()).getScene().getWindow()).close();
     }
 }

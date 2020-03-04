@@ -41,13 +41,7 @@ public class EditEmployeeController implements AbstractController {
     private DatePicker birthday;
 
     @FXML
-    private ScrollPane ticketScroll;
-
-    @FXML
     private ListView<TicketDto> tickets;
-
-    @FXML
-    private ScrollPane tripScroll;
 
     @FXML
     private ListView<TripSimpleDto> trips;
@@ -68,12 +62,12 @@ public class EditEmployeeController implements AbstractController {
             if (dto.getTrips() != null) {
                 trips.setItems(FXCollections.observableArrayList(dto.getTrips()));
             }
-            ticketScroll.setDisable(false);
-            tripScroll.setDisable(false);
+            tickets.setDisable(false);
+            trips.setDisable(false);
 
         } else {
-            ticketScroll.setDisable(true);
-            tripScroll.setDisable(true);
+            tickets.setDisable(true);
+            trips.setDisable(true);
         }
     }
 
@@ -120,6 +114,7 @@ public class EditEmployeeController implements AbstractController {
             employeeService.add(dto);
         }
 
+        onClose();
         ((Stage) ((Button) event.getSource()).getScene().getWindow()).close();
     }
 

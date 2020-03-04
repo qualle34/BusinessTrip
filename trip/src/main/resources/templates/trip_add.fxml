@@ -5,7 +5,6 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -96,7 +95,7 @@
                             </HBox.margin>
                         </Label>
                         <DatePicker fx:id="dateStart" prefHeight="30.0" prefWidth="140.0" />
-                  <TextField fx:id="timeStart" prefHeight="30.0" prefWidth="140.0" promptText="Пример 10:30">
+                  <TextField fx:id="timeStart" prefHeight="30.0" prefWidth="140.0" promptText="Пример 10:30" text="0:00">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
@@ -117,7 +116,7 @@
                             </HBox.margin>
                         </Label>
                         <DatePicker fx:id="dateEnd" prefHeight="30.0" prefWidth="140.0" />
-                  <TextField fx:id="timeEnd" prefHeight="30.0" prefWidth="140.0" promptText="Пример 10:30">
+                  <TextField fx:id="timeEnd" prefHeight="30.0" prefWidth="140.0" promptText="Пример 10:30" text="0:00">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
@@ -153,11 +152,7 @@
                                 <Insets right="20.0" />
                             </HBox.margin>
                         </Label>
-                        <ScrollPane hbarPolicy="NEVER" prefHeight="150.0" prefWidth="300.0" vbarPolicy="ALWAYS">
-                            <content>
-                                <ListView fx:id="members" onMouseClicked="#getItem" prefHeight="181.0" prefWidth="300.0" />
-                            </content>
-                        </ScrollPane>
+                          <ListView fx:id="members" onMouseClicked="#getItem" prefHeight="181.0" prefWidth="300.0" />
                     </children>
                     <padding>
                         <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />
@@ -165,7 +160,7 @@
                 </HBox>
                 <HBox alignment="CENTER">
                     <children>
-                        <Label prefHeight="30.0" prefWidth="136.0" textFill="#333333">
+                        <Label prefHeight="23.0" prefWidth="155.0" textFill="#333333">
                             <font>
                                 <Font size="14.0" />
                             </font>
@@ -178,6 +173,14 @@
                                 <Font size="12.0" />
                             </font>
                         </Button>
+                  <Button mnemonicParsing="false" onAction="#deleteMember" text="Удалить">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Button>
                     </children>
                     <padding>
                         <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />

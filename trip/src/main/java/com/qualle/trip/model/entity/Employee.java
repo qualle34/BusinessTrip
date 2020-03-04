@@ -2,6 +2,7 @@ package com.qualle.trip.model.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -97,6 +98,24 @@ public class Employee {
 
     public void setMembers(Set<Member> members) {
         this.members = members;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return Objects.equals(id, employee.id) &&
+                name.equals(employee.name) &&
+                email.equals(employee.email) &&
+                Objects.equals(surname, employee.surname) &&
+                Objects.equals(department, employee.department) &&
+                Objects.equals(birthday, employee.birthday);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, email, surname, department, birthday);
     }
 }
 

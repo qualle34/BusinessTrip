@@ -128,7 +128,6 @@ public class AddMemberController implements AbstractController {
         grid.setPrefWidth(300);
         grid.setPrefHeight(200);
 
-
         final TextField days = new TextField("1");
         days.setPromptText("Количество дней");
         days.setPrefWidth(200);
@@ -164,6 +163,7 @@ public class AddMemberController implements AbstractController {
         AddTripController controller = (AddTripController) tripAddView.getController();
         controller.addMember(dto);
 
+        onClose();
         ((Stage) ((Button) event.getSource()).getScene().getWindow()).close();
     }
 }

@@ -2,10 +2,11 @@ package com.qualle.trip.model.dto;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 public class EmployeeDto {
 
-    private Long id;
+    private long id;
     private String name;
     private String surname;
     private String email;
@@ -32,11 +33,11 @@ public class EmployeeDto {
         this.email = dto.getEmail();
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -94,6 +95,24 @@ public class EmployeeDto {
 
     public void setTickets(List<TicketDto> tickets) {
         this.tickets = tickets;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EmployeeDto dto = (EmployeeDto) o;
+        return Objects.equals(id, dto.id) &&
+                name.equals(dto.name) &&
+                Objects.equals(surname, dto.surname) &&
+                email.equals(dto.email) &&
+                Objects.equals(department, dto.department) &&
+                Objects.equals(birthday, dto.birthday);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, surname, email, department, birthday);
     }
 
     @Override

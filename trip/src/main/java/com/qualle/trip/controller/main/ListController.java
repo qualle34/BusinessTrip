@@ -162,7 +162,7 @@ public class ListController implements AbstractController {
     @FXML
     public void getItem(MouseEvent click) {
 
-        if (click.getClickCount() == 2) {
+        if (click.getClickCount() == 2 && list.getSelectionModel().getSelectedItem() != null) {
             ListView listView = (ListView) click.getSource();
 
             switch (type) {
@@ -227,6 +227,7 @@ public class ListController implements AbstractController {
 
     @Override
     public void onClose() {
+        search.setText(null);
     }
 
     public void doReport(ActionEvent event) {

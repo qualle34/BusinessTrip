@@ -5,7 +5,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -70,11 +69,7 @@
                                 <Insets right="20.0" />
                             </HBox.margin>
                         </Label>
-                        <ScrollPane hbarPolicy="NEVER" prefHeight="150.0" prefWidth="300.0" vbarPolicy="ALWAYS">
-                            <content>
-                                <ListView fx:id="tickets" onMouseClicked="#getTicket" prefHeight="167.0" prefWidth="300.0" />
-                            </content>
-                        </ScrollPane>
+                          <ListView fx:id="tickets" onMouseClicked="#getTicket" prefHeight="167.0" prefWidth="300.0" />
                     </children>
                     <padding>
                         <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />
@@ -127,11 +122,7 @@
                                 <Insets right="20.0" />
                             </HBox.margin>
                         </Label>
-                        <ScrollPane hbarPolicy="NEVER" prefHeight="150.0" prefWidth="300.0" vbarPolicy="ALWAYS">
-                            <content>
-                                <ListView fx:id="allowances" onMouseClicked="#getAllowance" prefHeight="167.0" prefWidth="300.0" />
-                            </content>
-                        </ScrollPane>
+                          <ListView fx:id="allowances" onMouseClicked="#getAllowance" prefHeight="167.0" prefWidth="300.0" />
                     </children>
                     <padding>
                         <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />

@@ -23,7 +23,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public List<Employee> getByTrip() {
-        Query query = entityManager.createQuery("SELECT e FROM Employee e INNER JOIN e.members", Employee.class);
+        Query query = entityManager.createQuery("SELECT DISTINCT e FROM Employee e INNER JOIN e.members", Employee.class);
         return query.getResultList();
     }
 

@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
+import java.time.LocalDate;
 import java.util.Arrays;
 
 import static com.qualle.trip.controller.util.ControllerUtil.*;
@@ -58,6 +59,7 @@ public class EditTicketController implements AbstractController {
     @Override
     public void onShow() {
         employee.setItems(FXCollections.observableArrayList(employeeService.getAllSimpleDto()));
+        employee.setDisable(true);
 
         if (id != 0) {
             dto = ticketService.getFullDtoById(id);
@@ -68,11 +70,9 @@ public class EditTicketController implements AbstractController {
             price.setValueFactory(getSpinnerFactory(dto.getPrice()));
             type.setValue(dto.getType());
             employee.setValue(dto.getEmployee());
-            employee.setDisable(false);
 
         } else {
             price.setValueFactory(getSpinnerFactory(0.0));
-            employee.setDisable(true);
         }
     }
 
@@ -96,7 +96,6 @@ public class EditTicketController implements AbstractController {
             dto.setDate(toDate(date.getValue(), time.getText()));
             dto.setPrice(price.getValue());
             dto.setType(type.getValue());
-            dto.setEmployee(employee.getValue());
             ticketService.update(dto);
 
         } else {
@@ -109,6 +108,7 @@ public class EditTicketController implements AbstractController {
             ticketService.add(dto);
         }
 
+        onClose();
         ((Stage) ((Button) event.getSource()).getScene().getWindow()).close();
     }
 

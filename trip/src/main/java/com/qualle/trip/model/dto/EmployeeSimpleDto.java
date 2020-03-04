@@ -1,5 +1,7 @@
 package com.qualle.trip.model.dto;
 
+import java.util.Objects;
+
 public class EmployeeSimpleDto {
 
     private long id;
@@ -46,6 +48,22 @@ public class EmployeeSimpleDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EmployeeSimpleDto that = (EmployeeSimpleDto) o;
+        return id == that.id &&
+                name.equals(that.name) &&
+                Objects.equals(surname, that.surname) &&
+                email.equals(that.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, surname, email);
     }
 
     @Override
