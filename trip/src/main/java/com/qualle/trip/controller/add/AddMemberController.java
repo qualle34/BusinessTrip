@@ -8,7 +8,6 @@ import com.qualle.trip.service.EmployeeService;
 import com.qualle.trip.service.TicketService;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -25,10 +24,9 @@ import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 
-import static com.qualle.trip.controller.util.ControllerUtil.openWindow;
+import static com.qualle.trip.controller.util.ControllerUtil.*;
 
 public class AddMemberController implements AbstractController {
 
@@ -90,6 +88,11 @@ public class AddMemberController implements AbstractController {
         allowance.setValue(null);
     }
 
+    @Override
+    public boolean validate() {
+        return !role.getText().isEmpty();
+    }
+
     @FXML
     public void addTicket(ActionEvent event) {
 
@@ -102,7 +105,7 @@ public class AddMemberController implements AbstractController {
 
     @FXML
     public void createTicket(ActionEvent event) {
-        openWindow(ticketEditView, (Stage) ((Button) event.getSource()).getScene().getWindow());
+        openWindow(ticketEditView, getStage(event));
         ticket.setItems(FXCollections.observableArrayList(ticketService.getAllDto()));
     }
 
@@ -136,15 +139,13 @@ public class AddMemberController implements AbstractController {
 
         Button approve = new Button("OK");
         approve.setPrefHeight(30);
-        approve.setOnAction(new EventHandler<ActionEvent>() {
-
-            public void handle(ActionEvent event) {
-                dto.getAllowances().add(new MemberAllowanceDto(allowance.getValue(), Integer.parseInt(days.getText())));
-                tickets.setItems(FXCollections.observableArrayList(dto.getTickets()));
-                allowances.setItems(FXCollections.observableArrayList(dto.getAllowances()));
-                stage.close();
-            }
+        approve.setOnAction(event1 -> {
+            dto.getAllowances().add(new MemberAllowanceDto(allowance.getValue(), Integer.parseInt(days.getText())));
+            tickets.setItems(FXCollections.observableArrayList(dto.getTickets()));
+            allowances.setItems(FXCollections.observableArrayList(dto.getAllowances()));
+            stage.close();
         });
+
         grid.add(approve, 1, 2);
         GridPane.setHalignment(approve, HPos.CENTER);
         root.getChildren().add(grid);
@@ -158,12 +159,18 @@ public class AddMemberController implements AbstractController {
 
     @FXML
     public void doApprove(ActionEvent event) {
+
+        if (!validate()) {
+            openModal(getStage(event));
+            return;
+        }
+
         dto.setEmployee(new EmployeeDto(employee.getValue()));
         dto.setRole(role.getText());
         AddTripController controller = (AddTripController) tripAddView.getController();
         controller.addMember(dto);
 
         onClose();
-        ((Stage) ((Button) event.getSource()).getScene().getWindow()).close();
+        getStage(event).close();
     }
 }

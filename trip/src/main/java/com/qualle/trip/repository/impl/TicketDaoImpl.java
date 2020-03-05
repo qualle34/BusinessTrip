@@ -17,20 +17,20 @@ public class TicketDaoImpl implements TicketDao {
 
     @Override
     public List<Ticket> getAll() {
-        Query query = entityManager.createQuery("SELECT t FROM Ticket t", Ticket.class);
+        Query query = entityManager.createQuery("SELECT t FROM Ticket t ORDER BY t.date DESC ", Ticket.class);
         return query.getResultList();
     }
 
     @Override
     public List<Ticket> getByMember(long memberId) {
-        Query query = entityManager.createQuery("SELECT t FROM Ticket t JOIN t.member m WHERE m.id = :memberId", Ticket.class);
+        Query query = entityManager.createQuery("SELECT t FROM Ticket t JOIN t.member m WHERE m.id = :memberId ORDER BY t.date DESC ", Ticket.class);
         query.setParameter("memberId", memberId);
         return query.getResultList();
     }
 
     @Override
     public List<Ticket> getByMemberAndTrip(long memberId, long tripId) {
-        Query query = entityManager.createQuery("SELECT t FROM Ticket t JOIN t.member m JOIN m.trip tr WHERE m.id = :memberId and tr.id = :tripId ", Ticket.class);
+        Query query = entityManager.createQuery("SELECT t FROM Ticket t JOIN t.member m JOIN m.trip tr WHERE m.id = :memberId and tr.id = :tripId ORDER BY t.date DESC ", Ticket.class);
         query.setParameter("memberId", memberId);
         query.setParameter("tripId", tripId);
         return query.getResultList();
@@ -38,7 +38,7 @@ public class TicketDaoImpl implements TicketDao {
 
     @Override
     public List<Ticket> getByLocation(String location) {
-        Query query = entityManager.createQuery("SELECT t FROM Ticket t WHERE concat(lower(t.from), lower(t.to)) like lower(concat('%', :location,'%'))", Ticket.class);
+        Query query = entityManager.createQuery("SELECT t FROM Ticket t WHERE concat(lower(t.from), lower(t.to)) like lower(concat('%', :location,'%')) ORDER BY t.date DESC", Ticket.class);
         query.setParameter("location", location);
         return query.getResultList();
     }

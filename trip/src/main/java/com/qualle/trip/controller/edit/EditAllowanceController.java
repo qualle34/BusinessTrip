@@ -11,7 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static com.qualle.trip.controller.util.ControllerUtil.getSpinnerFactory;
+import static com.qualle.trip.controller.util.ControllerUtil.*;
 
 public class EditAllowanceController implements AbstractController {
 
@@ -53,8 +53,18 @@ public class EditAllowanceController implements AbstractController {
         currency.setText(null);
     }
 
+    @Override
+    public boolean validate() {
+        return !country.getText().isEmpty() && value.getValue() != null && !currency.getText().isEmpty();
+    }
+
     @FXML
     public void doApprove(ActionEvent event) {
+
+        if (!validate()) {
+            openModal(getStage(event));
+            return;
+        }
 
         if (id != 0) {
             dto.setCountry(country.getText());
@@ -71,7 +81,7 @@ public class EditAllowanceController implements AbstractController {
         }
 
         onClose();
-        ((Stage) ((Button) event.getSource()).getScene().getWindow()).close();
+        getStage(event).close();
     }
 
     public void setId(long id) {

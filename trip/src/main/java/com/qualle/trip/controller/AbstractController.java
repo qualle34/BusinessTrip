@@ -5,4 +5,6 @@ public interface AbstractController {
     void onShow();
 
     void onClose();
+
+    boolean validate();
 }

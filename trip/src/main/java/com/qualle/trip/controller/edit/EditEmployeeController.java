@@ -14,6 +14,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import static com.qualle.trip.controller.util.ControllerUtil.getStage;
+import static com.qualle.trip.controller.util.ControllerUtil.openModal;
+
 public class EditEmployeeController implements AbstractController {
 
     private EmployeeDto dto;
@@ -84,6 +87,11 @@ public class EditEmployeeController implements AbstractController {
         trips.setItems(null);
     }
 
+    @Override
+    public boolean validate() {
+        return !name.getText().isEmpty() && !email.getText().isEmpty();
+    }
+
     @FXML
     public void getTrip(MouseEvent event) {
         try {
@@ -95,6 +103,11 @@ public class EditEmployeeController implements AbstractController {
 
     @FXML
     public void doApprove(ActionEvent event) {
+
+        if (!validate()) {
+            openModal(getStage(event));
+            return;
+        }
 
         if (id != 0) {
             dto.setName(name.getText());
@@ -115,7 +128,7 @@ public class EditEmployeeController implements AbstractController {
         }
 
         onClose();
-        ((Stage) ((Button) event.getSource()).getScene().getWindow()).close();
+        getStage(event).close();
     }
 
     public void setId(long id) {

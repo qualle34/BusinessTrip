@@ -2,7 +2,6 @@ package com.qualle.trip.controller.add;
 
 import com.qualle.trip.config.ViewHolder;
 import com.qualle.trip.controller.AbstractController;
-import com.qualle.trip.controller.util.ControllerUtil;
 import com.qualle.trip.model.dto.MemberDto;
 import com.qualle.trip.model.dto.TripDto;
 import com.qualle.trip.service.TripService;
@@ -11,7 +10,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -76,9 +74,14 @@ public class AddTripController implements AbstractController {
     public void onClose() {
     }
 
+    @Override
+    public boolean validate() {
+        return !title.getText().isEmpty() && !place.getText().isEmpty() && validateTime(timeStart.getText()) && validateTime(timeEnd.getText());
+    }
+
     @FXML
     public void addMember(ActionEvent event) {
-        ControllerUtil.openWindow(memberAddView, (Stage) ((Button) event.getSource()).getScene().getWindow());
+        openWindow(memberAddView, getStage(event));
     }
 
     @FXML
@@ -105,8 +108,7 @@ public class AddTripController implements AbstractController {
         dto.setEnd(toDate(dateEnd.getValue(), timeEnd.getText()));
         dto.setAdditionalExpenses(additionalExpenses.getValue());
         tripService.add(dto);
-
         onClose();
-        ((Stage) ((Button) event.getSource()).getScene().getWindow()).close();
+        getStage(event).close();
     }
 }

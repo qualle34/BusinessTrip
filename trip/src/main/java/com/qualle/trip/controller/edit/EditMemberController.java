@@ -14,6 +14,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import static com.qualle.trip.controller.util.ControllerUtil.getStage;
+import static com.qualle.trip.controller.util.ControllerUtil.openModal;
+
 public class EditMemberController implements AbstractController {
 
     private MemberDto dto;
@@ -66,6 +69,11 @@ public class EditMemberController implements AbstractController {
         allowances.setItems(null);
     }
 
+    @Override
+    public boolean validate() {
+        return true;
+    }
+
     @FXML
     public void doApprove(ActionEvent event) {
 
@@ -76,7 +84,7 @@ public class EditMemberController implements AbstractController {
         }
 
         onClose();
-        ((Stage) ((Button) event.getSource()).getScene().getWindow()).close();
+        getStage(event).close();
     }
 
     public void setId(long id) {

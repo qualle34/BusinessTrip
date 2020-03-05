@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.annotation.PostConstruct;
 
+import static com.qualle.trip.controller.util.ControllerUtil.getStage;
 import static com.qualle.trip.controller.util.ControllerUtil.openWindow;
 
 public class MainController implements AbstractController {
@@ -74,8 +75,7 @@ public class MainController implements AbstractController {
 
     @FXML
     public void add(ActionEvent event) {
-        Button button = (Button) event.getSource();
-        openWindow(tripAddView, (Stage) button.getScene().getWindow());
+        openWindow(tripAddView, getStage(event));
     }
 
     @FXML
@@ -99,10 +99,9 @@ public class MainController implements AbstractController {
     }
 
     private void showList(ActionEvent event, PageType type) {
-        Button button = (Button) event.getSource();
         ListController controller = (ListController) listView.getController();
         controller.setType(type);
-        openWindow(listView, (Stage) button.getScene().getWindow());
+        openWindow(listView, getStage(event));
     }
 
     @Override
@@ -111,5 +110,10 @@ public class MainController implements AbstractController {
 
     @Override
     public void onClose() {
+    }
+
+    @Override
+    public boolean validate() {
+        return true;
     }
 }

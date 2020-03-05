@@ -9,12 +9,13 @@ import com.qualle.trip.service.TicketService;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.stage.Stage;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.TextField;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
-import java.time.LocalDate;
 import java.util.Arrays;
 
 import static com.qualle.trip.controller.util.ControllerUtil.*;
@@ -87,8 +88,19 @@ public class EditTicketController implements AbstractController {
         employee.setValue(null);
     }
 
+    @Override
+    public boolean validate() {
+        return !from.getText().isEmpty() && !to.getText().isEmpty() && date.getValue() != null &&
+               price.getValue() != null && type.getValue() != null && validateTime(time.getText());
+    }
+
     @FXML
     public void doApprove(ActionEvent event) {
+
+        if (!validate()) {
+            openModal(getStage(event));
+            return;
+        }
 
         if (id != 0) {
             dto.setFrom(from.getText());
@@ -109,7 +121,7 @@ public class EditTicketController implements AbstractController {
         }
 
         onClose();
-        ((Stage) ((Button) event.getSource()).getScene().getWindow()).close();
+        getStage(event).close();
     }
 
     public void setId(long id) {

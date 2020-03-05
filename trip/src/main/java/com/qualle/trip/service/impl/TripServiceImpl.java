@@ -122,9 +122,9 @@ public class TripServiceImpl implements TripService {
         data.put("place", dto.getPlace());
         data.put("date_start", dto.getEnd().toString());
         data.put("date_end", dto.getStart().toString());
-        data.put("ticketExpenses", String.valueOf(dto.getTicketExpenses()));
-        data.put("allowanceExpenses", String.valueOf(dto.getAllowanceExpenses()));
-        data.put("additionalExpenses", String.valueOf(dto.getAdditionalExpenses()));
+        data.put("ticket_expenses", String.valueOf(dto.getTicketExpenses()));
+        data.put("allowance_expenses", String.valueOf(dto.getAllowanceExpenses()));
+        data.put("additional_expenses", String.valueOf(dto.getAdditionalExpenses()));
         data.put("expenses", String.valueOf(dto.getExpenses()));
         data.put("members", "test");
 

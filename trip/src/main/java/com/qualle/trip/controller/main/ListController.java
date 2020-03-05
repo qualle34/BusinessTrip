@@ -35,6 +35,7 @@ import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import static com.qualle.trip.controller.util.ControllerUtil.getStage;
 import static com.qualle.trip.controller.util.ControllerUtil.openWindow;
 
 public class ListController implements AbstractController {
@@ -86,23 +87,22 @@ public class ListController implements AbstractController {
 
     @FXML
     public void add(ActionEvent event) {
-        Button button = (Button) event.getSource();
 
         switch (type) {
             case ALLOWANCE:
-                openWindow(allowanceEditView, (Stage) button.getScene().getWindow());
+                openWindow(allowanceEditView, getStage(event));
                 break;
 
             case TICKET:
-                openWindow(ticketEditView, (Stage) button.getScene().getWindow());
+                openWindow(ticketEditView, getStage(event));
                 break;
 
             case TRIP:
-                openWindow(tripEditView, (Stage) button.getScene().getWindow());
+                openWindow(tripEditView, getStage(event));
                 break;
 
             case EMPLOYEE:
-                openWindow(employeeEditView, (Stage) button.getScene().getWindow());
+                openWindow(employeeEditView, getStage(event));
                 break;
         }
     }
@@ -163,34 +163,32 @@ public class ListController implements AbstractController {
     public void getItem(MouseEvent click) {
 
         if (click.getClickCount() == 2 && list.getSelectionModel().getSelectedItem() != null) {
-            ListView listView = (ListView) click.getSource();
 
             switch (type) {
                 case ALLOWANCE:
                     EditAllowanceController allowanceController = (EditAllowanceController) allowanceEditView.getController();
                     allowanceController.setId(((AllowanceDto) list.getSelectionModel().getSelectedItem()).getId());
-                    openWindow(allowanceEditView, (Stage) listView.getScene().getWindow());
+                    openWindow(allowanceEditView, getStage(click));
                     break;
 
                 case TICKET:
                     EditTicketController ticketController = (EditTicketController) ticketEditView.getController();
                     ticketController.setId(((TicketDto) list.getSelectionModel().getSelectedItem()).getId());
-                    openWindow(ticketEditView, (Stage) listView.getScene().getWindow());
+                    openWindow(ticketEditView, getStage(click));
                     break;
 
                 case TRIP:
                     EditTripController tripController = (EditTripController) tripEditView.getController();
                     tripController.setId(((TripSimpleDto) list.getSelectionModel().getSelectedItem()).getId());
-                    openWindow(tripEditView, (Stage) listView.getScene().getWindow());
+                    openWindow(tripEditView, getStage(click));
                     break;
 
                 case EMPLOYEE:
                     EditEmployeeController employeeController = (EditEmployeeController) employeeEditView.getController();
                     employeeController.setId(((EmployeeSimpleDto) list.getSelectionModel().getSelectedItem()).getId());
-                    openWindow(employeeEditView, (Stage) listView.getScene().getWindow());
+                    openWindow(employeeEditView, getStage(click));
                     break;
             }
-
         }
     }
 
@@ -230,6 +228,11 @@ public class ListController implements AbstractController {
         search.setText(null);
     }
 
+    @Override
+    public boolean validate() {
+        return true;
+    }
+
     public void doReport(ActionEvent event) {
 
         long id = ((TripSimpleDto) list.getSelectionModel().getSelectedItem()).getId();
@@ -256,13 +259,11 @@ public class ListController implements AbstractController {
 
             Button approve = new Button("OK");
             approve.setPrefHeight(30);
-            approve.setOnAction(new EventHandler<ActionEvent>() {
-
-                public void handle(ActionEvent event) {
-                    tripService.report(id, path.getText());
-                    stage.close();
-                }
+            approve.setOnAction(event1 -> {
+                tripService.report(id, path.getText());
+                stage.close();
             });
+
             grid.add(approve, 1, 2);
             GridPane.setHalignment(approve, HPos.CENTER);
             root.getChildren().add(grid);

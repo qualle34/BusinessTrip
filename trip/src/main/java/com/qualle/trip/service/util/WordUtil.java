@@ -19,23 +19,22 @@ public class WordUtil {
     private static final String TEMPLATE_PATH = "data/template/";
     private static final String REPORT_FILE_NAME = "report.docx";
 
-    public static boolean createReport(String path, Map<String, String> data) {
+    public static void createReport(String path, Map<String, String> data) {
 
         try {
             XWPFDocument document = new XWPFDocument(OPCPackage.open(TEMPLATE_PATH + REPORT_FILE_NAME));
             data.forEach((key, value) -> write(document, key, value));
             document.write(new FileOutputStream(path + getFileName("report")));
-            return true;
 
-        } catch (IOException | InvalidFormatException ignore) {
-            return false;
+        } catch (IOException | InvalidFormatException e) {
+            throw new RuntimeException();
         }
     }
 
     private static void write(XWPFDocument document, String key, String value) {
 
-        for (XWPFParagraph p : document.getParagraphs()) {
-            List<XWPFRun> runs = p.getRuns();
+        for (XWPFParagraph paragraph : document.getParagraphs()) {
+            List<XWPFRun> runs = paragraph.getRuns();
             if (runs != null) {
                 for (XWPFRun r : runs) {
                     String text = r.getText(0);

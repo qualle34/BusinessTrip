@@ -101,6 +101,11 @@ public class EditTripController implements AbstractController {
         members.setItems(null);
     }
 
+    @Override
+    public boolean validate() {
+        return !title.getText().isEmpty() && !place.getText().isEmpty() && validateTime(timeStart.getText()) && validateTime(timeEnd.getText());
+    }
+
     @FXML
     public void getItem(MouseEvent click) {
 
@@ -113,6 +118,11 @@ public class EditTripController implements AbstractController {
     @FXML
     public void doApprove(ActionEvent event) {
 
+        if (!validate()) {
+            openModal(getStage(event));
+            return;
+        }
+
         if (id != 0) {
             dto.setTitle(title.getText());
             dto.setDescription(description.getText());
@@ -124,7 +134,7 @@ public class EditTripController implements AbstractController {
         }
 
         onClose();
-        ((Stage) ((Button) event.getSource()).getScene().getWindow()).close();
+        getStage(event).close();
     }
 
     public void setId(long id) {
