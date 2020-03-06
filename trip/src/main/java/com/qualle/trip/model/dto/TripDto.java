@@ -22,6 +22,10 @@ public class TripDto {
     public TripDto() {
     }
 
+    public TripDto(long id) {
+        this.id = id;
+    }
+
     public TripDto(String title, String description, String place, Date start, Date end, double additionalExpenses) {
         this.title = title;
         this.description = description;

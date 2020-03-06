@@ -5,6 +5,7 @@ import com.qualle.trip.controller.AbstractController;
 import com.qualle.trip.model.dto.*;
 import com.qualle.trip.service.AllowanceService;
 import com.qualle.trip.service.EmployeeService;
+import com.qualle.trip.service.MemberService;
 import com.qualle.trip.service.TicketService;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -30,6 +31,7 @@ import static com.qualle.trip.controller.util.ControllerUtil.*;
 
 public class AddMemberController implements AbstractController {
 
+    private long tripId;
     private MemberDto dto;
 
     @Qualifier("tripAdd")
@@ -39,6 +41,9 @@ public class AddMemberController implements AbstractController {
     @Qualifier("ticketEdit")
     @Autowired
     private ViewHolder ticketEditView;
+
+    @Autowired
+    private MemberService memberService;
 
     @Autowired
     private TicketService ticketService;
@@ -80,6 +85,7 @@ public class AddMemberController implements AbstractController {
 
     @Override
     public void onClose() {
+        tripId = 0;
         employee.setValue(null);
         role.setText(null);
         tickets.setItems(FXCollections.observableArrayList(new ArrayList<>()));
@@ -165,12 +171,24 @@ public class AddMemberController implements AbstractController {
             return;
         }
 
-        dto.setEmployee(new EmployeeDto(employee.getValue()));
-        dto.setRole(role.getText());
-        AddTripController controller = (AddTripController) tripAddView.getController();
-        controller.addMember(dto);
+        if (tripId != 0) {
+            dto.setEmployee(new EmployeeDto(employee.getValue()));
+            dto.setRole(role.getText());
+            dto.setTrip(new TripDto(tripId));
+            memberService.add(dto);
+
+        } else {
+            dto.setEmployee(new EmployeeDto(employee.getValue()));
+            dto.setRole(role.getText());
+            AddTripController controller = (AddTripController) tripAddView.getController();
+            controller.addMember(dto);
+        }
 
         onClose();
         getStage(event).close();
+    }
+
+    public void setTripId(long tripId) {
+        this.tripId = tripId;
     }
 }

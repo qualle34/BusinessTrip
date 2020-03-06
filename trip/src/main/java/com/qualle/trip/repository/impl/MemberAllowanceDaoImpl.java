@@ -1,8 +1,7 @@
 package com.qualle.trip.repository.impl;
 
-import com.qualle.trip.model.entity.Member;
-import com.qualle.trip.model.entity.MemberAllowance;
 import com.qualle.trip.model.entity.Allowance;
+import com.qualle.trip.model.entity.MemberAllowance;
 import com.qualle.trip.repository.MemberAllowanceDao;
 import org.springframework.stereotype.Repository;
 

@@ -2,9 +2,11 @@ package com.qualle.trip.controller.edit;
 
 import com.qualle.trip.config.ViewHolder;
 import com.qualle.trip.controller.AbstractController;
+import com.qualle.trip.controller.add.AddMemberController;
 import com.qualle.trip.controller.util.ControllerUtil;
 import com.qualle.trip.model.dto.MemberSimpleDto;
 import com.qualle.trip.model.dto.TripDto;
+import com.qualle.trip.service.MemberService;
 import com.qualle.trip.service.TripService;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -29,8 +31,15 @@ public class EditTripController implements AbstractController {
     @Autowired
     private ViewHolder memberEditView;
 
+    @Qualifier("memberAdd")
+    @Autowired
+    private ViewHolder memberAddView;
+
     @Autowired
     private TripService tripService;
+
+    @Autowired
+    private MemberService memberService;
 
     @FXML
     private TextField title;
@@ -113,6 +122,21 @@ public class EditTripController implements AbstractController {
             ((EditMemberController) memberEditView.getController()).setId((members.getSelectionModel().getSelectedItem()).getId());
             ControllerUtil.openWindow(memberEditView, (Stage) ((ListView) click.getSource()).getScene().getWindow());
         }
+    }
+
+    @FXML
+    public void addMember(ActionEvent event) {
+        AddMemberController controller = (AddMemberController) memberAddView.getController();
+        controller.setTripId(id);
+        openWindow(memberAddView, getStage(event));
+    }
+
+    @FXML
+    public void deleteMember(ActionEvent event) {
+        long id = members.getSelectionModel().getSelectedItem().getId();
+        memberService.delete(id);
+        dto.getMembers().removeIf(m -> m.getId() == id);
+        members.setItems(FXCollections.observableArrayList(dto.getMembers()));
     }
 
     @FXML
