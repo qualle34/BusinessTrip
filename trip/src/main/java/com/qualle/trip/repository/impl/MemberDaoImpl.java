@@ -23,11 +23,6 @@ public class MemberDaoImpl implements MemberDao {
 
     @Override
     public Member getById(long id) {
-        return entityManager.find(Member.class, id);
-    }
-
-    @Override
-    public Member getFullById(long id) {
         Query query = entityManager.createQuery("SELECT m FROM Member m " +
                 "LEFT JOIN FETCH m.employee " +
                 "LEFT JOIN FETCH m.memberAllowances ma " +

@@ -4,6 +4,7 @@ import com.qualle.trip.config.ViewHolder;
 import com.qualle.trip.controller.AbstractController;
 import com.qualle.trip.controller.add.AddMemberController;
 import com.qualle.trip.controller.util.ControllerUtil;
+import com.qualle.trip.model.dto.MemberDto;
 import com.qualle.trip.model.dto.MemberSimpleDto;
 import com.qualle.trip.model.dto.TripDto;
 import com.qualle.trip.service.MemberService;
@@ -72,7 +73,7 @@ public class EditTripController implements AbstractController {
     private TextField expenses;
 
     @FXML
-    private ListView<MemberSimpleDto> members;
+    private ListView<MemberDto> members;
 
     @Override
     public void onShow() {

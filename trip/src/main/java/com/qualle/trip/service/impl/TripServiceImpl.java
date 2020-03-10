@@ -1,9 +1,8 @@
 package com.qualle.trip.service.impl;
 
-import com.qualle.trip.model.dto.MemberDto;
-import com.qualle.trip.model.dto.TripDto;
-import com.qualle.trip.model.dto.TripSimpleDto;
+import com.qualle.trip.model.dto.*;
 import com.qualle.trip.model.entity.*;
+import com.qualle.trip.model.enums.TicketType;
 import com.qualle.trip.model.enums.TripStatus;
 import com.qualle.trip.repository.TripDao;
 import com.qualle.trip.service.*;
@@ -12,8 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static com.qualle.trip.service.util.ServiceUtil.*;
 
 @Service
 public class TripServiceImpl implements TripService {
@@ -71,7 +73,10 @@ public class TripServiceImpl implements TripService {
         TripDto dto = toDto(trip);
         dto.setStatus(getStatus(trip.getStart(), trip.getEnd()).toString());
         calculateExpenses(dto, trip.getMembers(), trip.getAdditionalExpenses());
-        dto.setMembers(memberService.toSimpleDtoArray(trip.getMembers()));
+        dto.setMembers(new ArrayList<>());
+        for (Member member : trip.getMembers()) {
+            dto.getMembers().add(memberService.getDtoById(member.getId()));
+        }
         return dto;
     }
 
@@ -83,7 +88,7 @@ public class TripServiceImpl implements TripService {
         trip.setEnd(dto.getEnd());
         trip.setMembers(new HashSet<>());
 
-        for (MemberDto memberDto : dto.getFullMembers()) {
+        for (MemberDto memberDto : dto.getMembers()) {
             Member member = new Member();
             member.setTrip(trip);
             member.setRole(memberDto.getRole());
@@ -114,21 +119,33 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public void report(long id, String path) {
-        Map<String, String> data = new HashMap<>();
+        Map<String, Object> data = new HashMap<>();
         TripDto dto = getFullDtoById(id);
+        int i = 0;
 
-        data.put("title", dto.getTitle());
-        data.put("description", dto.getDescription());
-        data.put("place", dto.getPlace());
-        data.put("date_start", dto.getEnd().toString());
-        data.put("date_end", dto.getStart().toString());
-        data.put("ticket_expenses", String.valueOf(dto.getTicketExpenses()));
-        data.put("allowance_expenses", String.valueOf(dto.getAllowanceExpenses()));
-        data.put("additional_expenses", String.valueOf(dto.getAdditionalExpenses()));
-        data.put("expenses", String.valueOf(dto.getExpenses()));
-        data.put("members", "test");
+        for (MemberDto member : dto.getMembers()) {
 
-        WordUtil.createReport(path, data);
+            data.put("date_now", formatDate(new Date()));
+            data.put("date_start", formatDate(dto.getStart()));
+            data.put("date_end", formatDate(dto.getEnd()));
+            data.put("member",  member.getEmployee().getName() + " " + member.getEmployee().getSurname());
+            data.put("department", member.getEmployee().getDepartment());
+            data.put("title", dto.getTitle());
+            data.put("place", dto.getPlace());
+            data.put("description", dto.getDescription());
+
+            data.put("allowance_expenses", member.getAllowanceExpenses() + " р.");
+            data.put("allowances", getAllowanceInfo(member.getAllowances()));
+
+            data.put("ticket_expenses", member.getTicketsExpenses() + " р.");
+            data.put("tickets", getTicketInfo(member.getTickets()));
+
+            data.put("additional_expenses", dto.getAdditionalExpenses() + "р.");
+            data.put("expenses", member.getTicketsExpenses() + member.getAllowanceExpenses() + "р.");
+
+            i++;
+            WordUtil.createReport(path, String.valueOf(i), data);
+        }
     }
 
     @Override
@@ -154,7 +171,7 @@ public class TripServiceImpl implements TripService {
         return dto;
     }
 
-    private void calculateExpenses(TripDto dto, Collection<Member> members, double additionalExpenses) {
+    private static void calculateExpenses(TripDto dto, Collection<Member> members, double additionalExpenses) {
         List<Ticket> tickets = new ArrayList<>();
         List<Allowance> allowances = new ArrayList<>();
 
@@ -171,7 +188,7 @@ public class TripServiceImpl implements TripService {
         dto.setExpenses(ticketExpenses + allowanceExpenses + additionalExpenses);
     }
 
-    private TripStatus getStatus(Date start, Date end) {
+    private static TripStatus getStatus(Date start, Date end) {
         Date now = new Date();
 
         if (now.before(start) && now.before(end)) {

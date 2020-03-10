@@ -50,11 +50,6 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public MemberDto getFullDtoById(long id) {
-        return toDto(memberDao.getFullById(id));
-    }
-
-    @Override
     @Transactional
     public void add(MemberDto dto) {
         Member member = new Member();

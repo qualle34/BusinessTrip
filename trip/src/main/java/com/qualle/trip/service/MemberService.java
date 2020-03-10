@@ -15,8 +15,6 @@ public interface MemberService {
 
     MemberDto getDtoById(long id);
 
-    MemberDto getFullDtoById(long id);
-
     void add(MemberDto dto);
 
     void update(MemberDto dto);

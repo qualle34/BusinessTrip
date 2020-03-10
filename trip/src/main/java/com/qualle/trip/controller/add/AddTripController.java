@@ -60,7 +60,7 @@ public class AddTripController implements AbstractController {
     @Override
     public void onShow() {
         dto = new TripDto();
-        dto.setFullMembers(new ArrayList<>());
+        dto.setMembers(new ArrayList<>());
         title.setText(null);
         description.setText(null);
         dateStart.setValue(getDate(new Date()));
@@ -88,13 +88,13 @@ public class AddTripController implements AbstractController {
     @FXML
     public void deleteMember(ActionEvent event) {
         long id = members.getSelectionModel().getSelectedItem().getId();
-        dto.getFullMembers().removeIf(m -> m.getId() == id);
-        members.setItems(FXCollections.observableArrayList(dto.getFullMembers()));
+        dto.getMembers().removeIf(m -> m.getId() == id);
+        members.setItems(FXCollections.observableArrayList(dto.getMembers()));
     }
 
     public void addMember(MemberDto member) {
-        dto.getFullMembers().add(member);
-        members.setItems(FXCollections.observableArrayList(dto.getFullMembers()));
+        dto.getMembers().add(member);
+        members.setItems(FXCollections.observableArrayList(dto.getMembers()));
     }
 
     public void getItem(MouseEvent event) {

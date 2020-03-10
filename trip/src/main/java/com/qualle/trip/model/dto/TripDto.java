@@ -16,8 +16,7 @@ public class TripDto {
     private double additionalExpenses;
     private double expenses;
     private String status;
-    private List<MemberSimpleDto> members;
-    private List<MemberDto> fullMembers;
+    private List<MemberDto> members;
 
     public TripDto() {
     }
@@ -123,19 +122,11 @@ public class TripDto {
         this.status = status;
     }
 
-    public List<MemberSimpleDto> getMembers() {
+    public List<MemberDto> getMembers() {
         return members;
     }
 
-    public void setMembers(List<MemberSimpleDto> members) {
+    public void setMembers(List<MemberDto> members) {
         this.members = members;
-    }
-
-    public List<MemberDto> getFullMembers() {
-        return fullMembers;
-    }
-
-    public void setFullMembers(List<MemberDto> fullMembers) {
-        this.fullMembers = fullMembers;
     }
 }

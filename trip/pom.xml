@@ -6,6 +6,7 @@
 
     <groupId>com.qualle.trip</groupId>
     <artifactId>trip</artifactId>
+    <packaging>jar</packaging>
     <version>1.0</version>
 
     <parent>

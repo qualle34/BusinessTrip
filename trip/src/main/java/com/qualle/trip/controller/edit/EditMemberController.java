@@ -47,7 +47,7 @@ public class EditMemberController implements AbstractController {
     public void onShow() {
 
         if (id != 0) {
-            dto = memberService.getFullDtoById(id);
+            dto = memberService.getDtoById(id);
             employee.setText(dto.getEmployee().toString());
             allowanceExpenses.setText(String.valueOf(dto.getAllowanceExpenses()));
             ticketsExpenses.setText(String.valueOf(dto.getTicketsExpenses()));
