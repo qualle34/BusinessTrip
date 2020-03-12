@@ -1,6 +1,7 @@
 package com.qualle.trip.aspect;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.slf4j.Logger;
@@ -41,5 +42,10 @@ public class RepositoryAspect {
     @Before("execution(public * com.qualle.trip.repository.TripDao.*(..))")
     public void adviceTripDao(JoinPoint point) {
         LOGGER.info("before - TripDao." + point.getSignature().getName());
+    }
+
+    @AfterThrowing(pointcut = "execution(*  com.qualle.trip.repository.*.*(..))", throwing = "ex")
+    public void log(Exception ex) {
+        LOGGER.warn("Repository exception - " + ex.getMessage(), ex);
     }
 }

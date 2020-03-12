@@ -1,5 +1,6 @@
 package com.qualle.trip.controller.edit;
 
+import com.qualle.trip.config.ViewHolder;
 import com.qualle.trip.controller.AbstractController;
 import com.qualle.trip.model.dto.EmployeeSimpleDto;
 import com.qualle.trip.model.dto.TicketDto;
@@ -14,6 +15,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
@@ -24,6 +26,10 @@ public class EditTicketController implements AbstractController {
 
     private TicketDto dto;
     private long id;
+
+    @Autowired
+    @Qualifier("list")
+    private ViewHolder list;
 
     @Autowired
     private TicketService ticketService;
@@ -86,6 +92,7 @@ public class EditTicketController implements AbstractController {
         date.setValue(null);
         type.setValue(null);
         employee.setValue(null);
+        list.getController().onShow();
     }
 
     @Override

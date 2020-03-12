@@ -1,4 +1,4 @@
-package com.qualle.trip;
+package com.qualle.trip.service;
 
 import com.qualle.trip.model.dto.EmployeeDto;
 import com.qualle.trip.model.dto.EmployeeSimpleDto;

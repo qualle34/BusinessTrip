@@ -1,4 +1,4 @@
-package com.qualle.trip;
+package com.qualle.trip.service;
 
 import org.junit.jupiter.api.Test;
 

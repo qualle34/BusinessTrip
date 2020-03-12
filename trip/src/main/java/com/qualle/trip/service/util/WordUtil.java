@@ -1,6 +1,7 @@
 package com.qualle.trip.service.util;
 
 import com.qualle.trip.aspect.ServiceAspect;
+import com.qualle.trip.config.Application;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
@@ -12,6 +13,8 @@ import org.slf4j.LoggerFactory;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,6 +27,8 @@ public class WordUtil {
 
     private static final String TEMPLATE_PATH = "data/template/";
     private static final String REPORT_FILE_NAME = "report.docx";
+
+    private static final String APP_FILE = "trip-1.0.jar";
 
     public static void createReport(String path, String name, Map<String, Object> data) {
 
@@ -43,6 +48,7 @@ public class WordUtil {
             List<XWPFRun> runs = paragraph.getRuns();
             for (XWPFRun run : runs) {
                 String text = run.getText(0);
+
                 if (text != null && text.contains("${" + key + "}") && value instanceof List) {
 
                     run.setText("", 0);
@@ -51,6 +57,7 @@ public class WordUtil {
                         run.setText(String.valueOf(val));
                         run.addBreak();
                     }
+
                     paragraph.setAlignment(ParagraphAlignment.LEFT);
 
                 } else if (text != null && text.contains("${" + key + "}")) {
@@ -61,6 +68,19 @@ public class WordUtil {
         }
     }
 
+    public static String getPath() throws UnsupportedEncodingException {
+        String path = null;
+
+        try {
+            path = Application.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+            path = URLDecoder.decode(path, "utf-8");
+            return "/" + path.substring(6, path.lastIndexOf(APP_FILE));
+
+        } catch (IndexOutOfBoundsException e) {
+            LOGGER.warn("bad application path (" + path + "): " + e.getMessage(), e);
+            throw e;
+        }
+    }
 
     private static String getFileName(String type) {
         DateFormat dateFormat = new SimpleDateFormat("yyyymmddhhmmss");

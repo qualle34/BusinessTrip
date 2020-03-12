@@ -8,14 +8,11 @@ import com.qualle.trip.service.MemberService;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static com.qualle.trip.controller.util.ControllerUtil.getStage;
-import static com.qualle.trip.controller.util.ControllerUtil.openModal;
 
 public class EditMemberController implements AbstractController {
 

@@ -1,5 +1,6 @@
 package com.qualle.trip.controller.edit;
 
+import com.qualle.trip.config.ViewHolder;
 import com.qualle.trip.controller.AbstractController;
 import com.qualle.trip.model.dto.EmployeeDto;
 import com.qualle.trip.model.dto.TicketDto;
@@ -13,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import static com.qualle.trip.controller.util.ControllerUtil.getStage;
 import static com.qualle.trip.controller.util.ControllerUtil.openModal;
@@ -21,6 +23,10 @@ public class EditEmployeeController implements AbstractController {
 
     private EmployeeDto dto;
     private long id;
+
+    @Autowired
+    @Qualifier("list")
+    private ViewHolder list;
 
     @Autowired
     private EmployeeService employeeService;
@@ -85,6 +91,7 @@ public class EditEmployeeController implements AbstractController {
         birthday.setValue(null);
         tickets.setItems(null);
         trips.setItems(null);
+        list.getController().onShow();
     }
 
     @Override

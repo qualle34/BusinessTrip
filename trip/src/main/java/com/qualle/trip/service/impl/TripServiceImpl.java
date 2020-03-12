@@ -1,21 +1,26 @@
 package com.qualle.trip.service.impl;
 
-import com.qualle.trip.model.dto.*;
+import com.qualle.trip.model.dto.MemberDto;
+import com.qualle.trip.model.dto.TripDto;
+import com.qualle.trip.model.dto.TripSimpleDto;
 import com.qualle.trip.model.entity.*;
-import com.qualle.trip.model.enums.TicketType;
 import com.qualle.trip.model.enums.TripStatus;
 import com.qualle.trip.repository.TripDao;
-import com.qualle.trip.service.*;
+import com.qualle.trip.service.AllowanceService;
+import com.qualle.trip.service.EmployeeService;
+import com.qualle.trip.service.MemberService;
+import com.qualle.trip.service.TripService;
 import com.qualle.trip.service.util.WordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.SimpleDateFormat;
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.qualle.trip.service.util.ServiceUtil.*;
+import static com.qualle.trip.service.util.WordUtil.getPath;
 
 @Service
 public class TripServiceImpl implements TripService {
@@ -118,7 +123,7 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public void report(long id, String path) {
+    public void report(long id) throws UnsupportedEncodingException {
         Map<String, Object> data = new HashMap<>();
         TripDto dto = getFullDtoById(id);
         int i = 0;
@@ -140,11 +145,10 @@ public class TripServiceImpl implements TripService {
             data.put("ticket_expenses", member.getTicketsExpenses() + " р.");
             data.put("tickets", getTicketInfo(member.getTickets()));
 
-            data.put("additional_expenses", dto.getAdditionalExpenses() + "р.");
-            data.put("expenses", member.getTicketsExpenses() + member.getAllowanceExpenses() + "р.");
+            data.put("additional_expenses", dto.getAdditionalExpenses() + " р.");
+            data.put("expenses", member.getTicketsExpenses() + member.getAllowanceExpenses() + " р.");
 
-            i++;
-            WordUtil.createReport(path, String.valueOf(i), data);
+            WordUtil.createReport(getPath() + "", String.valueOf(++i), data);
         }
     }
 

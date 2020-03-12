@@ -1,6 +1,7 @@
 package com.qualle.trip.aspect;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.slf4j.Logger;
@@ -36,5 +37,10 @@ public class ServiceAspect {
     @Before("execution(public * com.qualle.trip.service.TripService.*(..))")
     public void adviceTripService(JoinPoint point) {
         LOGGER.info("before - TripService." + point.getSignature().getName());
+    }
+
+    @AfterThrowing(pointcut = "execution(*  com.qualle.trip.service.*.*(..))", throwing = "ex")
+    public void adviceService(Exception ex) {
+        LOGGER.warn("Service exception - " + ex.getMessage(), ex);
     }
 }

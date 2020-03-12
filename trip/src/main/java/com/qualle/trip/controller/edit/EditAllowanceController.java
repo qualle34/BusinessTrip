@@ -1,5 +1,6 @@
 package com.qualle.trip.controller.edit;
 
+import com.qualle.trip.config.ViewHolder;
 import com.qualle.trip.controller.AbstractController;
 import com.qualle.trip.model.dto.AllowanceDto;
 import com.qualle.trip.service.AllowanceService;
@@ -10,6 +11,7 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import static com.qualle.trip.controller.util.ControllerUtil.*;
 
@@ -17,6 +19,10 @@ public class EditAllowanceController implements AbstractController {
 
     private AllowanceDto dto;
     private long id;
+
+    @Autowired
+    @Qualifier("list")
+    private ViewHolder list;
 
     @Autowired
     private AllowanceService allowanceService;
@@ -51,6 +57,7 @@ public class EditAllowanceController implements AbstractController {
         country.setText(null);
         value.setValueFactory(getSpinnerFactory(0.0));
         currency.setText(null);
+        list.getController().onShow();
     }
 
     @Override

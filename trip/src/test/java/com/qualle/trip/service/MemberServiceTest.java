@@ -1,16 +1,20 @@
-package com.qualle.trip;
+package com.qualle.trip.service;
 
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TicketServiceTest {
+class MemberServiceTest {
 
     @Test
     void toDto() {
     }
 
     @Test
-    void toDtoArray() {
+    void toSimpleDto() {
+    }
+
+    @Test
+    void toSimpleDtoArray() {
     }
 }

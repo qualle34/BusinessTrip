@@ -35,8 +35,9 @@ import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import static com.qualle.trip.controller.util.ControllerUtil.getStage;
-import static com.qualle.trip.controller.util.ControllerUtil.openWindow;
+import java.io.UnsupportedEncodingException;
+
+import static com.qualle.trip.controller.util.ControllerUtil.*;
 
 public class ListController implements AbstractController {
 
@@ -233,42 +234,19 @@ public class ListController implements AbstractController {
         return true;
     }
 
+    @FXML
     public void doReport(ActionEvent event) {
 
         long id = ((TripSimpleDto) list.getSelectionModel().getSelectedItem()).getId();
 
         if (type.equals(PageType.TRIP) && id != 0) {
-            Stage stage = new Stage();
-            stage.setTitle("Создание отчёта");
-            stage.setResizable(false);
-            Group root = new Group();
-            Scene scene = new Scene(root, 300, 200, Color.WHITE);
 
-            GridPane grid = new GridPane();
-            grid.setPadding(new Insets(20, 50, 50, 50));
-            grid.setVgap(30);
-            grid.setPrefWidth(300);
-            grid.setPrefHeight(200);
+            try {
+                tripService.report(id);
 
-
-            final TextField path = new TextField("D:\\");
-            path.setPromptText("Путь к отчёту");
-            path.setPrefWidth(200);
-            path.setPrefHeight(30);
-            grid.add(path, 1, 1);
-
-            Button approve = new Button("OK");
-            approve.setPrefHeight(30);
-            approve.setOnAction(event1 -> {
-                tripService.report(id, path.getText());
-                stage.close();
-            });
-
-            grid.add(approve, 1, 2);
-            GridPane.setHalignment(approve, HPos.CENTER);
-            root.getChildren().add(grid);
-            stage.setScene(scene);
-            stage.show();
+            } catch (Exception e) {
+                openModal(getStage(event), "Ошибка!");
+            }
         }
     }
 

@@ -76,7 +76,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public MemberDto toDto(Member member) {
         double ticketsExpenses = member.getTickets().stream().mapToDouble(Ticket::getPrice).sum();
-        double allowancesExpenses = member.getMemberAllowances().stream().map(MemberAllowance::getAllowance).mapToDouble(Allowance::getValue).sum();
+        double allowancesExpenses = member.getMemberAllowances().stream().mapToDouble(m -> m.getDays() * m.getAllowance().getValue()).sum();
         MemberDto dto = new MemberDto(allowancesExpenses, ticketsExpenses, employeeService.toDto(member.getEmployee()), tripService.toDto(member.getTrip()),
                 allowanceService.toMemberDtoArray(member.getMemberAllowances()), ticketService.toDtoArray(member.getTickets()));
         dto.setId(member.getId());

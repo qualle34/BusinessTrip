@@ -10,10 +10,8 @@ import com.qualle.trip.service.enums.PageType;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -57,6 +55,7 @@ public class MainController implements AbstractController {
 
     @FXML
     public void getEmployee(MouseEvent click) {
+
         try {
             long id = employeeList.getSelectionModel().getSelectedItem().getId();
             tripList.setItems(FXCollections.observableArrayList(tripService.getAllSimpleDtoByEmployee(id)));
@@ -66,6 +65,7 @@ public class MainController implements AbstractController {
 
     @FXML
     public void getTrip(MouseEvent click) {
+
         try {
             long id = tripList.getSelectionModel().getSelectedItem().getId();
             employeeList.setItems(FXCollections.observableArrayList(employeeService.getAllSimpleDtoByTrip(id)));

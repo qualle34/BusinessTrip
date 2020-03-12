@@ -4,6 +4,7 @@ import com.qualle.trip.model.dto.TripDto;
 import com.qualle.trip.model.dto.TripSimpleDto;
 import com.qualle.trip.model.entity.Trip;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public interface TripService {
 
     void delete(long id);
 
-    void report(long id, String path);
+    void report(long id) throws UnsupportedEncodingException;
 
     TripDto toDto(Trip trip);
 

@@ -37,6 +37,10 @@ public class EditTripController implements AbstractController {
     private ViewHolder memberAddView;
 
     @Autowired
+    @Qualifier("list")
+    private ViewHolder list;
+
+    @Autowired
     private TripService tripService;
 
     @Autowired
@@ -109,6 +113,7 @@ public class EditTripController implements AbstractController {
         additionalExpenses.setValueFactory(getSpinnerFactory(0.0));
         expenses.setText(null);
         members.setItems(null);
+        list.getController().onShow();
     }
 
     @Override
