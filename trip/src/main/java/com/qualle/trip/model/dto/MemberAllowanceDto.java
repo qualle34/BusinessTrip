@@ -1,5 +1,7 @@
 package com.qualle.trip.model.dto;
 
+import java.util.Objects;
+
 public class MemberAllowanceDto {
 
     private int days;
@@ -36,6 +38,21 @@ public class MemberAllowanceDto {
 
     public void setAllowance(AllowanceDto allowance) {
         this.allowance = allowance;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MemberAllowanceDto that = (MemberAllowanceDto) o;
+        return days == that.days &&
+                Objects.equals(member, that.member) &&
+                Objects.equals(allowance, that.allowance);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(days, member, allowance);
     }
 
     @Override

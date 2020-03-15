@@ -2,6 +2,7 @@ package com.qualle.trip.model.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "member_allowance", schema = "public")
@@ -51,5 +52,20 @@ public class MemberAllowance implements Serializable {
 
     public void setDays(int days) {
         this.days = days;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MemberAllowance that = (MemberAllowance) o;
+        return days == that.days &&
+                Objects.equals(allowance, that.allowance) &&
+                Objects.equals(member, that.member);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(allowance, member, days);
     }
 }

@@ -29,9 +29,9 @@ public class TicketDaoImpl implements TicketDao {
     }
 
     @Override
-    public List<Ticket> getByMemberAndTrip(long memberId, long tripId) {
-        Query query = entityManager.createQuery("SELECT t FROM Ticket t JOIN t.member m JOIN m.trip tr WHERE m.id = :memberId and tr.id = :tripId ORDER BY t.date DESC ", Ticket.class);
-        query.setParameter("memberId", memberId);
+    public List<Ticket> getByEmployeeAndTrip(long employeeId, long tripId) {
+        Query query = entityManager.createQuery("SELECT t FROM Ticket t WHERE t.member.employee.id = :employeeId and t.member.trip.id = :tripId ", Ticket.class);
+        query.setParameter("employeeId", employeeId);
         query.setParameter("tripId", tripId);
         return query.getResultList();
     }

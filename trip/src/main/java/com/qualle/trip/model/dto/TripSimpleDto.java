@@ -1,5 +1,7 @@
 package com.qualle.trip.model.dto;
 
+import java.util.Objects;
+
 public class TripSimpleDto {
 
     private long id;
@@ -46,6 +48,22 @@ public class TripSimpleDto {
 
     public void setExpenses(double expenses) {
         this.expenses = expenses;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TripSimpleDto that = (TripSimpleDto) o;
+        return id == that.id &&
+                Double.compare(that.expenses, expenses) == 0 &&
+                Objects.equals(title, that.title) &&
+                Objects.equals(description, that.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, description, expenses);
     }
 
     @Override

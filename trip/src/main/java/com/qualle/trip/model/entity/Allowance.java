@@ -1,6 +1,7 @@
 package com.qualle.trip.model.entity;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -72,5 +73,21 @@ public class Allowance {
 
     public void setMemberAllowances(Set<MemberAllowance> memberAllowances) {
         this.memberAllowances = memberAllowances;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Allowance allowance = (Allowance) o;
+        return Double.compare(allowance.value, value) == 0 &&
+                Objects.equals(id, allowance.id) &&
+                Objects.equals(country, allowance.country) &&
+                Objects.equals(currency, allowance.currency);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, value, country, currency);
     }
 }

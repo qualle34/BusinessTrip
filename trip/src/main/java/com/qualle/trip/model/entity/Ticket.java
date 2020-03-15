@@ -4,6 +4,7 @@ import com.qualle.trip.model.enums.TicketType;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "ticket", schema = "public")
@@ -110,5 +111,23 @@ public class Ticket {
 
     public void setMember(Member member) {
         this.member = member;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ticket ticket = (Ticket) o;
+        return Double.compare(ticket.price, price) == 0 &&
+                Objects.equals(id, ticket.id) &&
+                Objects.equals(from, ticket.from) &&
+                Objects.equals(to, ticket.to) &&
+                Objects.equals(date, ticket.date) &&
+                type == ticket.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, from, to, date, price, type);
     }
 }

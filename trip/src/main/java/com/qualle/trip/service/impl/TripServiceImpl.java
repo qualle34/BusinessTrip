@@ -1,15 +1,13 @@
 package com.qualle.trip.service.impl;
 
 import com.qualle.trip.model.dto.MemberDto;
+import com.qualle.trip.model.dto.TicketDto;
 import com.qualle.trip.model.dto.TripDto;
 import com.qualle.trip.model.dto.TripSimpleDto;
 import com.qualle.trip.model.entity.*;
 import com.qualle.trip.model.enums.TripStatus;
 import com.qualle.trip.repository.TripDao;
-import com.qualle.trip.service.AllowanceService;
-import com.qualle.trip.service.EmployeeService;
-import com.qualle.trip.service.MemberService;
-import com.qualle.trip.service.TripService;
+import com.qualle.trip.service.*;
 import com.qualle.trip.service.util.WordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +34,9 @@ public class TripServiceImpl implements TripService {
 
     @Autowired
     private AllowanceService allowanceService;
+
+    @Autowired
+    private TicketService ticketService;
 
     @Override
     public List<Trip> getAll() {
@@ -98,7 +99,8 @@ public class TripServiceImpl implements TripService {
             member.setTrip(trip);
             member.setRole(memberDto.getRole());
             member.setEmployee(employeeService.getById(memberDto.getEmployee().getId()));
-            member.setTickets(memberDto.getTickets().stream().map(t -> new Ticket(t.getFrom(), t.getTo(), t.getDate(), t.getPrice(), t.getType(), member)).collect(Collectors.toSet()));
+            member.setTickets(memberDto.getTickets().stream().map(t -> ticketService.getById(t.getId())).collect(Collectors.toSet()));
+            member.getTickets().forEach(t -> t.setMember(member));
             member.setMemberAllowances(memberDto.getAllowances().stream().map(a -> new MemberAllowance(allowanceService.getById(a.getAllowance().getId()), member, a.getDays())).collect(Collectors.toSet()));
             trip.getMembers().add(member);
         }

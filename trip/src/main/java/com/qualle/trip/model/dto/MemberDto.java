@@ -1,6 +1,7 @@
 package com.qualle.trip.model.dto;
 
 import java.util.List;
+import java.util.Objects;
 
 public class MemberDto {
 
@@ -87,6 +88,24 @@ public class MemberDto {
 
     public void setTickets(List<TicketDto> tickets) {
         this.tickets = tickets;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MemberDto memberDto = (MemberDto) o;
+        return id == memberDto.id &&
+                Double.compare(memberDto.allowanceExpenses, allowanceExpenses) == 0 &&
+                Double.compare(memberDto.ticketsExpenses, ticketsExpenses) == 0 &&
+                Objects.equals(role, memberDto.role) &&
+                Objects.equals(employee, memberDto.employee) &&
+                Objects.equals(trip, memberDto.trip);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, allowanceExpenses, ticketsExpenses, role, employee, trip);
     }
 
     @Override

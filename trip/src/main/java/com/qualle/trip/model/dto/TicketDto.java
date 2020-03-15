@@ -4,6 +4,7 @@ import com.qualle.trip.model.enums.TicketType;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 public class TicketDto {
 
@@ -89,6 +90,24 @@ public class TicketDto {
 
     public void setEmployee(EmployeeSimpleDto employee) {
         this.employee = employee;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TicketDto ticketDto = (TicketDto) o;
+        return id == ticketDto.id &&
+                Double.compare(ticketDto.price, price) == 0 &&
+                Objects.equals(from, ticketDto.from) &&
+                Objects.equals(to, ticketDto.to) &&
+                Objects.equals(date, ticketDto.date) &&
+                type == ticketDto.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, from, to, date, price, type);
     }
 
     @Override

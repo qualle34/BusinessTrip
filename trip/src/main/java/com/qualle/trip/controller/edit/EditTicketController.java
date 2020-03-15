@@ -2,11 +2,13 @@ package com.qualle.trip.controller.edit;
 
 import com.qualle.trip.config.ViewHolder;
 import com.qualle.trip.controller.AbstractController;
+import com.qualle.trip.controller.main.ListController;
 import com.qualle.trip.model.dto.EmployeeSimpleDto;
 import com.qualle.trip.model.dto.TicketDto;
 import com.qualle.trip.model.enums.TicketType;
 import com.qualle.trip.service.EmployeeService;
 import com.qualle.trip.service.TicketService;
+import com.qualle.trip.service.enums.PageType;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -92,6 +94,7 @@ public class EditTicketController implements AbstractController {
         date.setValue(null);
         type.setValue(null);
         employee.setValue(null);
+        ((ListController) list.getController()).setType(PageType.TICKET);
         list.getController().onShow();
     }
 

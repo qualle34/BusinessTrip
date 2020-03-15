@@ -101,9 +101,10 @@ public class EditEmployeeController implements AbstractController {
 
     @FXML
     public void getTrip(MouseEvent event) {
+
         try {
             long id = trips.getSelectionModel().getSelectedItem().getId();
-            tickets.setItems(FXCollections.observableArrayList(ticketService.getDtoByMemberAndTrip(dto.getId(), id)));
+            tickets.setItems(FXCollections.observableArrayList(ticketService.getDtoByEmployeeAndTrip(dto.getId(), id)));
         } catch (NullPointerException ignore) {
         }
     }

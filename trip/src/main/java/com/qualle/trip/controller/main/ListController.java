@@ -158,6 +158,7 @@ public class ListController implements AbstractController {
                 employeeService.delete(((EmployeeSimpleDto) list.getSelectionModel().getSelectedItem()).getId());
                 break;
         }
+        list.getItems().remove(list.getSelectionModel().getSelectedItem());
     }
 
     @FXML

@@ -10,7 +10,7 @@ public interface TicketDao {
 
     List<Ticket> getByMember(long memberId);
 
-    List<Ticket> getByMemberAndTrip(long memberId, long tripId);
+    List<Ticket> getByEmployeeAndTrip(long employeeId, long tripId);
 
     List<Ticket> getByLocation(String location);
 
