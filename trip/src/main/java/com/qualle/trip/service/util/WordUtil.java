@@ -2,15 +2,16 @@ package com.qualle.trip.service.util;
 
 import com.qualle.trip.aspect.ServiceAspect;
 import com.qualle.trip.config.Application;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
 
+import java.awt.*;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -25,19 +26,22 @@ public class WordUtil {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ServiceAspect.class);
 
-    private static final String TEMPLATE_PATH = "data/template/";
+    private static final String TEMPLATE_DIR = "word/";
     private static final String REPORT_FILE_NAME = "report.docx";
 
     private static final String APP_FILE = "trip-1.0.jar";
 
     public static void createReport(String path, String name, Map<String, Object> data) {
+        String file = path + getFileName("report" + name);
 
         try {
-            XWPFDocument document = new XWPFDocument(OPCPackage.open(TEMPLATE_PATH + REPORT_FILE_NAME));
-            data.forEach((key, value) -> write(document, key, value));
-            document.write(new FileOutputStream(path + getFileName("report" + name)));
 
-        } catch (IOException | InvalidFormatException e) {
+            XWPFDocument document = new XWPFDocument(new ClassPathResource(TEMPLATE_DIR + REPORT_FILE_NAME).getInputStream());
+            data.forEach((key, value) -> write(document, key, value));
+            document.write(new FileOutputStream(file));
+            Desktop.getDesktop().open(new File(file));
+
+        } catch (IOException e) {
             LOGGER.warn("Create report exception: " + e.getMessage(), e);
         }
     }

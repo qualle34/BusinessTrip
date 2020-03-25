@@ -2,6 +2,7 @@ package com.qualle.trip.config;
 
 import javafx.application.Application;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
 public abstract class AbstractJavaFxSupport extends javafx.application.Application {
@@ -12,7 +13,9 @@ public abstract class AbstractJavaFxSupport extends javafx.application.Applicati
 
     @Override
     public void init() throws Exception {
-        context = SpringApplication.run(getClass(), savedArgs);
+        SpringApplicationBuilder builder = new SpringApplicationBuilder(getClass());
+        builder.headless(false);
+        context = builder.run(savedArgs);
         context.getAutowireCapableBeanFactory().autowireBean(this);
     }
 

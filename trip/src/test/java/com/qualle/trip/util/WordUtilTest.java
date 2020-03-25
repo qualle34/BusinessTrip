@@ -3,15 +3,10 @@ package com.qualle.trip.util;
 import com.qualle.trip.model.dto.AllowanceDto;
 import com.qualle.trip.model.dto.MemberAllowanceDto;
 import com.qualle.trip.model.dto.TicketDto;
-import com.qualle.trip.model.entity.MemberAllowance;
 import com.qualle.trip.model.enums.TicketType;
 import com.qualle.trip.service.util.WordUtil;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.net.URISyntaxException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static com.qualle.trip.service.util.ServiceUtil.*;
