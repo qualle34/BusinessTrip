@@ -1,51 +1,49 @@
 package com.qualle.trip.aspect;
 
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Aspect
 @Component
 public class RepositoryAspect {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RepositoryAspect.class);
-
     @Before("execution(public * com.qualle.trip.repository.AllowanceDao.*(..))")
     public void adviceAllowanceDao(JoinPoint point) {
-        LOGGER.info("before - AllowanceDao." + point.getSignature().getName());
+        log.info("Repository before - AllowanceDao.{}", point.getSignature().getName());
     }
 
     @Before("execution(public * com.qualle.trip.repository.EmployeeDao.*(..))")
     public void adviceEmployeeDao(JoinPoint point) {
-        LOGGER.info("before - EmployeeDao." + point.getSignature().getName());
+        log.info("Repository before - EmployeeDao.{}", point.getSignature().getName());
     }
 
     @Before("execution(public * com.qualle.trip.repository.MemberAllowanceDao.*(..))")
     public void adviceMemberAllowanceDao(JoinPoint point) {
-        LOGGER.info("before - MemberAllowanceDao." + point.getSignature().getName());
+        log.info("Repository before - MemberAllowanceDao.{}", point.getSignature().getName());
     }
 
     @Before("execution(public * com.qualle.trip.repository.MemberDao.*(..))")
     public void adviceMemberDao(JoinPoint point) {
-        LOGGER.info("before - MemberDao." + point.getSignature().getName());
+        log.info("Repository before - MemberDao.{}", point.getSignature().getName());
     }
 
     @Before("execution(public * com.qualle.trip.repository.TicketDao.*(..))")
     public void adviceTicketDao(JoinPoint point) {
-        LOGGER.info("before - TicketDao." + point.getSignature().getName());
+        log.info("Repository before - TicketDao.{}", point.getSignature().getName());
     }
 
     @Before("execution(public * com.qualle.trip.repository.TripDao.*(..))")
     public void adviceTripDao(JoinPoint point) {
-        LOGGER.info("before - TripDao." + point.getSignature().getName());
+        log.info("Repository before - TripDao.{}", point.getSignature().getName());
     }
 
     @AfterThrowing(pointcut = "execution(*  com.qualle.trip.repository.*.*(..))", throwing = "ex")
     public void log(Exception ex) {
-        LOGGER.warn("Repository exception - " + ex.getMessage(), ex);
+        log.warn("Repository exception - {}", ex.getMessage(), ex);
     }
 }

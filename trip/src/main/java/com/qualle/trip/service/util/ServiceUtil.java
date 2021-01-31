@@ -2,12 +2,14 @@ package com.qualle.trip.service.util;
 
 import com.qualle.trip.model.dto.MemberAllowanceDto;
 import com.qualle.trip.model.dto.TicketDto;
+import lombok.experimental.UtilityClass;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@UtilityClass
 public class ServiceUtil {
 
     public static String formatDate(Date date) {

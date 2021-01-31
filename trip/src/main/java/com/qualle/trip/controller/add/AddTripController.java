@@ -5,8 +5,6 @@ import com.qualle.trip.controller.AbstractController;
 import com.qualle.trip.model.dto.EmployeeDto;
 import com.qualle.trip.model.dto.MemberDto;
 import com.qualle.trip.model.dto.TripDto;
-import com.qualle.trip.model.entity.Employee;
-import com.qualle.trip.service.MemberService;
 import com.qualle.trip.service.TripService;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;

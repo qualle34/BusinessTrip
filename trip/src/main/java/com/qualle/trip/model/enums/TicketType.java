@@ -1,21 +1,24 @@
 package com.qualle.trip.model.enums;
 
-public enum  TicketType {
+import lombok.Getter;
 
-    BUS,
-    PLANE,
-    CAR,
-    TRAIN,
-    OTHER;
+@Getter
+public enum TicketType {
+
+    BUS("Автобус"),
+    PLANE("Самолёт"),
+    CAR("Машина"),
+    TRAIN("Поезд"),
+    OTHER("Другое");
+
+    private final String name;
+
+    TicketType(String name) {
+        this.name = name;
+    }
 
     @Override
     public String toString() {
-        switch(this) {
-            case BUS: return "Автобус";
-            case PLANE: return "Самолёт";
-            case CAR: return "Машина";
-            case TRAIN: return "Поезд";
-            default: return "Другое";
-        }
+        return this.getName();
     }
 }

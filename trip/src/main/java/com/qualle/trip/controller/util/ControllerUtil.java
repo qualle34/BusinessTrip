@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
+import java.text.MessageFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
@@ -110,7 +111,9 @@ public class ControllerUtil {
     }
 
     public static String getTime(Date date) {
-        return date.getHours() + ":" + date.getMinutes();
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        return MessageFormat.format("{0}:{1}", c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE));
     }
 
     public static SpinnerValueFactory.DoubleSpinnerValueFactory getSpinnerFactory(double initialValue) {

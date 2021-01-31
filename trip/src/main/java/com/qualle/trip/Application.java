@@ -1,10 +1,11 @@
-package com.qualle.trip.config;
+package com.qualle.trip;
 
+import com.qualle.trip.config.AbstractJavaFxSupport;
+import com.qualle.trip.config.ViewHolder;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;

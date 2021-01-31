@@ -5,7 +5,6 @@ import com.qualle.trip.controller.AbstractController;
 import com.qualle.trip.controller.add.AddMemberController;
 import com.qualle.trip.controller.util.ControllerUtil;
 import com.qualle.trip.model.dto.MemberDto;
-import com.qualle.trip.model.dto.MemberSimpleDto;
 import com.qualle.trip.model.dto.TripDto;
 import com.qualle.trip.service.MemberService;
 import com.qualle.trip.service.TripService;
@@ -139,9 +138,9 @@ public class EditTripController implements AbstractController {
 
     @FXML
     public void deleteMember(ActionEvent event) {
-        long id = members.getSelectionModel().getSelectedItem().getId();
-        memberService.delete(id);
-        dto.getMembers().removeIf(m -> m.getId() == id);
+        long memberId = members.getSelectionModel().getSelectedItem().getId();
+        memberService.delete(memberId);
+        dto.getMembers().removeIf(m -> m.getId() == memberId);
         members.setItems(FXCollections.observableArrayList(dto.getMembers()));
     }
 

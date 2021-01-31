@@ -2,9 +2,7 @@ package com.qualle.trip.service.impl;
 
 import com.qualle.trip.model.dto.MemberDto;
 import com.qualle.trip.model.dto.MemberSimpleDto;
-import com.qualle.trip.model.entity.Allowance;
 import com.qualle.trip.model.entity.Member;
-import com.qualle.trip.model.entity.MemberAllowance;
 import com.qualle.trip.model.entity.Ticket;
 import com.qualle.trip.repository.MemberDao;
 import com.qualle.trip.service.*;

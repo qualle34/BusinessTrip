@@ -4,7 +4,6 @@ import com.qualle.trip.model.dto.TicketDto;
 import com.qualle.trip.model.entity.Ticket;
 import com.qualle.trip.repository.TicketDao;
 import com.qualle.trip.service.EmployeeService;
-import com.qualle.trip.service.MemberService;
 import com.qualle.trip.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

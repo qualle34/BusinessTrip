@@ -1,9 +1,16 @@
 package com.qualle.trip.model.entity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "member", schema = "public")
 public class Member {
@@ -31,62 +38,11 @@ public class Member {
     @Column(name="role")
     private String role;
 
-    public Member() {
-    }
-
     public Member(Employee employee, Trip trip, Set<MemberAllowance> memberAllowances, Set<Ticket> tickets, String role) {
         this.employee = employee;
         this.trip = trip;
         this.memberAllowances = memberAllowances;
         this.tickets = tickets;
-        this.role = role;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
-    public Trip getTrip() {
-        return trip;
-    }
-
-    public void setTrip(Trip trip) {
-        this.trip = trip;
-    }
-
-    public Set<MemberAllowance> getMemberAllowances() {
-        return memberAllowances;
-    }
-
-    public void setMemberAllowances(Set<MemberAllowance> memberAllowances) {
-        this.memberAllowances = memberAllowances;
-    }
-
-    public Set<Ticket> getTickets() {
-        return tickets;
-    }
-
-    public void setTickets(Set<Ticket> tickets) {
-        this.tickets = tickets;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
         this.role = role;
     }
 

@@ -1,7 +1,6 @@
 package com.qualle.trip.config;
 
 import javafx.application.Application;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 

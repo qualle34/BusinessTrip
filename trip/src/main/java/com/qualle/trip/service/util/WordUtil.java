@@ -1,13 +1,12 @@
 package com.qualle.trip.service.util;
 
-import com.qualle.trip.aspect.ServiceAspect;
-import com.qualle.trip.config.Application;
+import com.qualle.trip.Application;
+import lombok.experimental.UtilityClass;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 
 import java.awt.*;
@@ -22,9 +21,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
+@UtilityClass
 public class WordUtil {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(ServiceAspect.class);
 
     private static final String TEMPLATE_DIR = "word/";
     private static final String REPORT_FILE_NAME = "report.docx";
@@ -42,7 +41,7 @@ public class WordUtil {
             Desktop.getDesktop().open(new File(file));
 
         } catch (IOException e) {
-            LOGGER.warn("Create report exception: " + e.getMessage(), e);
+            log.warn("Create report exception: {}", e.getMessage(), e);
         }
     }
 
@@ -81,7 +80,7 @@ public class WordUtil {
             return "/" + path.substring(6, path.lastIndexOf(APP_FILE));
 
         } catch (IndexOutOfBoundsException e) {
-            LOGGER.warn("bad application path (" + path + "): " + e.getMessage(), e);
+            log.warn("Unable to get path ({}): {}", path, e.getMessage(), e);
             throw e;
         }
     }

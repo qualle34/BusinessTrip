@@ -12,7 +12,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -103,8 +102,8 @@ public class EditEmployeeController implements AbstractController {
     public void getTrip(MouseEvent event) {
 
         try {
-            long id = trips.getSelectionModel().getSelectedItem().getId();
-            tickets.setItems(FXCollections.observableArrayList(ticketService.getDtoByEmployeeAndTrip(dto.getId(), id)));
+            long tripId = trips.getSelectionModel().getSelectedItem().getId();
+            tickets.setItems(FXCollections.observableArrayList(ticketService.getDtoByEmployeeAndTrip(dto.getId(), tripId)));
         } catch (NullPointerException ignore) {
         }
     }

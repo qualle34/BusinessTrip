@@ -2,7 +2,6 @@ package com.qualle.trip.controller.add;
 
 import com.qualle.trip.config.ViewHolder;
 import com.qualle.trip.controller.AbstractController;
-import com.qualle.trip.controller.edit.EditTicketController;
 import com.qualle.trip.model.dto.*;
 import com.qualle.trip.service.AllowanceService;
 import com.qualle.trip.service.EmployeeService;

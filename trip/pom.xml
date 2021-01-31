@@ -69,6 +69,12 @@
             <artifactId>log4j-over-slf4j</artifactId>
         </dependency>
 
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.16</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -85,7 +91,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>com.qualle.trip.config.Application</mainClass>
+                            <mainClass>com.qualle.trip.Application</mainClass>
                             <classpathPrefix>dependencies/</classpathPrefix>
                         </manifest>
                     </archive>

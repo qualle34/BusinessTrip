@@ -1,7 +1,6 @@
 package com.qualle.trip.service.impl;
 
 import com.qualle.trip.model.dto.MemberDto;
-import com.qualle.trip.model.dto.TicketDto;
 import com.qualle.trip.model.dto.TripDto;
 import com.qualle.trip.model.dto.TripSimpleDto;
 import com.qualle.trip.model.entity.*;

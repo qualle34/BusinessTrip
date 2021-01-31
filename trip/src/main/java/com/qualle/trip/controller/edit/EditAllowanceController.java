@@ -6,10 +6,8 @@ import com.qualle.trip.model.dto.AllowanceDto;
 import com.qualle.trip.service.AllowanceService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -80,11 +78,11 @@ public class EditAllowanceController implements AbstractController {
             allowanceService.update(dto);
 
         } else {
-            AllowanceDto dto = new AllowanceDto();
-            dto.setCountry(country.getText());
-            dto.setCurrency(currency.getText());
-            dto.setValue(value.getValue());
-            allowanceService.add(dto);
+            AllowanceDto newDto = new AllowanceDto();
+            newDto.setCountry(country.getText());
+            newDto.setCurrency(currency.getText());
+            newDto.setValue(value.getValue());
+            allowanceService.add(newDto);
         }
 
         onClose();
