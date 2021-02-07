@@ -1,37 +1,32 @@
 package com.qualle.trip.controller.edit;
 
-import com.qualle.trip.config.ViewHolder;
-import com.qualle.trip.controller.AbstractController;
-import com.qualle.trip.controller.main.ListController;
+import com.qualle.trip.controller.BaseController;
+import com.qualle.trip.controller.list.TicketListController;
 import com.qualle.trip.model.dto.EmployeeSimpleDto;
 import com.qualle.trip.model.dto.TicketDto;
 import com.qualle.trip.model.enums.TicketType;
 import com.qualle.trip.service.EmployeeService;
 import com.qualle.trip.service.TicketService;
-import com.qualle.trip.service.enums.PageType;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
 
 import static com.qualle.trip.controller.util.ControllerUtil.*;
 
-public class EditTicketController implements AbstractController {
+public class EditTicketController implements BaseController {
 
     private TicketDto dto;
     private long id;
 
     @Autowired
-    @Qualifier("list")
-    private ViewHolder list;
+    private TicketListController ticketListController;
 
     @Autowired
     private TicketService ticketService;
@@ -52,7 +47,7 @@ public class EditTicketController implements AbstractController {
     private TextField time;
 
     @FXML
-    private Spinner<Double> price;
+    private TextField price;
 
     @FXML
     private ChoiceBox<TicketType> type;
@@ -76,12 +71,10 @@ public class EditTicketController implements AbstractController {
             to.setText(dto.getTo());
             date.setValue(getDate(dto.getDate()));
             time.setText(getTime(dto.getDate()));
-            price.setValueFactory(getSpinnerFactory(dto.getPrice()));
+            price.setText(String.valueOf(dto.getPrice()));
             type.setValue(dto.getType());
             employee.setValue(dto.getEmployee());
 
-        } else {
-            price.setValueFactory(getSpinnerFactory(0.0));
         }
     }
 
@@ -94,14 +87,13 @@ public class EditTicketController implements AbstractController {
         date.setValue(null);
         type.setValue(null);
         employee.setValue(null);
-        ((ListController) list.getController()).setType(PageType.TICKET);
-        list.getController().onShow();
+        ticketListController.onShow();
     }
 
     @Override
     public boolean validate() {
         return !from.getText().isEmpty() && !to.getText().isEmpty() && date.getValue() != null &&
-               price.getValue() != null && type.getValue() != null && validateTime(time.getText());
+                !price.getText().isEmpty() && type.getValue() != null && validateTime(time.getText());
     }
 
     @FXML
@@ -116,7 +108,7 @@ public class EditTicketController implements AbstractController {
             dto.setFrom(from.getText());
             dto.setTo(to.getText());
             dto.setDate(toDate(date.getValue(), time.getText()));
-            dto.setPrice(price.getValue());
+            dto.setPrice(Double.parseDouble(price.getText()));
             dto.setType(type.getValue());
             ticketService.update(dto);
 
@@ -125,7 +117,7 @@ public class EditTicketController implements AbstractController {
             dto.setFrom(from.getText());
             dto.setTo(to.getText());
             dto.setDate(toDate(date.getValue(), time.getText()));
-            dto.setPrice(price.getValue());
+            dto.setPrice(Double.parseDouble(price.getText()));
             dto.setType(type.getValue());
             ticketService.add(dto);
         }

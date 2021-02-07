@@ -1,7 +1,7 @@
 package com.qualle.trip.controller.add;
 
 import com.qualle.trip.config.ViewHolder;
-import com.qualle.trip.controller.AbstractController;
+import com.qualle.trip.controller.BaseController;
 import com.qualle.trip.model.dto.*;
 import com.qualle.trip.service.AllowanceService;
 import com.qualle.trip.service.EmployeeService;
@@ -23,22 +23,19 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.ArrayList;
 
 import static com.qualle.trip.controller.util.ControllerUtil.*;
 
-public class AddMemberController implements AbstractController {
+public class AddMemberController implements BaseController {
 
     private long tripId;
     private MemberDto dto;
 
-    @Qualifier("tripAdd")
     @Autowired
     private ViewHolder tripAddView;
 
-    @Qualifier("ticketEdit")
     @Autowired
     private ViewHolder ticketEditView;
 

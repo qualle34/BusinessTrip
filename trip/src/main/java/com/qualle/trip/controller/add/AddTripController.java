@@ -1,7 +1,7 @@
 package com.qualle.trip.controller.add;
 
 import com.qualle.trip.config.ViewHolder;
-import com.qualle.trip.controller.AbstractController;
+import com.qualle.trip.controller.BaseController;
 import com.qualle.trip.model.dto.EmployeeDto;
 import com.qualle.trip.model.dto.MemberDto;
 import com.qualle.trip.model.dto.TripDto;
@@ -9,21 +9,22 @@ import com.qualle.trip.service.TripService;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.ArrayList;
 import java.util.Date;
 
 import static com.qualle.trip.controller.util.ControllerUtil.*;
 
-public class AddTripController implements AbstractController {
+public class AddTripController implements BaseController {
 
     private TripDto dto;
 
-    @Qualifier("memberAdd")
     @Autowired
     private ViewHolder memberAddView;
 
@@ -52,7 +53,7 @@ public class AddTripController implements AbstractController {
     private TextField timeEnd;
 
     @FXML
-    private Spinner<Double> additionalExpenses;
+    private TextField additionalExpenses;
 
     @FXML
     private ListView<MemberDto> members;
@@ -67,12 +68,22 @@ public class AddTripController implements AbstractController {
         timeStart.setText(getTime(new Date()));
         dateEnd.setValue(getDate(new Date()));
         timeEnd.setText(getTime(new Date()));
-        additionalExpenses.setValueFactory(getSpinnerFactory(0.0));
+        additionalExpenses.setText(null);
         members.setItems(null);
     }
 
     @Override
     public void onClose() {
+        dto = null;
+        title.setText(null);
+        description.setText(null);
+        place.setText(null);
+        dateStart.setValue(getDate(new Date()));
+        timeStart.setText(getTime(new Date()));
+        dateEnd.setValue(getDate(new Date()));
+        timeEnd.setText(getTime(new Date()));
+        additionalExpenses.setText(null);
+        members.setItems(null);
     }
 
     @Override
@@ -107,7 +118,7 @@ public class AddTripController implements AbstractController {
         dto.setPlace(place.getText());
         dto.setStart(toDate(dateStart.getValue(), timeStart.getText()));
         dto.setEnd(toDate(dateEnd.getValue(), timeEnd.getText()));
-        dto.setAdditionalExpenses(additionalExpenses.getValue());
+        dto.setAdditionalExpenses(Double.parseDouble(additionalExpenses.getText()));
         tripService.add(dto);
         onClose();
         getStage(event).close();

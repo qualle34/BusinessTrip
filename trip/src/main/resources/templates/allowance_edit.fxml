@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="359.0" prefWidth="589.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qualle.trip.controller.edit.EditAllowanceController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="299.0" prefWidth="589.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qualle.trip.controller.edit.EditAllowanceController">
    <padding>
       <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
    </padding>
@@ -22,7 +26,7 @@
             </Label>
             <HBox>
                <children>
-                  <Label prefHeight="30.0" prefWidth="160.0" text="Страна:" textFill="#333333">
+                  <Label prefHeight="30.0" prefWidth="200.0" text="Страна:" textFill="#333333">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -30,7 +34,7 @@
                         <Insets right="20.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="country" prefHeight="30.0" prefWidth="300.0">
+                  <TextField fx:id="country" prefHeight="30.0" prefWidth="250.0" promptText="Россия">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -42,7 +46,7 @@
             </HBox>
             <HBox>
                <children>
-                  <Label prefHeight="30.0" prefWidth="160.0" text="Размер возмещения:" textFill="#333333">
+                  <Label prefHeight="30.0" prefWidth="200.0" text="Размер возмещения (BYN):" textFill="#333333">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -50,27 +54,7 @@
                         <Insets right="20.0" />
                      </HBox.margin>
                   </Label>
-                  <Spinner fx:id="value" editable="true" prefHeight="30.0" prefWidth="300.0" />
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />
-               </padding>
-            </HBox>
-            <HBox>
-               <children>
-                  <Label prefHeight="30.0" prefWidth="160.0" text="Валюта:" textFill="#333333">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="20.0" />
-                     </HBox.margin>
-                  </Label>
-                  <TextField fx:id="currency" prefHeight="30.0" prefWidth="300.0">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </TextField>
+                  <TextField fx:id="value" prefHeight="30.0" prefWidth="250.0" promptText="0" />
                </children>
                <padding>
                   <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />

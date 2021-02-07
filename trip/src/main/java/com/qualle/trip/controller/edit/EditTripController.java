@@ -1,8 +1,9 @@
 package com.qualle.trip.controller.edit;
 
 import com.qualle.trip.config.ViewHolder;
-import com.qualle.trip.controller.AbstractController;
+import com.qualle.trip.controller.BaseController;
 import com.qualle.trip.controller.add.AddMemberController;
+import com.qualle.trip.controller.list.TripListController;
 import com.qualle.trip.controller.util.ControllerUtil;
 import com.qualle.trip.model.dto.MemberDto;
 import com.qualle.trip.model.dto.TripDto;
@@ -11,33 +12,31 @@ import com.qualle.trip.service.TripService;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.Date;
 
 import static com.qualle.trip.controller.util.ControllerUtil.*;
-import static com.qualle.trip.controller.util.ControllerUtil.getSpinnerFactory;
 
-public class EditTripController implements AbstractController {
+public class EditTripController implements BaseController {
 
     private TripDto dto;
     private long id;
 
-    @Qualifier("memberEdit")
     @Autowired
     private ViewHolder memberEditView;
 
-    @Qualifier("memberAdd")
     @Autowired
     private ViewHolder memberAddView;
 
     @Autowired
-    @Qualifier("list")
-    private ViewHolder list;
+    private TripListController tripListController;
 
     @Autowired
     private TripService tripService;
@@ -70,7 +69,7 @@ public class EditTripController implements AbstractController {
     private TextField status;
 
     @FXML
-    private Spinner<Double> additionalExpenses;
+    private TextField additionalExpenses;
 
     @FXML
     private TextField expenses;
@@ -91,7 +90,7 @@ public class EditTripController implements AbstractController {
             dateEnd.setValue(getDate(dto.getEnd()));
             timeEnd.setText(getTime(dto.getEnd()));
             status.setText(dto.getStatus());
-            additionalExpenses.setValueFactory(getSpinnerFactory(dto.getAdditionalExpenses()));
+            additionalExpenses.setText(String.valueOf(dto.getAdditionalExpenses()));
             expenses.setText(String.valueOf(dto.getExpenses()));
             members.setItems(FXCollections.observableArrayList(dto.getMembers()));
         }
@@ -109,10 +108,10 @@ public class EditTripController implements AbstractController {
         dateEnd.setValue(getDate(new Date()));
         timeEnd.setText(getTime(new Date()));
         status.setText(null);
-        additionalExpenses.setValueFactory(getSpinnerFactory(0.0));
+        additionalExpenses.setText(null);
         expenses.setText(null);
         members.setItems(null);
-        list.getController().onShow();
+        tripListController.onShow();
     }
 
     @Override
@@ -157,7 +156,7 @@ public class EditTripController implements AbstractController {
             dto.setDescription(description.getText());
             dto.setStart(toDate(dateStart.getValue(), timeStart.getText()));
             dto.setEnd(toDate(dateEnd.getValue(), timeEnd.getText()));
-            dto.setAdditionalExpenses(additionalExpenses.getValue());
+            dto.setAdditionalExpenses(Double.parseDouble(additionalExpenses.getText()));
             dto.setMembers(dto.getMembers());
             tripService.update(dto);
         }

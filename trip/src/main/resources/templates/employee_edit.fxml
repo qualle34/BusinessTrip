@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="816.0" prefWidth="589.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qualle.trip.controller.edit.EditEmployeeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="816.0" prefWidth="589.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qualle.trip.controller.edit.EditEmployeeController">
     <padding>
         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
     </padding>
@@ -66,6 +66,26 @@
                         <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />
                     </padding>
                 </HBox>
+            <HBox>
+               <children>
+                  <Label prefHeight="30.0" prefWidth="160.0" text="Отчество:" textFill="#333333">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="patronymic" prefHeight="30.0" prefWidth="300.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />
+               </padding>
+            </HBox>
                 <HBox>
                     <children>
                         <Label prefHeight="30.0" prefWidth="160.0" text="Отдел:" textFill="#333333">
@@ -86,6 +106,26 @@
                         <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />
                     </padding>
                 </HBox>
+            <HBox>
+               <children>
+                  <Label prefHeight="30.0" prefWidth="160.0" text="Должность:" textFill="#333333">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="position" prefHeight="30.0" prefWidth="300.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />
+               </padding>
+            </HBox>
                 <HBox>
                     <children>
                         <Label prefHeight="30.0" prefWidth="160.0" text="Email:" textFill="#333333">

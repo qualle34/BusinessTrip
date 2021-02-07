@@ -5,7 +5,6 @@ import com.qualle.trip.config.ViewHolder;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
@@ -17,7 +16,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EntityScan("com.qualle.trip.model.entity")
 public class Application extends AbstractJavaFxSupport {
 
-    @Qualifier("main")
     @Autowired
     private ViewHolder mainView;
 

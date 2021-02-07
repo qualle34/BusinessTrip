@@ -1,115 +1,70 @@
 package com.qualle.trip.config;
 
-import com.qualle.trip.controller.add.AddMemberController;
-import com.qualle.trip.controller.add.AddTripController;
-import com.qualle.trip.controller.edit.*;
-import com.qualle.trip.controller.main.ListController;
-import com.qualle.trip.controller.main.MainController;
-import javafx.fxml.FXMLLoader;
+import com.qualle.trip.controller.BaseController;
+import com.qualle.trip.controller.list.ListController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 @Configuration
 public class ControllerConfig {
 
-    @Bean(name = "main")
-    public ViewHolder getMainView() throws IOException {
-        return loadView("templates/main.fxml");
-    }
-
-    @Bean(name = "list")
-    public ViewHolder getListView() throws IOException {
-        return loadView("templates/list.fxml");
-    }
-
-    @Bean(name = "allowanceEdit")
-    public ViewHolder getAllowanceEditView() throws IOException {
-        return loadView("templates/allowance_edit.fxml");
-    }
-
-    @Bean(name = "ticketEdit")
-    public ViewHolder getTicketEditView() throws IOException {
-        return loadView("templates/ticket_edit.fxml");
-    }
-
-    @Bean(name = "tripEdit")
-    public ViewHolder getTripEditView() throws IOException {
-        return loadView("templates/trip_edit.fxml");
-    }
-
-    @Bean(name = "employeeEdit")
-    public ViewHolder getEmployeeEditView() throws IOException {
-        return loadView("templates/employee_edit.fxml");
-    }
-
-    @Bean(name = "memberEdit")
-    public ViewHolder getMemberEditView() throws IOException {
-        return loadView("templates/member_edit.fxml");
-    }
-
-    @Bean(name = "memberAdd")
-    public ViewHolder getMemberAddView() throws IOException {
-        return loadView("templates/member_add.fxml");
-    }
-
-    @Bean(name = "tripAdd")
-    public ViewHolder getTripAddView() throws IOException {
-        return loadView("templates/trip_add.fxml");
+    @Bean
+    public BaseController mainController(ViewHolder mainView) {
+        return mainView.getController();
     }
 
     @Bean
-    public MainController getMainController() throws IOException {
-        return (MainController) getMainView().getController();
+    public ListController allowanceListController(ViewHolder allowanceListView) {
+        return (ListController) allowanceListView.getController();
     }
 
     @Bean
-    public ListController getListController() throws IOException {
-        return (ListController) getListView().getController();
+    public ListController ticketListController(ViewHolder ticketListView) {
+        return (ListController) ticketListView.getController();
     }
 
     @Bean
-    public EditAllowanceController getAllowanceEditController() throws IOException {
-        return (EditAllowanceController) getAllowanceEditView().getController();
+    public ListController tripListController(ViewHolder tripListView) {
+        return (ListController) tripListView.getController();
     }
 
     @Bean
-    public EditTicketController getTicketEditController() throws IOException {
-        return (EditTicketController) getTicketEditView().getController();
+    public ListController employeeListController(ViewHolder employeeListView) {
+        return (ListController) employeeListView.getController();
     }
 
     @Bean
-    public EditTripController getTripEditController() throws IOException {
-        return (EditTripController) getTripEditView().getController();
+    public BaseController allowanceEditController(ViewHolder allowanceEditView) {
+        return allowanceEditView.getController();
     }
 
     @Bean
-    public EditEmployeeController getEmployeeEditController() throws IOException {
-        return (EditEmployeeController) getEmployeeEditView().getController();
+    public BaseController ticketEditController(ViewHolder ticketEditView) {
+        return ticketEditView.getController();
     }
 
     @Bean
-    public EditMemberController getMemberEditController() throws IOException {
-        return (EditMemberController) getMemberEditView().getController();
+    public BaseController tripEditController(ViewHolder tripEditView) {
+        return tripEditView.getController();
     }
 
     @Bean
-    public AddMemberController getMemberAddController() throws IOException {
-        return (AddMemberController) getMemberAddView().getController();
+    public BaseController employeeEditController(ViewHolder employeeEditView) {
+        return employeeEditView.getController();
     }
 
     @Bean
-    public AddTripController getTripAddController() throws IOException {
-        return (AddTripController) getTripAddView().getController();
+    public BaseController memberEditController(ViewHolder memberEditView) {
+        return memberEditView.getController();
     }
 
-    private ViewHolder loadView(String path) throws IOException {
-        try (InputStream fxmlStream = getClass().getClassLoader().getResourceAsStream(path)) {
-            FXMLLoader loader = new FXMLLoader();
-            loader.load(fxmlStream);
-            return new ViewHolder(loader.getRoot(), loader.getController());
-        }
+    @Bean
+    public BaseController memberAddController(ViewHolder memberAddView) {
+        return memberAddView.getController();
+    }
+
+    @Bean
+    public BaseController tripAddController(ViewHolder tripAddView) {
+        return tripAddView.getController();
     }
 }

@@ -1,26 +1,24 @@
 package com.qualle.trip.controller.edit;
 
-import com.qualle.trip.config.ViewHolder;
-import com.qualle.trip.controller.AbstractController;
+import com.qualle.trip.controller.BaseController;
+import com.qualle.trip.controller.list.ListController;
 import com.qualle.trip.model.dto.AllowanceDto;
 import com.qualle.trip.service.AllowanceService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
-import static com.qualle.trip.controller.util.ControllerUtil.*;
+import static com.qualle.trip.controller.util.ControllerUtil.getStage;
+import static com.qualle.trip.controller.util.ControllerUtil.openModal;
 
-public class EditAllowanceController implements AbstractController {
+public class EditAllowanceController implements BaseController {
 
     private AllowanceDto dto;
     private long id;
 
     @Autowired
-    @Qualifier("list")
-    private ViewHolder list;
+    private ListController allowanceListController;
 
     @Autowired
     private AllowanceService allowanceService;
@@ -29,10 +27,7 @@ public class EditAllowanceController implements AbstractController {
     private TextField country;
 
     @FXML
-    private Spinner<Double> value;
-
-    @FXML
-    private TextField currency;
+    private TextField value;
 
     @Override
     public void onShow() {
@@ -40,11 +35,7 @@ public class EditAllowanceController implements AbstractController {
         if (id != 0) {
             dto = allowanceService.getDtoById(id);
             country.setText(dto.getCountry());
-            value.setValueFactory(getSpinnerFactory(dto.getValue()));
-            currency.setText(dto.getCurrency());
-
-        } else {
-            value.setValueFactory(getSpinnerFactory(0.0));
+            value.setText(String.valueOf(dto.getValue()));
         }
     }
 
@@ -53,14 +44,13 @@ public class EditAllowanceController implements AbstractController {
         id = 0;
         dto = null;
         country.setText(null);
-        value.setValueFactory(getSpinnerFactory(0.0));
-        currency.setText(null);
-        list.getController().onShow();
+        value.setText(null);
+        allowanceListController.onShow();
     }
 
     @Override
     public boolean validate() {
-        return !country.getText().isEmpty() && value.getValue() != null && !currency.getText().isEmpty();
+        return !country.getText().isEmpty() && !value.getText().isEmpty();
     }
 
     @FXML
@@ -73,15 +63,13 @@ public class EditAllowanceController implements AbstractController {
 
         if (id != 0) {
             dto.setCountry(country.getText());
-            dto.setCurrency(currency.getText());
-            dto.setValue(value.getValue());
+            dto.setValue(Double.parseDouble(value.getText()));
             allowanceService.update(dto);
 
         } else {
             AllowanceDto newDto = new AllowanceDto();
             newDto.setCountry(country.getText());
-            newDto.setCurrency(currency.getText());
-            newDto.setValue(value.getValue());
+            newDto.setValue(Double.parseDouble(value.getText()));
             allowanceService.add(newDto);
         }
 

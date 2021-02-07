@@ -1,32 +1,37 @@
 package com.qualle.trip.controller.main;
 
 import com.qualle.trip.config.ViewHolder;
-import com.qualle.trip.controller.AbstractController;
+import com.qualle.trip.controller.BaseController;
 import com.qualle.trip.model.dto.EmployeeSimpleDto;
 import com.qualle.trip.model.dto.TripSimpleDto;
 import com.qualle.trip.service.EmployeeService;
 import com.qualle.trip.service.TripService;
-import com.qualle.trip.service.enums.PageType;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.annotation.PostConstruct;
 
 import static com.qualle.trip.controller.util.ControllerUtil.getStage;
 import static com.qualle.trip.controller.util.ControllerUtil.openWindow;
 
-public class MainController implements AbstractController {
+public class MainController implements BaseController {
 
-    @Qualifier("list")
     @Autowired
-    private ViewHolder listView;
+    private ViewHolder allowanceListView;
 
-    @Qualifier("tripAdd")
+    @Autowired
+    private ViewHolder ticketListView;
+
+    @Autowired
+    private ViewHolder tripListView;
+
+    @Autowired
+    private ViewHolder employeeListView;
+
     @Autowired
     private ViewHolder tripAddView;
 
@@ -80,28 +85,22 @@ public class MainController implements AbstractController {
 
     @FXML
     public void showAllowance(ActionEvent event) {
-        showList(event, PageType.ALLOWANCE);
+        openWindow(allowanceListView, getStage(event));
     }
 
     @FXML
     public void showTickets(ActionEvent event) {
-        showList(event, PageType.TICKET);
+        openWindow(ticketListView, getStage(event));
     }
 
     @FXML
     public void showTrips(ActionEvent event) {
-        showList(event, PageType.TRIP);
+        openWindow(tripListView, getStage(event));
     }
 
     @FXML
     public void showEmployees(ActionEvent event) {
-        showList(event, PageType.EMPLOYEE);
-    }
-
-    private void showList(ActionEvent event, PageType type) {
-        ListController controller = (ListController) listView.getController();
-        controller.setType(type);
-        openWindow(listView, getStage(event));
+        openWindow(employeeListView, getStage(event));
     }
 
     @Override

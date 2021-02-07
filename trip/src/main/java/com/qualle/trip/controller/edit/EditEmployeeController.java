@@ -1,7 +1,7 @@
 package com.qualle.trip.controller.edit;
 
-import com.qualle.trip.config.ViewHolder;
-import com.qualle.trip.controller.AbstractController;
+import com.qualle.trip.controller.BaseController;
+import com.qualle.trip.controller.list.EmployeeListController;
 import com.qualle.trip.model.dto.EmployeeDto;
 import com.qualle.trip.model.dto.TicketDto;
 import com.qualle.trip.model.dto.TripSimpleDto;
@@ -10,22 +10,22 @@ import com.qualle.trip.service.TicketService;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 import static com.qualle.trip.controller.util.ControllerUtil.getStage;
 import static com.qualle.trip.controller.util.ControllerUtil.openModal;
 
-public class EditEmployeeController implements AbstractController {
+public class EditEmployeeController implements BaseController {
 
     private EmployeeDto dto;
     private long id;
 
     @Autowired
-    @Qualifier("list")
-    private ViewHolder list;
+    private EmployeeListController employeeListController;
 
     @Autowired
     private EmployeeService employeeService;
@@ -90,7 +90,7 @@ public class EditEmployeeController implements AbstractController {
         birthday.setValue(null);
         tickets.setItems(null);
         trips.setItems(null);
-        list.getController().onShow();
+        employeeListController.onShow();
     }
 
     @Override

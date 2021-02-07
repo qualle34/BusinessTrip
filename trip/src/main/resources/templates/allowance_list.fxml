@@ -10,11 +10,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="500.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qualle.trip.controller.main.ListController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="500.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qualle.trip.controller.list.AllowanceListController">
    <children>
       <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label fx:id="title" contentDisplay="CENTER" text="Page" textFill="#333333">
+            <Label fx:id="title" contentDisplay="CENTER" text="Размеры возмещения расходов" textFill="#333333">
                <font>
                   <Font size="15.0" />
                </font>
@@ -30,7 +30,7 @@
             <ListView fx:id="list" onMouseClicked="#getItem" prefHeight="600.0" prefWidth="430.0" />
             <HBox alignment="CENTER">
                <children>
-                  <Button fx:id="report" layoutX="136.0" layoutY="30.0" mnemonicParsing="false" onAction="#doReport" text="Отчёт" textFill="#333333">
+                  <Button fx:id="report" disable="true" layoutX="136.0" layoutY="30.0" mnemonicParsing="false" onAction="#doReport" text="Отчёт" textFill="#333333">
                      <HBox.margin>
                         <Insets right="15.0" />
                      </HBox.margin>
