@@ -27,16 +27,12 @@ public class Allowance {
     @Column(name = "country")
     private String country;
 
-    @Column(name = "currency")
-    private String currency;
-
     @OneToMany(mappedBy = "allowance", cascade = CascadeType.ALL)
     private Set<MemberAllowance> memberAllowances;
 
-    public Allowance(double value, String country, String currency) {
+    public Allowance(double value, String country) {
         this.value = value;
         this.country = country;
-        this.currency = currency;
     }
 
     @Override
@@ -46,12 +42,11 @@ public class Allowance {
         Allowance allowance = (Allowance) o;
         return Double.compare(allowance.value, value) == 0 &&
                 Objects.equals(id, allowance.id) &&
-                Objects.equals(country, allowance.country) &&
-                Objects.equals(currency, allowance.currency);
+                Objects.equals(country, allowance.country);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, value, country, currency);
+        return Objects.hash(id, value, country);
     }
 }

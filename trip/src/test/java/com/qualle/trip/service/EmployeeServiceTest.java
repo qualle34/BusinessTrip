@@ -6,6 +6,7 @@ import com.qualle.trip.model.entity.Employee;
 import com.qualle.trip.service.impl.EmployeeServiceImpl;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,13 +16,15 @@ class EmployeeServiceTest {
 
     private final static String NAME = "Test";
     private final static String SURNAME = "Tester";
-    private final static String EMAIL = "test@test.ts";
+    private final static String PATRONYMIC = "Tester";
+    private final static String POSITION = "Test";
     private final static String DEPARTMENT = "Test";
+    private final static String EMAIL = "test@test.ts";
 
     @Test
     void toDto() {
         Employee test = getTestEntity(1L);
-        EmployeeDto expected = new EmployeeDto(NAME + 1, SURNAME + 1, EMAIL + 1, DEPARTMENT + 1, null);
+        EmployeeDto expected = new EmployeeDto(NAME + 1, SURNAME + 1, PATRONYMIC + 1, POSITION + 1, DEPARTMENT + 1, EMAIL + 1, null);
         expected.setId(1L);
         EmployeeDto actual = new EmployeeServiceImpl().toDto(test);
         assertEquals(expected, actual);
@@ -41,7 +44,7 @@ class EmployeeServiceTest {
         List<Employee> test = getTestList();
         List<EmployeeDto> expected = new ArrayList<>();
         for (Employee employee : test) {
-            EmployeeDto expectedEntity = new EmployeeDto(employee.getName(), employee.getSurname(), employee.getEmail(), employee.getDepartment(), null);
+            EmployeeDto expectedEntity = new EmployeeDto(employee.getName(), employee.getSurname(), employee.getPatronymic(), employee.getPosition(), employee.getDepartment(), employee.getEmail(), null);
             expectedEntity.setId(employee.getId());
             expected.add(expectedEntity);
         }
@@ -63,7 +66,7 @@ class EmployeeServiceTest {
     }
 
     private static Employee getTestEntity(long id) {
-        Employee test = new Employee(NAME + id, EMAIL + id, SURNAME + id, DEPARTMENT + id, null);
+        Employee test = new Employee(NAME + id, SURNAME + id, PATRONYMIC + id, POSITION + id, DEPARTMENT + id, EMAIL + id, null);
         test.setId(id);
         return test;
     }

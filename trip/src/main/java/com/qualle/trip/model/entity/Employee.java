@@ -25,14 +25,20 @@ public class Employee {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "email")
-    private String email;
-
     @Column(name = "surname")
     private String surname;
 
+    @Column(name = "patronymic")
+    private String patronymic;
+
+    @Column(name = "position")
+    private String position;
+
     @Column(name = "department")
     private String department;
+
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "birthday")
     private LocalDate birthday;
@@ -40,11 +46,13 @@ public class Employee {
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Member> members;
 
-    public Employee(String name, String email, String surname, String department, LocalDate birthday) {
+    public Employee(String name, String surname, String patronymic, String position, String department, String email, LocalDate birthday) {
         this.name = name;
-        this.email = email;
         this.surname = surname;
+        this.patronymic = patronymic;
+        this.position = position;
         this.department = department;
+        this.email = email;
         this.birthday = birthday;
     }
 

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -86,7 +87,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     @Transactional
     public void add(EmployeeDto dto) {
-        Employee employee = new Employee(dto.getName(), dto.getEmail(), dto.getSurname(), dto.getDepartment(), dto.getBirthday());
+        Employee employee = new Employee(dto.getName(), dto.getSurname(), dto.getPatronymic(), dto.getPosition(), dto.getDepartment(), dto.getEmail(), dto.getBirthday());
         employeeDao.add(employee);
     }
 
@@ -110,7 +111,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto toDto(Employee employee) {
-        EmployeeDto dto = new EmployeeDto(employee.getName(), employee.getSurname(), employee.getEmail(), employee.getDepartment(), employee.getBirthday());
+        EmployeeDto dto = new EmployeeDto(employee.getName(), employee.getSurname(), employee.getPatronymic(), employee.getPosition(), employee.getDepartment(), employee.getEmail(), employee.getBirthday());
         dto.setId(employee.getId());
         return dto;
     }

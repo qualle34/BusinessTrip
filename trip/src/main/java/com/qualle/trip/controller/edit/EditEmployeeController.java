@@ -40,6 +40,12 @@ public class EditEmployeeController implements BaseController {
     private TextField surname;
 
     @FXML
+    private TextField patronymic;
+
+    @FXML
+    private TextField position;
+
+    @FXML
     private TextField department;
 
     @FXML
@@ -61,6 +67,8 @@ public class EditEmployeeController implements BaseController {
             dto = employeeService.getFullDtoById(id);
             name.setText(dto.getName());
             surname.setText(dto.getSurname());
+            patronymic.setText(dto.getPatronymic());
+            position.setText(dto.getPosition());
             department.setText(dto.getDepartment());
             email.setText(dto.getEmail());
             birthday.setValue(dto.getBirthday());
@@ -85,6 +93,8 @@ public class EditEmployeeController implements BaseController {
         dto = null;
         name.setText(null);
         surname.setText(null);
+        patronymic.setText(null);
+        position.setText(null);
         department.setText(null);
         email.setText(null);
         birthday.setValue(null);
@@ -119,6 +129,8 @@ public class EditEmployeeController implements BaseController {
         if (id != 0) {
             dto.setName(name.getText());
             dto.setSurname(surname.getText());
+            dto.setPatronymic(patronymic.getText());
+            dto.setPosition(position.getText());
             dto.setDepartment(department.getText());
             dto.setEmail(email.getText());
             dto.setBirthday(birthday.getValue());
@@ -128,6 +140,8 @@ public class EditEmployeeController implements BaseController {
             dto = new EmployeeDto();
             dto.setName(name.getText());
             dto.setSurname(surname.getText());
+            dto.setPatronymic(patronymic.getText());
+            dto.setPosition(position.getText());
             dto.setDepartment(department.getText());
             dto.setEmail(email.getText());
             dto.setBirthday(birthday.getValue());
