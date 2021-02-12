@@ -14,13 +14,13 @@ public class GenerateTestData {
 
     private static final int START_COUNT = 1;
     private static final int ALLOWANCE_COUNT = 100;
-    private static final int EMPLOYEE_COUNT = 200;
-    private static final int MAX_ALLOWANCE_DAYS = 40;
+    private static final int EMPLOYEE_COUNT = 30;
 
     private static final int TRIP_COUNT = EMPLOYEE_COUNT / 2;
     private static final int MEMBER_COUNT = (int) (TRIP_COUNT * 1.5);
     private static final int TICKET_COUNT = MEMBER_COUNT * 2;
 
+    private static final int MAX_ALLOWANCE_DAYS = 40;
     private static final int MAX_ALLOWANCE_BYN = 100;
     private static final int MAX_EXPENSES_BYN = 300;
     private static final int MAX_TICKET_BYN = 700;
