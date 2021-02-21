@@ -7,6 +7,7 @@ import com.qualle.trip.model.entity.*;
 import com.qualle.trip.model.enums.TripStatus;
 import com.qualle.trip.repository.TripDao;
 import com.qualle.trip.service.*;
+import com.qualle.trip.service.util.ExpensesCalculator;
 import com.qualle.trip.service.util.WordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -76,12 +77,14 @@ public class TripServiceImpl implements TripService {
     public TripDto getFullDtoById(long id) {
         Trip trip = tripDao.getFullById(id);
         TripDto dto = toDto(trip);
+
         dto.setStatus(getStatus(trip.getStart(), trip.getEnd()).toString());
-        calculateExpenses(dto, trip.getMembers(), trip.getAdditionalExpenses());
-        dto.setMembers(new ArrayList<>());
-        for (Member member : trip.getMembers()) {
-            dto.getMembers().add(memberService.getDtoById(member.getId()));
-        }
+        dto.setTicketExpenses(ExpensesCalculator.calcTicketExpenses(trip.getMembers()));
+        dto.setAllowanceExpenses(ExpensesCalculator.calcAllowanceExpenses(trip.getMembers()));
+        dto.setExpenses(dto.getTicketExpenses() + dto.getAllowanceExpenses() + trip.getAdditionalExpenses());
+
+        dto.setMembers(trip.getMembers().stream().map(m -> memberService.getDtoById(m.getId())).collect(Collectors.toList()));
+
         return dto;
     }
 
@@ -174,23 +177,6 @@ public class TripServiceImpl implements TripService {
             dto.add(toSimpleDto(trip));
         }
         return dto;
-    }
-
-    private static void calculateExpenses(TripDto dto, Collection<Member> members, double additionalExpenses) {
-        List<Ticket> tickets = new ArrayList<>();
-        List<Allowance> allowances = new ArrayList<>();
-
-        for (Member member : members) {
-            tickets.addAll(member.getTickets());
-            allowances.addAll(member.getMemberAllowances().stream().map(MemberAllowance::getAllowance).collect(Collectors.toList()));
-        }
-
-        double ticketExpenses = tickets.stream().mapToDouble(Ticket::getPrice).sum();
-        double allowanceExpenses = allowances.stream().mapToDouble(Allowance::getValue).sum();
-
-        dto.setTicketExpenses(ticketExpenses);
-        dto.setAllowanceExpenses(allowanceExpenses);
-        dto.setExpenses(ticketExpenses + allowanceExpenses + additionalExpenses);
     }
 
     private static TripStatus getStatus(Date start, Date end) {
