@@ -72,7 +72,7 @@ public class AddMemberController implements BaseController {
     @Override
     public void onShow() {
         employee.setItems(FXCollections.observableArrayList(employeeService.getAllSimpleDto()));
-        ticket.setItems(FXCollections.observableArrayList(ticketService.getAllDto()));
+        ticket.setItems(FXCollections.observableArrayList(ticketService.getAllDtoWithoutMember()));
         allowance.setItems(FXCollections.observableArrayList(allowanceService.getAllDto()));
 
         dto = new MemberDto();
@@ -109,7 +109,8 @@ public class AddMemberController implements BaseController {
     @FXML
     public void createTicket(ActionEvent event) {
         openWindow(ticketEditView, getStage(event));
-        ticket.setItems(FXCollections.observableArrayList(ticketService.getAllDto()));
+
+        ticket.setItems(FXCollections.observableArrayList(ticketService.getAllDtoWithoutMember()));
     }
 
     @FXML

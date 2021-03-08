@@ -14,11 +14,11 @@ public class ControllerAspect {
 
     @Before("execution(public * com.qualle.trip.controller.*.*(..))")
     public void adviceTripDao(JoinPoint point) {
-        log.info("Controller before - {}", point.getSignature().getName());
+        log.info("Controller({}) before - {}", point.getTarget().getClass(), point.getSignature().getName());
     }
 
     @AfterThrowing(pointcut = "execution(*  com.qualle.trip.controller.*.*(..))", throwing = "ex")
     public void log(Exception ex) {
-        log.warn("Controller exception - {}", ex.getMessage(), ex);
+        log.warn("Controller({})  exception - {}", ex.getMessage(), ex);
     }
 }
