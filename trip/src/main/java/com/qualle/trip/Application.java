@@ -3,6 +3,7 @@ package com.qualle.trip;
 import com.qualle.trip.config.AbstractJavaFxSupport;
 import com.qualle.trip.config.ViewHolder;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,6 +23,7 @@ public class Application extends AbstractJavaFxSupport {
     @Override
     public void start(Stage stage) throws Exception {
         stage.setTitle("Business Trip");
+        stage.getIcons().add(new Image("/icon.png"));
         stage.setScene(new Scene(mainView.getView()));
         stage.setResizable(false);
         stage.centerOnScreen();
