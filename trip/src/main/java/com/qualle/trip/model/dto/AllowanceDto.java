@@ -11,12 +11,10 @@ public class AllowanceDto {
     private long id;
     private String country;
     private double value;
-    private String currency;
 
-    public AllowanceDto(String country, double value, String currency) {
+    public AllowanceDto(String country, double value) {
         this.country = country;
         this.value = value;
-        this.currency = currency;
     }
 
     @Override

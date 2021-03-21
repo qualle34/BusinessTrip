@@ -1,6 +1,6 @@
 package com.qualle.trip.controller.edit;
 
-import com.qualle.trip.controller.AbstractController;
+import com.qualle.trip.controller.BaseController;
 import com.qualle.trip.model.dto.MemberAllowanceDto;
 import com.qualle.trip.model.dto.MemberDto;
 import com.qualle.trip.model.dto.TicketDto;
@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import static com.qualle.trip.controller.util.ControllerUtil.getStage;
 
-public class EditMemberController implements AbstractController {
+public class EditMemberController implements BaseController {
 
     private MemberDto dto;
     private long id;

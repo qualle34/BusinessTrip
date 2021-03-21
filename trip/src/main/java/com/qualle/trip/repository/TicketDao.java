@@ -8,6 +8,8 @@ public interface TicketDao {
 
     List<Ticket> getAll();
 
+    List<Ticket> getAllWithoutMember();
+
     List<Ticket> getByMember(long memberId);
 
     List<Ticket> getByEmployeeAndTrip(long employeeId, long tripId);

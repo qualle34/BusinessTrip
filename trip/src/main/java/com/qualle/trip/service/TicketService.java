@@ -12,6 +12,8 @@ public interface TicketService {
 
     List<TicketDto> getAllDto();
 
+    List<TicketDto> getAllDtoWithoutMember();
+
     List<TicketDto> getDtoByMember(long memberId);
 
     List<TicketDto> getDtoByEmployeeAndTrip(long employeeId, long tripId);

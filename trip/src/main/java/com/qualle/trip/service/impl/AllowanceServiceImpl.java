@@ -71,7 +71,7 @@ public class AllowanceServiceImpl implements AllowanceService {
     @Override
     @Transactional
     public void add(AllowanceDto dto) {
-        allowanceDao.add(new Allowance(dto.getValue(), dto.getCountry(), dto.getCurrency()));
+        allowanceDao.add(new Allowance(dto.getValue(), dto.getCountry()));
     }
 
     @Override
@@ -79,7 +79,6 @@ public class AllowanceServiceImpl implements AllowanceService {
     public void update(AllowanceDto dto) {
         Allowance allowance = getById(dto.getId());
         allowance.setCountry(dto.getCountry());
-        allowance.setCurrency(dto.getCurrency());
         allowance.setValue(dto.getValue());
         allowanceDao.update(allowance);
     }
@@ -98,7 +97,7 @@ public class AllowanceServiceImpl implements AllowanceService {
 
     @Override
     public AllowanceDto toDto(Allowance allowance) {
-        AllowanceDto dto = new AllowanceDto(allowance.getCountry(), allowance.getValue(), allowance.getCurrency());
+        AllowanceDto dto = new AllowanceDto(allowance.getCountry(), allowance.getValue());
         dto.setId(allowance.getId());
         return dto;
     }

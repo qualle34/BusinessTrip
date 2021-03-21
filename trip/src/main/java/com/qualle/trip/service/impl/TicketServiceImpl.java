@@ -34,6 +34,11 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
+    public List<TicketDto> getAllDtoWithoutMember() {
+        return toDtoArray(ticketDao.getAllWithoutMember());
+    }
+
+    @Override
     public List<TicketDto> getDtoByMember(long memberId) {
         return toDtoArray(ticketDao.getByMember(memberId));
     }

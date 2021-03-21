@@ -1,6 +1,6 @@
 package com.qualle.trip.controller;
 
-public interface AbstractController {
+public interface BaseController {
 
     void onShow();
 

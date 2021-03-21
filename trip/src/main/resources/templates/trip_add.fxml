@@ -5,7 +5,6 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -13,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="816.0" prefWidth="589.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qualle.trip.controller.add.AddTripController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="816.0" prefWidth="589.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qualle.trip.controller.add.AddTripController">
     <padding>
         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
     </padding>
@@ -95,7 +94,7 @@
                             </HBox.margin>
                         </Label>
                         <DatePicker fx:id="dateStart" prefHeight="30.0" prefWidth="140.0" />
-                  <TextField fx:id="timeStart" prefHeight="30.0" prefWidth="140.0" promptText="Пример 10:30" text="0:00">
+                  <TextField fx:id="timeStart" prefHeight="30.0" prefWidth="140.0" promptText="Пример 10:30">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
@@ -116,7 +115,7 @@
                             </HBox.margin>
                         </Label>
                         <DatePicker fx:id="dateEnd" prefHeight="30.0" prefWidth="140.0" />
-                  <TextField fx:id="timeEnd" prefHeight="30.0" prefWidth="140.0" promptText="Пример 10:30" text="0:00">
+                  <TextField fx:id="timeEnd" prefHeight="30.0" prefWidth="140.0" promptText="Пример 10:30">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
@@ -128,7 +127,7 @@
                 </HBox>
                 <HBox>
                     <children>
-                        <Label prefHeight="30.0" prefWidth="160.0" text="Доп. расходы:" textFill="#333333">
+                        <Label prefHeight="30.0" prefWidth="160.0" text="Доп. расходы (BYN):" textFill="#333333">
                             <font>
                                 <Font size="14.0" />
                             </font>
@@ -136,7 +135,7 @@
                                 <Insets right="20.0" />
                             </HBox.margin>
                         </Label>
-                  <Spinner fx:id="additionalExpenses" editable="true" prefHeight="30.0" prefWidth="300.0" />
+                  <TextField fx:id="additionalExpenses" prefHeight="28.0" prefWidth="300.0" promptText="0" />
                     </children>
                     <padding>
                         <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />

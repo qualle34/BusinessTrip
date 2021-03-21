@@ -17,17 +17,21 @@ public class EmployeeDto {
     private long id;
     private String name;
     private String surname;
-    private String email;
+    private String patronymic;
+    private String position;
     private String department;
+    private String email;
     private LocalDate birthday;
     private List<TripSimpleDto> trips;
     private List<TicketDto> tickets;
 
-    public EmployeeDto(String name, String surname, String email, String department, LocalDate birthday) {
+    public EmployeeDto(String name, String surname, String patronymic, String position, String department, String email, LocalDate birthday) {
         this.name = name;
         this.surname = surname;
-        this.email = email;
+        this.patronymic = patronymic;
+        this.position = position;
         this.department = department;
+        this.email = email;
         this.birthday = birthday;
     }
 

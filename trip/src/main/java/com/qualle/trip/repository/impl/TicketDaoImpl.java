@@ -22,6 +22,12 @@ public class TicketDaoImpl implements TicketDao {
     }
 
     @Override
+    public List<Ticket> getAllWithoutMember() {
+        Query query = entityManager.createQuery("SELECT t FROM Ticket t WHERE t.member is null ORDER BY t.date DESC ", Ticket.class);
+        return query.getResultList();
+    }
+
+    @Override
     public List<Ticket> getByMember(long memberId) {
         Query query = entityManager.createQuery("SELECT t FROM Ticket t JOIN t.member m WHERE m.id = :memberId ORDER BY t.date DESC ", Ticket.class);
         query.setParameter("memberId", memberId);

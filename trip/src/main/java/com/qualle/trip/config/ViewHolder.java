@@ -1,14 +1,14 @@
 package com.qualle.trip.config;
 
-import com.qualle.trip.controller.AbstractController;
+import com.qualle.trip.controller.BaseController;
 import javafx.scene.Parent;
 
 public class ViewHolder {
 
     private Parent view;
-    private AbstractController controller;
+    private BaseController controller;
 
-    public ViewHolder(Parent view, AbstractController controller) {
+    public ViewHolder(Parent view, BaseController controller) {
         this.view = view;
         this.controller = controller;
     }
@@ -21,11 +21,11 @@ public class ViewHolder {
         this.view = view;
     }
 
-    public AbstractController getController() {
+    public BaseController getController() {
         return controller;
     }
 
-    public void setController(AbstractController controller) {
+    public void setController(BaseController controller) {
         this.controller = controller;
     }
 }

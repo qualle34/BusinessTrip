@@ -1,8 +1,15 @@
+DROP TABLE "member_allowance" CASCADE;
+DROP TABLE "ticket" CASCADE;
+DROP TABLE "member" CASCADE;
+DROP TABLE "trip" CASCADE;
+DROP TABLE "employee" CASCADE;
+DROP TABLE "allowance" CASCADE;
+
+
 CREATE TABLE "allowance" (
 "id" bigserial NOT NULL,
 "value" float8 NOT NULL,
 "country" varchar NOT NULL,
-"currency" varchar NOT NULL,
 CONSTRAINT "pk_allowance" PRIMARY KEY (
 "id"
 )
@@ -12,6 +19,8 @@ CREATE TABLE "employee" (
 "id" bigserial NOT NULL,
 "name" varchar NOT NULL,
 "surname" varchar NULL,
+"patronymic" varchar NULL,
+"position" varchar NULL,
 "department" varchar NULL,
 "birthday" date NULL,
 "email" varchar NOT NULL,
@@ -79,4 +88,3 @@ REFERENCES "employee" ("id");
 
 ALTER TABLE "member" ADD CONSTRAINT "fk_member_trip_id" FOREIGN KEY("trip_id")
 REFERENCES "trip" ("id");
-

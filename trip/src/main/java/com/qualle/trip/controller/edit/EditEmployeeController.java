@@ -1,7 +1,7 @@
 package com.qualle.trip.controller.edit;
 
-import com.qualle.trip.config.ViewHolder;
-import com.qualle.trip.controller.AbstractController;
+import com.qualle.trip.controller.BaseController;
+import com.qualle.trip.controller.list.EmployeeListController;
 import com.qualle.trip.model.dto.EmployeeDto;
 import com.qualle.trip.model.dto.TicketDto;
 import com.qualle.trip.model.dto.TripSimpleDto;
@@ -10,22 +10,22 @@ import com.qualle.trip.service.TicketService;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 import static com.qualle.trip.controller.util.ControllerUtil.getStage;
 import static com.qualle.trip.controller.util.ControllerUtil.openModal;
 
-public class EditEmployeeController implements AbstractController {
+public class EditEmployeeController implements BaseController {
 
     private EmployeeDto dto;
     private long id;
 
     @Autowired
-    @Qualifier("list")
-    private ViewHolder list;
+    private EmployeeListController employeeListController;
 
     @Autowired
     private EmployeeService employeeService;
@@ -38,6 +38,12 @@ public class EditEmployeeController implements AbstractController {
 
     @FXML
     private TextField surname;
+
+    @FXML
+    private TextField patronymic;
+
+    @FXML
+    private TextField position;
 
     @FXML
     private TextField department;
@@ -61,6 +67,8 @@ public class EditEmployeeController implements AbstractController {
             dto = employeeService.getFullDtoById(id);
             name.setText(dto.getName());
             surname.setText(dto.getSurname());
+            patronymic.setText(dto.getPatronymic());
+            position.setText(dto.getPosition());
             department.setText(dto.getDepartment());
             email.setText(dto.getEmail());
             birthday.setValue(dto.getBirthday());
@@ -85,12 +93,14 @@ public class EditEmployeeController implements AbstractController {
         dto = null;
         name.setText(null);
         surname.setText(null);
+        patronymic.setText(null);
+        position.setText(null);
         department.setText(null);
         email.setText(null);
         birthday.setValue(null);
         tickets.setItems(null);
         trips.setItems(null);
-        list.getController().onShow();
+        employeeListController.onShow();
     }
 
     @Override
@@ -119,6 +129,8 @@ public class EditEmployeeController implements AbstractController {
         if (id != 0) {
             dto.setName(name.getText());
             dto.setSurname(surname.getText());
+            dto.setPatronymic(patronymic.getText());
+            dto.setPosition(position.getText());
             dto.setDepartment(department.getText());
             dto.setEmail(email.getText());
             dto.setBirthday(birthday.getValue());
@@ -128,6 +140,8 @@ public class EditEmployeeController implements AbstractController {
             dto = new EmployeeDto();
             dto.setName(name.getText());
             dto.setSurname(surname.getText());
+            dto.setPatronymic(patronymic.getText());
+            dto.setPosition(position.getText());
             dto.setDepartment(department.getText());
             dto.setEmail(email.getText());
             dto.setBirthday(birthday.getValue());
