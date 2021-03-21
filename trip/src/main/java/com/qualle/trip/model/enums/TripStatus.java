@@ -5,15 +5,17 @@ import lombok.Getter;
 @Getter
 public enum TripStatus {
 
-    COMPLETED("Завершено"),
-    IN_PROGRESS("В процессе"),
-    FUTURE("Скоро"),
-    DEFAULT("Не указано");
+    COMPLETED("Завершено", "Завершенные: {0}\n"),
+    IN_PROGRESS("В процессе", "Текущие: {0}\n"),
+    FUTURE("Скоро", "Запланированные: {0}\n"),
+    DEFAULT("Не указано", "Остальные: {0}\n");
 
     private final String name;
+    private final String formatted;
 
-    TripStatus(String name) {
+    TripStatus(String name, String formatted) {
         this.name = name;
+        this.formatted = formatted;
     }
 
     @Override

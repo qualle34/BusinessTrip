@@ -1,5 +1,6 @@
 package com.qualle.trip.model.dto;
 
+import com.qualle.trip.model.enums.TripStatus;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +25,7 @@ public class TripDto {
     private double allowanceExpenses;
     private double additionalExpenses;
     private double expenses;
-    private String status;
+    private TripStatus status;
     private List<MemberDto> members;
 
     public TripDto(long id) {

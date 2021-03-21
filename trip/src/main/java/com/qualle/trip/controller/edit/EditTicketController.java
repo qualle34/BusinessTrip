@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
+import java.util.Date;
 
 import static com.qualle.trip.controller.util.ControllerUtil.*;
 
@@ -74,7 +75,9 @@ public class EditTicketController implements BaseController {
             price.setText(String.valueOf(dto.getPrice()));
             type.setValue(dto.getType());
             employee.setValue(dto.getEmployee());
-
+        } else {
+            date.setValue(getDate(new Date()));
+            time.setText(getTime(new Date()));
         }
     }
 
@@ -85,6 +88,8 @@ public class EditTicketController implements BaseController {
         from.setText(null);
         to.setText(null);
         date.setValue(null);
+        time.setText(null);
+        price.setText(null);
         type.setValue(null);
         employee.setValue(null);
         ticketListController.onShow();

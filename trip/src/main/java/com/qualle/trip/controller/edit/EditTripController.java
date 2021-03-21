@@ -89,7 +89,7 @@ public class EditTripController implements BaseController {
             timeStart.setText(getTime(dto.getStart()));
             dateEnd.setValue(getDate(dto.getEnd()));
             timeEnd.setText(getTime(dto.getEnd()));
-            status.setText(dto.getStatus());
+            status.setText(dto.getStatus().toString());
             additionalExpenses.setText(String.valueOf(dto.getAdditionalExpenses()));
             expenses.setText(String.valueOf(dto.getExpenses()));
             members.setItems(FXCollections.observableArrayList(dto.getMembers()));

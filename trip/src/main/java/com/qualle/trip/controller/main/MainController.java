@@ -6,14 +6,18 @@ import com.qualle.trip.model.dto.EmployeeSimpleDto;
 import com.qualle.trip.model.dto.TripSimpleDto;
 import com.qualle.trip.service.EmployeeService;
 import com.qualle.trip.service.TripService;
+import com.qualle.trip.service.util.TripsSummaryFormatter;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
+
+import java.util.List;
 
 import static com.qualle.trip.controller.util.ControllerUtil.getStage;
 import static com.qualle.trip.controller.util.ControllerUtil.openWindow;
@@ -47,10 +51,17 @@ public class MainController implements BaseController {
     @FXML
     private ListView<TripSimpleDto> tripList;
 
+    @FXML
+    private Label status;
+
     @PostConstruct
     public void init() {
+        List<TripSimpleDto> trips = tripService.getAllSimpleDto();
+
         employeeList.setItems(FXCollections.observableArrayList(employeeService.getAllSimpleDtoByTrip()));
-        tripList.setItems(FXCollections.observableArrayList(tripService.getAllSimpleDto()));
+        tripList.setItems(FXCollections.observableArrayList(trips));
+
+        status.setText(TripsSummaryFormatter.format(trips));
     }
 
     @FXML

@@ -78,7 +78,7 @@ public class TripServiceImpl implements TripService {
         Trip trip = tripDao.getFullById(id);
         TripDto dto = toDto(trip);
 
-        dto.setStatus(getStatus(trip.getStart(), trip.getEnd()).toString());
+        dto.setStatus(getStatus(trip.getStart(), trip.getEnd()));
         dto.setTicketExpenses(ExpensesCalculator.calcTicketExpenses(trip.getMembers()));
         dto.setAllowanceExpenses(ExpensesCalculator.calcAllowanceExpenses(trip.getMembers()));
         dto.setExpenses(dto.getTicketExpenses() + dto.getAllowanceExpenses() + trip.getAdditionalExpenses());
@@ -165,7 +165,7 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public TripSimpleDto toSimpleDto(Trip trip) {
-        TripSimpleDto dto = new TripSimpleDto(trip.getTitle(), trip.getDescription(), trip.getAdditionalExpenses());
+        TripSimpleDto dto = new TripSimpleDto(trip.getTitle(), trip.getDescription(), trip.getAdditionalExpenses(), getStatus(trip.getStart(), trip.getEnd()));
         dto.setId(trip.getId());
         return dto;
     }
