@@ -32,8 +32,6 @@ public interface TripService {
 
     void delete(long id);
 
-    void report(long id) throws UnsupportedEncodingException;
-
     TripDto toDto(Trip trip);
 
     TripSimpleDto toSimpleDto(Trip trip);
