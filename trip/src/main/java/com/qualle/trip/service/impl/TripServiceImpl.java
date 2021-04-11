@@ -3,24 +3,23 @@ package com.qualle.trip.service.impl;
 import com.qualle.trip.model.dto.MemberDto;
 import com.qualle.trip.model.dto.TripDto;
 import com.qualle.trip.model.dto.TripSimpleDto;
-import com.qualle.trip.model.entity.*;
+import com.qualle.trip.model.entity.Member;
+import com.qualle.trip.model.entity.MemberAllowance;
+import com.qualle.trip.model.entity.Trip;
 import com.qualle.trip.model.enums.TripStatus;
 import com.qualle.trip.repository.TripDao;
 import com.qualle.trip.service.*;
 import com.qualle.trip.service.util.ExpensesCalculator;
-import com.qualle.trip.service.util.WordUtil;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.UnsupportedEncodingException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.qualle.trip.service.util.ServiceUtil.*;
-import static com.qualle.trip.service.util.WordUtil.getPath;
-
 @Service
+@RequiredArgsConstructor
 public class TripServiceImpl implements TripService {
 
     @Autowired
@@ -124,36 +123,6 @@ public class TripServiceImpl implements TripService {
     @Transactional
     public void delete(long id) {
         tripDao.delete(id);
-    }
-
-    @Override
-    public void report(long id) throws UnsupportedEncodingException {
-        Map<String, Object> data = new HashMap<>();
-        TripDto dto = getFullDtoById(id);
-        int i = 0;
-
-        for (MemberDto member : dto.getMembers()) {
-
-            data.put("date_now", formatDate(new Date()));
-            data.put("date_start", formatDate(dto.getStart()));
-            data.put("date_end", formatDate(dto.getEnd()));
-            data.put("member",  member.getEmployee().getName() + " " + member.getEmployee().getSurname());
-            data.put("department", member.getEmployee().getDepartment());
-            data.put("title", dto.getTitle());
-            data.put("place", dto.getPlace());
-            data.put("description", dto.getDescription());
-
-            data.put("allowance_expenses", member.getAllowanceExpenses() + " р.");
-            data.put("allowances", getAllowanceInfo(member.getAllowances()));
-
-            data.put("ticket_expenses", member.getTicketsExpenses() + " р.");
-            data.put("tickets", getTicketInfo(member.getTickets()));
-
-            data.put("additional_expenses", dto.getAdditionalExpenses() + " р.");
-            data.put("expenses", member.getTicketsExpenses() + member.getAllowanceExpenses() + " р.");
-
-            WordUtil.createReport(getPath() + "", String.valueOf(++i), data);
-        }
     }
 
     @Override

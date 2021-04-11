@@ -1,17 +1,29 @@
 package com.qualle.trip.util;
 
+import com.qualle.trip.Application;
 import com.qualle.trip.model.dto.AllowanceDto;
 import com.qualle.trip.model.dto.MemberAllowanceDto;
 import com.qualle.trip.model.dto.TicketDto;
 import com.qualle.trip.model.enums.TicketType;
 import com.qualle.trip.service.util.WordUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.net.URLDecoder;
 import java.util.*;
 
 import static com.qualle.trip.service.util.ServiceUtil.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class WordUtilTest {
+@Slf4j
+@Disabled
+public class ReportServiceTest {
+
+    private static final String BASE_PATH = "/S:/University/12/YP/BusinessTrip/";
+    private static final String FOLDER = "BusinessTrip";
+    private static final String TEMPLATE_PATH = "report/template/report.docx";
+    private static final String OUTPUT_PATH = "report/";
 
     @Test
     void report() {
@@ -34,6 +46,26 @@ class WordUtilTest {
         data.put("additional_expenses", 120 + "р.");
         data.put("expenses", 230 + "р.");
 
-        WordUtil.createReport("", "1", data);
+        WordUtil.createReport(getBasePath() + OUTPUT_PATH + "name.docx", getBasePath() + TEMPLATE_PATH, data);
+    }
+
+    @Test
+    void testWhenPathIsCorrectThanSuccess() {
+        assertEquals(BASE_PATH, getBasePath());
+    }
+
+    private String getBasePath() {
+        String path = null;
+
+        try {
+            path = Application.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+            path = URLDecoder.decode(path, "utf-8");
+            path = path.substring(0, path.indexOf(FOLDER) + FOLDER.length());
+            return path + "/";
+
+        } catch (Exception e) {
+            log.warn("Unable to get path ({}): {}", path, e.getMessage(), e);
+            throw new RuntimeException(e);
+        }
     }
 }

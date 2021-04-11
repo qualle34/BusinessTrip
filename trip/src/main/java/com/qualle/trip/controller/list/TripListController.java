@@ -3,6 +3,7 @@ package com.qualle.trip.controller.list;
 import com.qualle.trip.config.ViewHolder;
 import com.qualle.trip.controller.edit.EditTripController;
 import com.qualle.trip.model.dto.TripSimpleDto;
+import com.qualle.trip.service.ReportService;
 import com.qualle.trip.service.TripService;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -22,6 +23,9 @@ public class TripListController implements ListController {
 
     @Autowired
     private TripService tripService;
+
+    @Autowired
+    private ReportService reportService;
 
     @FXML
     private ListView<Object> list;
@@ -72,7 +76,7 @@ public class TripListController implements ListController {
 
         if (id != 0) {
             try {
-                tripService.report(id);
+                reportService.make(tripService.getFullDtoById(id));
 
             } catch (Exception e) {
                 openModal(getStage(event), "Ошибка!");
